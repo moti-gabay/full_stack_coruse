@@ -22,19 +22,16 @@
 - רשומות של IP שלא שלח בקשות לאחרונה נמחקות, והמבנה בזיכרון לא גדל בלי סוף.
 - לכל בקשה יש מזהה, ואותו מזהה מופיע בשורת הלוג ובהדפסת השגיאה.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `.env.example`
-- `middleware/rateLimit.js`
-- `middleware/requestId.js`
-- `package.json`
-- `server.js`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+mkdir ex-3-4-rate-limiter
+cd ex-3-4-rate-limiter
+npm init -y
+npm pkg set type=module
+npm install express
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch server.js`.

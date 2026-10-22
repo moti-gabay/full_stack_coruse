@@ -16,18 +16,16 @@
 - כל בקשה מדפיסה שורה עם method, כתובת ושעה, גם בקשה לנתיב שלא קיים.
 - בשלב השני, השורה כוללת גם זמן תגובה במילישניות.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `.env.example`
-- `middleware/logger.js`
-- `package.json`
-- `server.js`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+mkdir ex-3-1-logger
+cd ex-3-1-logger
+npm init -y
+npm pkg set type=module
+npm install express
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch server.js`.

@@ -20,19 +20,16 @@
 - `GET` עובר בלי `x-api-key`.
 - `POST`, `PATCH` ו-`DELETE` בלי מפתח או עם מפתח שגוי מחזירים 401, ועם המפתח הנכון עוברים.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `.env.example`
-- `middleware/apiKey.js`
-- `middleware/validate.js`
-- `package.json`
-- `server.js`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+mkdir ex-3-3-validation-and-api-key
+cd ex-3-3-validation-and-api-key
+npm init -y
+npm pkg set type=module
+npm install express
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch server.js`.

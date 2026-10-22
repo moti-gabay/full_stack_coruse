@@ -4,7 +4,7 @@
 
 ## מצגת
 
-[`slides/node-mongodb.html`](slides/node-mongodb.html): מצגת יחידת Node.js, Express ו-MongoDB. הנושא הזה מכוסה בשקפים 8. הורידו את הקובץ ופתחו אותו בדפדפן (GitHub מציג קובצי HTML כקוד).
+[`slides/node-mongodb.html`](slides/node-mongodb.html): מצגת יחידת Node.js, Express ו-MongoDB. הורידו את הקובץ ופתחו אותו בדפדפן (GitHub מציג קובצי HTML כקוד).
 
 ## תרגילים
 
@@ -19,13 +19,4 @@
 
 ## איך עובדים
 
-לכל תרגיל יש תיקיית `starter/` עם `package.json` וקבצים ריקים עם הערות `// TODO`. ההוראות להרצה נמצאות ב-README של כל תרגיל.
-
-```bash
-cd exercises/<תרגיל>/starter
-npm install
-cp .env.example .env   # בתרגילים שיש בהם .env.example
-npm run dev
-```
-
-הקובץ `.env` לא נכנס ל-Git. מעלים רק את `.env.example`, בלי ערכים אמיתיים.
+ה-branch הזה הוא חומר קריאה בלבד: הוראות, דרישות ובדיקות, בלי קוד. את התרגילים כותבים בתיקייה משלכם, מחוץ ל-repo. בכל תרגיל, בסעיף "איפה מתחילים", כתוב איך מקימים את הפרויקט ואילו חבילות להתקין. תרגילים שמסומנים "בונה על" ממשיכים בפרויקט של תרגיל קודם.

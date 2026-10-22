@@ -20,22 +20,16 @@
 - `GET /authors/:id/books` מחזיר רק את הספרים של אותו סופר.
 - `DELETE` לסופר שיש לו ספרים מחזיר 409, ולסופר בלי ספרים מצליח.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `.env.example`
-- `db.js`
-- `models/Author.js`
-- `models/Book.js`
-- `package.json`
-- `routes/authors.js`
-- `routes/books.js`
-- `server.js`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+mkdir ex-5-3-populate-relations
+cd ex-5-3-populate-relations
+npm init -y
+npm pkg set type=module
+npm install express mongoose
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch server.js`.

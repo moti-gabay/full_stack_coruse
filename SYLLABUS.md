@@ -95,7 +95,7 @@
 | 4 | הבאת נתונים | קומפוננטה `async`, `fetch` בשרת, קריאות במקביל, `Suspense` ו-streaming, למה אין useEffect | דשבורד שמושך מ-2 APIs עם streaming לכל חלק |
 | 5 | רינדור ו-Cache | סטטי מול דינמי, `cacheComponents`, `"use cache"`, `cacheLife`, `cacheTag`, `revalidateTag`/`revalidatePath`, Partial Prerendering | להפוך דף חדשות לסטטי שמתעדכן כל 10 דקות + כפתור רענון |
 | 6 | Server Actions וטפסים | `"use server"`, טופס בלי API, `useActionState`, `useFormStatus`, `useOptimistic`, ולידציה עם Zod | טופס יצירת פריט עם שגיאות ולידציה ו-pending state |
-| 7 | מסד נתונים | Prisma או Drizzle + Postgres (Neon/Supabase), CRUD מלא מקצה לקצה, איפה הקוד הזה "גר" (`lib/`, DAL) | חיבור הפרויקט ל-DB אמיתי, CRUD מלא |
+| 7 | מסד נתונים | MongoDB עם Mongoose (Atlas או Docker), אותו מודל מיחידת ה-Node, CRUD מלא מקצה לקצה, איפה הקוד הזה "גר" (`lib/`, DAL) | חיבור הפרויקט ל-DB אמיתי, CRUD מלא |
 | 8 | Route Handlers ו-proxy | `route.ts` (GET/POST), מתי API ומתי Server Action, `cookies()`, `headers()`, `proxy.ts` (redirects, הגנה) | API ציבורי לפרויקט + redirect לפי שפה/cookie |
 | 9 | אימות והרשאות | Auth.js / Better Auth / Clerk, session ב-Server Component, הגנה על דפים, **בדיקת הרשאה בכל Server Action** | התחברות + דפים מוגנים + רק בעלים יכול למחוק |
 | 10 | עיצוב ו-SEO | Tailwind, `next/image`, `next/font`, `metadata` ו-`generateMetadata`, `sitemap.ts`, OG images | ציון Lighthouse SEO מעל 90 לדף הפוסט |
@@ -128,3 +128,5 @@
 - [ ] metadata דינמי לדפי תוכן
 - [ ] אסטרטגיית cache מוסברת לפחות לדף אחד
 - [ ] פריסה חיה + README שמסביר החלטות ארכיטקטורה
+
+**פרויקט הגמר המלא משלב API ב-Node ו-MongoDB עם ממשק Next,** והדרישות למעלה הן צד ה-Next שלו. הדרישות של צד השרת, לוח הזמנים והמחוון נמצאים ב-branch `capstone`. **משקלות הציון:** 30% פונקציונליות, 25% ארכיטקטורה, 15% אבטחה, 15% איכות קוד, 15% הצגה. ההצגה כוללת שאלה אחת מהמרצה: "למה הקומפוננטה הזו Client?" — מבחן ההבנה הכי טוב שיש.

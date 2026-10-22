@@ -20,13 +20,12 @@
 - ה-favicon מוצג בלשונית.
 - בטעינה אין קפיצת טקסט כשהפונט נטען (ב-Lighthouse, CLS קרוב ל-0).
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`07-seo-deploy/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-7.1
-cd ex-7.1
-npm install
+npx create-next-app@latest ex-7-1-seo-basics
+cd ex-7-1-seo-basics
 npm run dev
 ```

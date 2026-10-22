@@ -19,13 +19,12 @@
 - `docker build` ואז `docker run` עם קובץ ה-env מריצים את האפליקציה מקומית.
 - הקובץ `DEPLOY.md` קיים וכולל רשימת בדיקות לפני פריסה.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`07-seo-deploy/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-7.4
-cd ex-7.4
-npm install
+npx create-next-app@latest ex-7-4-deploy-two-ways
+cd ex-7-4-deploy-two-ways
 npm run dev
 ```

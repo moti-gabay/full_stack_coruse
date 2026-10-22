@@ -4,6 +4,8 @@
 
 הסילבוס המלא של חלק ה-Next.js נמצא ב-[SYLLABUS.md](SYLLABUS.md).
 
+לפני השיעור הראשון ב-Next.js: [GETTING-STARTED.md](GETTING-STARTED.md) לוקח אתכם מאפס לפרויקט רץ, עם 8 תרגולים קצרים ([English](GETTING-STARTED.en.md)).
+
 ## איך ה-repo בנוי
 
 ה-branch הזה (`main`) מכיל רק את הסקירה הכללית. כל נושא נמצא ב-branch משלו, עם מצגת (כשיש), ארבעה תרגילים וקבצי התחלה.

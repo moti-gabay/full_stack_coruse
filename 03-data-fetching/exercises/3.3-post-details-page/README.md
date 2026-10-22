@@ -18,13 +18,12 @@
 - `/posts/99999` מציג דף 404.
 - כשה-API לא זמין (למשל כתובת שבורה לבדיקה), מוצג `error.tsx`.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`03-data-fetching/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-3.3
-cd ex-3.3
-npm install
+npx create-next-app@latest ex-3-3-post-details-page
+cd ex-3-3-post-details-page
 npm run dev
 ```

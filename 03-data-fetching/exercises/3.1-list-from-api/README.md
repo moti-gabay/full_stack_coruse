@@ -18,13 +18,12 @@
 - ב-View Source הפוסטים כבר נמצאים בתוך ה-HTML.
 - אין בדף `"use client"` ואין `useEffect`.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`03-data-fetching/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-3.1
-cd ex-3.1
-npm install
+npx create-next-app@latest ex-3-1-list-from-api
+cd ex-3-1-list-from-api
 npm run dev
 ```

@@ -22,13 +22,12 @@
 - בסיום יש הפניה (`redirect`).
 - קריאה ל-action בלי הרשאה נדחית בשרת, וההדגמה מתועדת.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`05-server-actions/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-5.4
-cd ex-5.4
-npm install
+npx create-next-app@latest ex-5-4-multi-step-form
+cd ex-5-4-multi-step-form
 npm run dev
 ```

@@ -18,13 +18,12 @@
 - לייק מתעדכן מיד, גם כשה-action איטי.
 - כשה-action נכשל (גרמו לכשל לבדיקה), מספר הלייקים חוזר לערך הקודם.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`05-server-actions/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-5.3
-cd ex-5.3
-npm install
+npx create-next-app@latest ex-5-3-delete-and-optimistic-like
+cd ex-5-3-delete-and-optimistic-like
 npm run dev
 ```

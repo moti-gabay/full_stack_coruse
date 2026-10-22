@@ -1,5 +1,7 @@
 # תרגיל 6.4 · תפקידים ו-refresh token
 
+**בונה על:** תרגיל 6.3 (בעלות על משאב). ממשיכים באותו פרויקט.
+
 **רמה:** מורכב · **זמן משוער:** 4 שעות
 
 ## המשימה
@@ -23,28 +25,17 @@
 - אחרי שה-access token פג, `/auth/refresh` עם ה-cookie מחזיר access token חדש.
 - אחרי `/auth/logout`, `/auth/refresh` נכשל.
 - אחרי כמה ניסיונות התחברות כושלים ברצף, ניסיונות נוספים נחסמים.
-- `npm test` עובר, ויש בדיקה לכל שלב בזרימה: הרשמה, התחברות, גישה מוגנת, refresh ו-logout.
+- הבדיקות עוברות, ויש בדיקה לכל שלב בזרימה: הרשמה, התחברות, גישה מוגנת, refresh ו-logout.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
+ממשיכים באותו פרויקט של תרגיל 6.3, מחוץ ל-repo הזה. אם אתם רוצים לשמור את הגרסה הקודמת, העתיקו את התיקייה לפני שמתחילים.
 
-- `.env.example`
-- `app.js`
-- `db.js`
-- `middleware/loginLimiter.js`
-- `middleware/requireAuth.js`
-- `middleware/requireRole.js`
-- `models/User.js`
-- `package.json`
-- `routes/admin.js`
-- `routes/auth.js`
-- `server.js`
-- `test/auth.test.js`
+חבילות נוספות לתרגיל הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+npm install cookie-parser
+npm install -D supertest
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch server.js`.

@@ -19,20 +19,16 @@
 - במסד, שדה הסיסמה הוא hash (מתחיל ב-`$2b$`) ולא הסיסמה עצמה.
 - הרשמה שנייה עם אותו email מחזירה 409.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `.env.example`
-- `db.js`
-- `models/User.js`
-- `package.json`
-- `routes/auth.js`
-- `server.js`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+mkdir ex-6-1-register-hashed-password
+cd ex-6-1-register-hashed-password
+npm init -y
+npm pkg set type=module
+npm install express mongoose bcrypt jsonwebtoken
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch server.js`.

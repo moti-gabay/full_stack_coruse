@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400..700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0F16;--dark:#10151F;--light:#F6F4EF;--paper:#FFFDF8;--band:#E9E5DA;
+  --ink:#141A26;--soft:#4A5263;--line:#D9D4C8;--on-dark:#F1EEE6;--muted-dark:#A9B4C6;
+  --blue:#2563C9;--blue-ink:#1E4FA3;--blue-tint:#E6EEFB;--blue-line:#B9CCEE;--blue-light:#7FA6EA;
+  --orange:#C2561A;--orange-ink:#9A4413;--orange-tint:#FBEADF;--orange-line:#EBC3A8;--orange-light:#F0A272;
+  --green:#2F7D4A;--green-ink:#1F5C36;--green-tint:#E2F1E6;--green-line:#B9DCC4;--green-light:#8FD1A3;
+  --red-ink:#B03A2E;--code:#1B2230;--code-ink:#E6E1D6;--code-dim:#8A93A6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);font-family:'Rubik',Arial,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+html[lang=he] .en,html[lang=en] .he{display:none!important}
+
+.viewport{position:fixed;inset:0 0 59px 0;overflow:hidden}
+.stage{position:absolute;top:50%;left:50%;width:1600px;height:900px;transform-origin:center}
+.slide{position:absolute;inset:0;padding:88px 104px;display:none;flex-direction:column;gap:32px;background:var(--light);color:var(--ink);border-radius:6px;overflow:hidden}
+.slide.active{display:flex}
+.slide.dark{background:var(--dark);color:var(--on-dark)}
+.slide.navy{background:#1E3A6E;color:var(--on-dark)}
+.slide.forest{background:#1F4D30;color:var(--on-dark)}
+.center{justify-content:center}
+.between{justify-content:space-between}
+
+h1{font-size:132px;font-weight:700;line-height:1.02;letter-spacing:-1px}
+h2{font-size:54px;font-weight:600;line-height:1.15}
+.statement{font-size:76px;font-weight:600;line-height:1.15}
+.big{font-size:60px;font-weight:500;line-height:1.2}
+.lead{font-size:26px;line-height:1.45;color:var(--soft)}
+.dark .lead{color:var(--muted-dark)}
+.navy .lead{color:#C3D3F0}
+.forest .lead{color:#BFE3C9}
+.eyebrow{font-size:19px;letter-spacing:2px;color:var(--soft);font-weight:500}
+.dark .eyebrow{color:var(--muted-dark)}
+.navy .eyebrow{color:#C3D3F0}
+.forest .eyebrow{color:#BFE3C9}
+.head{display:flex;flex-direction:column;gap:12px}
+.grow{flex:1;min-height:0}
+b,strong{font-weight:600}
+.hl-blue{color:var(--blue-light)} .hl-orange{color:var(--orange-light)} .hl-green{color:var(--green-light)}
+
+code,.mono{font-family:'JetBrains Mono','Courier New',monospace;unicode-bidi:isolate;direction:ltr}
+code{font-size:.9em}
+pre.code{direction:ltr;text-align:left;unicode-bidi:isolate;background:var(--code);color:var(--code-ink);border-radius:16px;padding:28px 32px;font-family:'JetBrains Mono','Courier New',monospace;font-size:19px;line-height:1.6;white-space:pre;overflow:hidden}
+pre.code .cm{color:var(--code-dim)} pre.code .b{color:var(--blue-light)} pre.code .o{color:var(--orange-light)} pre.code .g{color:var(--green-light)}
+.code-label{font-size:22px;font-weight:600}
+.code-label.blue{color:var(--blue-ink)} .code-label.orange{color:var(--orange-ink)} .code-label.green{color:var(--green-ink)}
+.stack{display:flex;flex-direction:column;gap:14px;min-width:0}
+
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.cols-wide{display:grid;grid-template-columns:1fr 1.25fr;gap:32px}
+.cards{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:10px}
+.card h3{font-size:28px;font-weight:600;line-height:1.2}
+.card p{font-size:21px;line-height:1.45;color:var(--soft)}
+.card .k{font-size:15px;font-weight:600;letter-spacing:1.5px;color:var(--blue-ink)}
+.card.blue{background:var(--blue-tint);border:2px solid var(--blue)}
+.card.orange{background:var(--orange-tint);border:2px solid var(--orange)}
+.card.green{background:var(--green-tint);border:2px solid var(--green)}
+.card.soft-blue{background:var(--blue-tint);border:none}
+.card.soft-orange{background:var(--orange-tint);border:none}
+.card.soft-green{background:var(--green-tint);border:none}
+.card.inv{background:var(--dark);border:none;color:var(--on-dark)}
+.card.inv p{color:var(--muted-dark)}
+.card.navy{background:#1E3A6E;border:none;color:var(--on-dark)}
+.card.navy p{color:#C3D3F0}
+.card.blue h3{color:var(--blue-ink)} .card.orange h3{color:var(--orange-ink)} .card.green h3,.card.soft-green h3{color:var(--green-ink)}
+.card .items{display:flex;flex-direction:column}
+.card .items p{color:var(--ink);font-size:21px;padding:11px 0;border-top:1px solid var(--line)}
+.card.blue .items p{border-color:var(--blue-line)} .card.orange .items p{border-color:var(--orange-line)} .card.green .items p{border-color:var(--green-line)}
+.card.inv .items p{color:var(--on-dark);border-color:#2E3747}
+.card .items p.note{color:var(--soft);font-size:19px}
+.card.green .items p.note{color:var(--green-ink)}
+.card.inv .items p.note{color:var(--muted-dark)}
+.badge{font-size:16px;font-weight:600;letter-spacing:.5px}
+.badge.blue{color:var(--blue-ink)} .badge.green{color:var(--green-ink)} .badge.orange{color:var(--orange-light)}
+
+.list{display:flex;flex-direction:column}
+.list>div{display:flex;gap:28px;align-items:center;padding:22px 0;border-top:1px solid var(--line);font-size:30px;line-height:1.3}
+.list>div:last-child{border-bottom:1px solid var(--line)}
+.list .n{font-size:32px;font-weight:600;color:var(--blue);min-width:52px}
+.list .n.green{color:var(--green)} .list .n.ink{color:var(--ink)}
+.dark .list>div{border-color:#2E3747}
+.dark .list .n{color:var(--blue-light)}
+.list.compact>div{font-size:24px;padding:16px 0}
+
+.defs{display:flex;flex-direction:column}
+.defs>div{display:flex;flex-direction:column;gap:6px;padding:16px 0;border-top:1px solid var(--line)}
+.defs>div:last-child{border-bottom:1px solid var(--line)}
+.defs .t{font-family:'JetBrains Mono','Courier New',monospace;font-size:23px;font-weight:600;color:var(--blue-ink);unicode-bidi:isolate}
+.defs .t.green{color:var(--green-ink)} .defs .t.plain{font-family:'Rubik',Arial,sans-serif}
+.defs .d{font-size:20px;color:var(--soft);line-height:1.4}
+
+table{border-collapse:collapse;width:100%;font-size:23px}
+th,td{text-align:start;padding:14px 18px;border-bottom:1px solid var(--line);line-height:1.35}
+th{background:var(--band);font-weight:600}
+td.mono,th.mono{font-size:21px}
+html[dir=rtl] td.mono,html[dir=rtl] th.mono{text-align:right}
+.t-blue{color:var(--blue-ink)} .t-green{color:var(--green)} .t-orange{color:var(--orange-ink)} .t-red{color:var(--red-ink)} .t-soft{color:var(--soft)}
+
+.pills{display:flex;gap:14px;flex-wrap:wrap}
+.pill{font-size:20px;padding:8px 20px;border-radius:999px;color:var(--dark);font-weight:500}
+.pill.blue{background:var(--blue-light)} .pill.orange{background:var(--orange-light)} .pill.green{background:var(--green-light)}
+
+.flow{display:flex;align-items:center;gap:14px}
+.flow .step{flex:1;text-align:center;padding:20px 12px;border-radius:14px;background:var(--band);font-size:22px;font-weight:600}
+.flow .step.mid{background:var(--blue-tint);border:2px solid var(--blue);color:var(--blue-ink);font-family:'JetBrains Mono',monospace;font-weight:400;font-size:19px;direction:ltr}
+.flow .arrow{color:var(--code-dim);font-size:28px;flex:none}
+html[dir=rtl] .flow .arrow{transform:scaleX(-1)}
+
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;flex-direction:column;gap:6px}
+.tile .n{font-size:20px;font-weight:600;color:var(--blue-ink)}
+.tile p{font-size:22px}
+.tile.now{background:var(--blue-tint);border-color:transparent}
+.tile.last{background:var(--orange-tint);border-color:transparent}
+.tile.last .n{color:var(--orange-ink)}
+
+.box{border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:8px}
+.box.orange{background:var(--orange-tint)} .box.blue{background:var(--blue-tint)} .box.green{background:var(--green-tint)}
+.box .bt{font-size:22px;font-weight:600}
+.box.orange .bt{color:var(--orange-ink)} .box.blue .bt{color:var(--blue-ink)} .box.green .bt{color:var(--green-ink)}
+.box p{font-size:21px;line-height:1.45}
+.rule{font-size:28px;font-weight:600}
+
+/* controls */
+.progress{position:fixed;left:0;right:0;bottom:56px;height:3px;background:#1B2230}
+.progress i{display:block;height:100%;width:0;background:var(--blue-light);transition:width .2s}
+.controls{position:fixed;left:0;right:0;bottom:0;height:56px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:var(--muted-dark);font-size:15px;gap:12px}
+.ctl{display:flex;align-items:center;gap:10px}
+.controls button{background:#1B2230;color:var(--on-dark);border:1px solid #2E3747;border-radius:8px;height:36px;min-width:40px;padding:0 14px;font:inherit;font-size:15px;cursor:pointer}
+.controls button:hover{background:#252E40}
+.controls button:focus-visible{outline:2px solid var(--blue-light);outline-offset:2px}
+#counter{min-width:64px;text-align:center;font-variant-numeric:tabular-nums;direction:ltr}
+
+@media print{
+  @page{size:1600px 900px;margin:0}
+  html,body{overflow:visible;background:none;height:auto}
+  .controls,.progress{display:none}
+  .viewport{position:static;inset:auto}
+  .stage{position:static;transform:none!important;width:1600px;height:auto}
+  .slide{display:flex!important;position:relative;inset:auto;width:1600px;height:900px;border-radius:0;break-after:page}
+}
+</style>
+</head>
+<body data-title-he="Node.js, Express ו-MongoDB — צד שרת" data-title-en="Node.js, Express and MongoDB — The Server Side">
+<main class="viewport">
+<div class="stage">
+
+<!-- 1 cover -->
+<section class="slide dark between">
+  <p class="eyebrow"><span class="he">יחידת צד שרת</span><span class="en">SERVER-SIDE UNIT</span></p>
+  <div class="head" style="gap:24px">
+    <h1 style="font-size:116px">Node.js + MongoDB</h1>
+    <p class="big"><span class="he">בונים שרת אמיתי עם Express ומסד נתונים</span><span class="en">Building a real server with Express and a database</span></p>
+    <p class="lead"><span class="he">מ-“Hello World” ועד API מלא שמחובר ל-MongoDB</span><span class="en">From “Hello World” to a full API connected to MongoDB</span></p>
+  </div>
+  <div class="pills">
+    <span class="pill blue">Node.js · Express</span>
+    <span class="pill green">MongoDB · Mongoose</span>
+  </div>
+</section>
+
+<!-- 2 agenda -->
+<section class="slide">
+  <h2><span class="he">מה נלמד ביחידה</span><span class="en">What this unit covers</span></h2>
+  <div class="list">
+    <div><span class="n">01</span><span><span class="he">מה זה Node.js ואיך הוא עובד מתחת למכסה</span><span class="en">What Node.js is and how it works under the hood</span></span></div>
+    <div><span class="n">02</span><span><span class="he">שרת עם Express: נתיבים, REST ו-middleware</span><span class="en">A server with Express: routes, REST and middleware</span></span></div>
+    <div><span class="n green">03</span><span><span class="he">MongoDB: מסד נתונים של מסמכים</span><span class="en">MongoDB: a document database</span></span></div>
+    <div><span class="n green">04</span><span><span class="he">מחברים את Node ל-MongoDB עם Mongoose</span><span class="en">Connecting Node to MongoDB with Mongoose</span></span></div>
+    <div><span class="n ink">05</span><span><span class="he">6 תרגילים: משרת ריק ועד API מלא עם מסד נתונים</span><span class="en">6 exercises: from an empty server to a full API with a database</span></span></div>
+  </div>
+</section>
+
+<!-- 3 what is node -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">מה זה Node.js</span><span class="en">What is Node.js</span></h2>
+    <p class="lead"><span class="he">סביבת הרצה ל-JavaScript מחוץ לדפדפן, על אותו מנוע V8 של Chrome</span><span class="en">A runtime for JavaScript outside the browser, on the same V8 engine as Chrome</span></p>
+  </div>
+  <div class="cards" style="align-items:start">
+    <div class="card"><h3><span class="he">אותה שפה בכל מקום</span><span class="en">One language everywhere</span></h3><p><span class="he">JavaScript ו-TypeScript גם בדפדפן וגם בשרת</span><span class="en">JavaScript and TypeScript in both the browser and the server</span></p></div>
+    <div class="card"><h3><span class="he">לא חוסם</span><span class="en">Non-blocking</span></h3><p><span class="he">thread אחד מטפל באלפי בקשות במקביל, בלי לחכות</span><span class="en">One thread handles thousands of concurrent requests without waiting</span></p></div>
+    <div class="card"><h3>npm</h3><p><span class="he">מאגר החבילות הגדול בעולם: express, mongoose ועוד</span><span class="en">The world’s largest package registry: express, mongoose and more</span></p></div>
+  </div>
+  <div class="cols2">
+    <div class="box orange"><span class="bt"><span class="he">אין ב-Node</span><span class="en">Not in Node</span></span><p class="mono" style="font-size:24px">window · document · DOM</p></div>
+    <div class="box blue"><span class="bt"><span class="he">יש ב-Node</span><span class="en">In Node</span></span><p class="mono" style="font-size:24px">fs · http · process · path</p></div>
+  </div>
+</section>
+
+<!-- 4 event loop -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">Event Loop: למה Node לא מחכה</span><span class="en">The event loop: why Node doesn’t wait</span></h2>
+    <p class="lead"><span class="he">פעולה איטית (קובץ, רשת, מסד נתונים) נשלחת לרקע, והקוד ממשיך</span><span class="en">Slow work (files, network, database) is sent to the background, and the code keeps going</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="card" style="align-self:start">
+      <h3><span class="he">האנלוגיה: מלצר אחד במסעדה</span><span class="en">The analogy: one waiter in a restaurant</span></h3>
+      <div class="items">
+        <p><span class="he">המלצר לוקח הזמנה ומעביר למטבח</span><span class="en">The waiter takes an order and passes it to the kitchen</span></p>
+        <p><span class="he">הוא לא עומד ליד התנור. הוא ממשיך לשולחן הבא</span><span class="en">He doesn’t stand by the oven. He moves on to the next table</span></p>
+        <p><span class="he">כשהמנה מוכנה, הוא מקבל קריאה ומגיש</span><span class="en">When the dish is ready, he’s called back to serve it</span></p>
+        <p style="color:var(--blue-ink);font-weight:600"><span class="he">מלצר = thread אחד. מטבח = פעולות ברקע</span><span class="en">Waiter = one thread. Kitchen = background work</span></p>
+      </div>
+    </div>
+    <pre class="code">console.log("start");
+
+setTimeout(() =&gt; {
+  console.log("timeout");
+}, 0);
+
+console.log("end");
+
+<span class="cm">// output:</span>
+<span class="b">// start</span>
+<span class="b">// end</span>
+<span class="b">// timeout</span></pre>
+  </div>
+</section>
+
+<!-- 5 raw server -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">שרת ראשון ב-Node בלבד</span><span class="en">A first server in plain Node</span></h2>
+    <p class="lead"><span class="he">בלי שום ספרייה, רק המודול המובנה <code>http</code></span><span class="en">No libraries at all, just the built-in <code>http</code> module</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1fr 1.4fr">
+    <div class="stack">
+      <pre class="code" style="font-size:20px"><span class="cm">$</span> npm init -y
+<span class="cm"># package.json: "type": "module"</span>
+<span class="cm">$</span> node --watch server.js</pre>
+      <div class="box orange">
+        <span class="bt"><span class="he">זה עובד, אבל מסורבל</span><span class="en">It works, but it’s clunky</span></span>
+        <p><span class="he">ניתוב ידני עם <code>if</code> על כל נתיב</span><span class="en">Manual routing with an <code>if</code> per route</span></p>
+        <p><span class="he"><code>JSON.stringify</code> ו-headers ידניים</span><span class="en">Manual <code>JSON.stringify</code> and headers</span></p>
+        <p><span class="he">קריאת body של בקשה דורשת עבודה</span><span class="en">Reading a request body takes real work</span></p>
+      </div>
+    </div>
+    <pre class="code">import http from "node:http";
+
+const server = http.createServer((req, res) =&gt; {
+  if (req.method === "GET" &amp;&amp; req.url === "/") {
+    res.writeHead(200, {
+      "Content-Type": "application/json",
+    });
+    res.end(JSON.stringify({ message: "Hello" }));
+  } else {
+    res.writeHead(404);
+    res.end();
+  }
+});
+
+server.listen(3000, () =&gt; {
+  console.log("http://localhost:3000");
+});</pre>
+  </div>
+</section>
+
+<!-- 6 express -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">אותו שרת עם Express</span><span class="en">The same server with Express</span></h2>
+    <p class="lead"><span class="he">הספרייה הנפוצה ביותר לבניית שרתים ב-Node. <code>npm i express</code></span><span class="en">The most popular library for building servers in Node. <code>npm i express</code></span></p>
+  </div>
+  <div class="cols-wide grow">
+    <div class="defs">
+      <div><span class="t">req.params</span><span class="d"><span class="he">חלק דינמי בנתיב: <code>/books/42</code></span><span class="en">A dynamic path segment: <code>/books/42</code></span></span></div>
+      <div><span class="t">req.query</span><span class="d"><span class="he">פרמטרים אחרי סימן השאלה: <code>?page=2</code></span><span class="en">Parameters after the question mark: <code>?page=2</code></span></span></div>
+      <div><span class="t">req.body</span><span class="d"><span class="he">התוכן שנשלח ב-POST, אחרי <code>express.json()</code></span><span class="en">The content sent in a POST, after <code>express.json()</code></span></span></div>
+      <div><span class="t">res.status(201).json()</span><span class="d"><span class="he">קוד סטטוס ותשובה בשורה אחת</span><span class="en">Status code and response in one line</span></span></div>
+    </div>
+    <pre class="code">import express from "express";
+
+const app = express();
+<span class="b">app.use(express.json());</span>
+
+app.get("/", (req, res) =&gt; {
+  res.json({ message: "Hello" });
+});
+
+app.get("/books/:id", (req, res) =&gt; {
+  res.json({ id: req.params.id });
+});
+
+app.post("/books", (req, res) =&gt; {
+  res.status(201).json(req.body);
+});
+
+app.listen(3000);</pre>
+  </div>
+</section>
+
+<!-- 7 rest -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">REST: שפה משותפת ל-API</span><span class="en">REST: a shared language for APIs</span></h2>
+    <p class="lead"><span class="he">משאב אחד (books), חמש פעולות, כל אחת עם method וקוד סטטוס</span><span class="en">One resource (books), five operations, each with a method and a status code</span></p>
+  </div>
+  <table style="font-size:26px">
+    <tr><th style="width:16%">Method</th><th style="width:26%"><span class="he">נתיב</span><span class="en">Path</span></th><th><span class="he">פעולה</span><span class="en">Operation</span></th><th style="width:18%">Status</th></tr>
+    <tr><td class="t-blue mono">GET</td><td class="mono">/books</td><td><span class="he">כל הספרים</span><span class="en">All books</span></td><td class="mono">200</td></tr>
+    <tr><td class="t-blue mono">GET</td><td class="mono">/books/:id</td><td><span class="he">ספר אחד לפי מזהה</span><span class="en">One book by id</span></td><td class="mono">200 / 404</td></tr>
+    <tr><td class="t-green mono">POST</td><td class="mono">/books</td><td><span class="he">יצירת ספר חדש</span><span class="en">Create a new book</span></td><td class="mono">201 / 400</td></tr>
+    <tr><td class="t-orange mono">PATCH</td><td class="mono">/books/:id</td><td><span class="he">עדכון חלקי</span><span class="en">Partial update</span></td><td class="mono">200 / 404</td></tr>
+    <tr><td class="t-red mono">DELETE</td><td class="mono">/books/:id</td><td><span class="he">מחיקה</span><span class="en">Delete</span></td><td class="mono">204 / 404</td></tr>
+  </table>
+  <p class="lead" style="font-size:22px"><span class="he">200 הצלחה · 201 נוצר · 204 הצלחה בלי תוכן · 400 בקשה לא תקינה · 404 לא נמצא · 500 שגיאת שרת</span><span class="en">200 OK · 201 Created · 204 No Content · 400 Bad Request · 404 Not Found · 500 Server Error</span></p>
+</section>
+
+<!-- 8 middleware -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">Middleware: תחנות בדרך לתשובה</span><span class="en">Middleware: stops on the way to a response</span></h2>
+    <p class="lead"><span class="he">כל בקשה עוברת שרשרת פונקציות. כל אחת עושה משהו וקוראת ל-<code>next()</code></span><span class="en">Every request passes through a chain of functions. Each does something and calls <code>next()</code></span></p>
+  </div>
+  <div class="flow">
+    <div class="step"><span class="he">בקשה</span><span class="en">Request</span></div><span class="arrow">➜</span>
+    <div class="step mid">express.json()</div><span class="arrow">➜</span>
+    <div class="step mid">logger</div><span class="arrow">➜</span>
+    <div class="step mid">route handler</div><span class="arrow">➜</span>
+    <div class="step"><span class="he">תשובה</span><span class="en">Response</span></div>
+  </div>
+  <div class="cols2 grow">
+    <div class="list compact" style="align-self:start">
+      <div><span><span class="he"><b>שימושים:</b> לוגים, אימות משתמש, ולידציה, CORS</span><span class="en"><b>Uses:</b> logging, authentication, validation, CORS</span></span></div>
+      <div><span><span class="he"><b>הסדר חשוב:</b> הם רצים בסדר שבו נרשמו</span><span class="en"><b>Order matters:</b> they run in the order they were registered</span></span></div>
+      <div><span><span class="he"><b>שכחתם <code>next()</code>?</b> הבקשה נתקעת לנצח</span><span class="en"><b>Forgot <code>next()</code>?</b> The request hangs forever</span></span></div>
+      <div><span><span class="he"><b>Error handler:</b> ארבעה פרמטרים, תמיד אחרון</span><span class="en"><b>Error handler:</b> four parameters, always last</span></span></div>
+    </div>
+    <pre class="code">const logger = (req, res, <span class="b">next</span>) =&gt; {
+  console.log(req.method, req.url);
+  <span class="b">next();</span>
+};
+app.use(logger);
+
+app.use((<span class="o">err</span>, req, res, next) =&gt; {
+  res.status(500).json({ error: err.message });
+});</pre>
+  </div>
+</section>
+
+<!-- 9 mongo section -->
+<section class="slide forest center" style="gap:44px">
+  <p class="eyebrow"><span class="he">חלק שני</span><span class="en">PART TWO</span></p>
+  <h1 style="font-size:104px"><span class="he">MongoDB: מסד נתונים שמדבר JSON</span><span class="en">MongoDB: a database that speaks JSON</span></h1>
+  <p class="lead"><span class="he">השרת שלנו שוכח הכל כשהוא נכבה. עכשיו ניתן לו זיכרון קבוע</span><span class="en">Our server forgets everything when it stops. Now we give it permanent memory</span></p>
+</section>
+
+<!-- 10 what is mongo -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">מה זה MongoDB</span><span class="en">What is MongoDB</span></h2>
+    <p class="lead"><span class="he">מסד נתונים NoSQL ששומר מסמכים במבנה דומה ל-JSON, במקום שורות בטבלאות</span><span class="en">A NoSQL database that stores JSON-like documents instead of rows in tables</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack" style="gap:16px">
+      <div class="card soft-green"><h3><span class="he">גמיש</span><span class="en">Flexible</span></h3><p style="color:var(--ink)"><span class="he">אין סכמה קשיחה. מסמכים באותו אוסף יכולים להיות שונים</span><span class="en">No rigid schema. Documents in the same collection can differ</span></p></div>
+      <div class="card soft-green"><h3><span class="he">טבעי ל-JavaScript</span><span class="en">Natural for JavaScript</span></h3><p style="color:var(--ink)"><span class="he">מה ששומרים הוא אובייקט, ומה שמקבלים בחזרה הוא אובייקט</span><span class="en">You save an object, and you get an object back</span></p></div>
+      <div class="card soft-green"><h3><span class="he">קל להתחיל</span><span class="en">Easy to start</span></h3><p style="color:var(--ink)"><span class="he">MongoDB Atlas בענן בחינם, או Docker על המחשב</span><span class="en">Free MongoDB Atlas in the cloud, or Docker on your machine</span></p></div>
+    </div>
+    <div class="stack">
+      <p class="code-label"><span class="he">המילון: SQL מול MongoDB</span><span class="en">The dictionary: SQL vs. MongoDB</span></p>
+      <table>
+        <tr><th class="t-soft">SQL</th><th class="t-green">MongoDB</th></tr>
+        <tr><td class="t-soft">Database</td><td>Database</td></tr>
+        <tr><td class="t-soft">Table</td><td>Collection</td></tr>
+        <tr><td class="t-soft">Row</td><td>Document</td></tr>
+        <tr><td class="t-soft">Column</td><td>Field</td></tr>
+        <tr><td class="t-soft">Primary key</td><td class="mono">_id</td></tr>
+        <tr><td class="t-soft">JOIN</td><td>embed / populate</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 11 document -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">איך נראה מסמך</span><span class="en">What a document looks like</span></h2>
+    <p class="lead"><span class="he">ספר אחד באוסף books. כל מה שקשור אליו נמצא במקום אחד</span><span class="en">One book in the books collection. Everything about it lives in one place</span></p>
+  </div>
+  <div class="cols-wide grow">
+    <div class="defs">
+      <div><span class="t green">_id</span><span class="d"><span class="he">מזהה ייחודי שנוצר אוטומטית (ObjectId)</span><span class="en">A unique id created automatically (ObjectId)</span></span></div>
+      <div><span class="t green">author: { … }</span><span class="d"><span class="he">אובייקט מקונן בתוך המסמך (embedding)</span><span class="en">An object nested inside the document (embedding)</span></span></div>
+      <div><span class="t green">tags: [ … ]</span><span class="d"><span class="he">מערך, בלי טבלת קישור נפרדת</span><span class="en">An array, with no separate join table</span></span></div>
+      <div><span class="t green plain"><span class="he">טיפוסים</span><span class="en">Types</span></span><span class="d"><span class="he">מחרוזת, מספר, בוליאני, תאריך, מערך, אובייקט</span><span class="en">String, number, boolean, date, array, object</span></span></div>
+    </div>
+    <pre class="code" style="font-size:21px">{
+  <span class="g">"_id"</span>: ObjectId("6713f2a9c1e4..."),
+  <span class="g">"title"</span>: "Clean Code",
+  <span class="g">"year"</span>: 2008,
+  <span class="g">"author"</span>: {
+    <span class="g">"name"</span>: "Robert C. Martin",
+    <span class="g">"country"</span>: "USA"
+  },
+  <span class="g">"tags"</span>: ["programming", "craft"],
+  <span class="g">"inStock"</span>: true,
+  <span class="g">"createdAt"</span>: ISODate("2026-10-22...")
+}</pre>
+  </div>
+</section>
+
+<!-- 12 mongoose -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">מחברים את Node ל-MongoDB עם Mongoose</span><span class="en">Connecting Node to MongoDB with Mongoose</span></h2>
+    <p class="lead"><span class="he"><code>npm i mongoose</code>. ספרייה שנותנת חיבור, סכמה, ולידציה ומודל</span><span class="en"><code>npm i mongoose</code>. A library that gives you a connection, schemas, validation and models</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <p class="code-label blue"><span class="he">1. חיבור, פעם אחת בעליית השרת</span><span class="en">1. Connect once, when the server starts</span></p>
+      <pre class="code grow"><span class="cm">// config/db.js</span>
+import mongoose from "mongoose";
+
+export async function connectDB() {
+  await mongoose.connect(
+    <span class="g">process.env.MONGODB_URI</span>
+  );
+  console.log("MongoDB connected");
+}
+
+<span class="cm">// server.js</span>
+await connectDB();
+app.listen(3000);</pre>
+    </div>
+    <div class="stack">
+      <p class="code-label green"><span class="he">2. סכמה ומודל</span><span class="en">2. Schema and model</span></p>
+      <pre class="code grow"><span class="cm">// models/Book.js</span>
+const bookSchema = new mongoose.Schema(
+  {
+    title: { type: String, <span class="g">required: true</span> },
+    year: { type: Number, <span class="g">min: 1450</span> },
+    author: { type: String, required: true },
+    tags: [String],
+    inStock: { type: Boolean, default: true },
+  },
+  { timestamps: true }
+);
+
+export const Book =
+  mongoose.model("Book", bookSchema);</pre>
+    </div>
+  </div>
+</section>
+
+<!-- 13 crud -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">CRUD עם Mongoose</span><span class="en">CRUD with Mongoose</span></h2>
+    <p class="lead"><span class="he">כל פעולה מחזירה Promise, ולכן תמיד עם <code>await</code></span><span class="en">Every operation returns a Promise, so always use <code>await</code></span></p>
+  </div>
+  <table>
+    <tr><th style="width:24%"><span class="he">פעולה</span><span class="en">Operation</span></th><th>Mongoose</th></tr>
+    <tr><td><span class="he">יצירה</span><span class="en">Create</span></td><td class="mono">await Book.create(req.body)</td></tr>
+    <tr><td><span class="he">כל המסמכים</span><span class="en">All documents</span></td><td class="mono">await Book.find()</td></tr>
+    <tr><td><span class="he">סינון ומיון</span><span class="en">Filter and sort</span></td><td class="mono">await Book.find({ author: "Orwell" }).sort({ year: -1 })</td></tr>
+    <tr><td><span class="he">מסמך אחד</span><span class="en">One document</span></td><td class="mono">await Book.findById(id)</td></tr>
+    <tr><td><span class="he">עדכון</span><span class="en">Update</span></td><td class="mono">await Book.findByIdAndUpdate(id, data, { new: true })</td></tr>
+    <tr><td><span class="he">מחיקה</span><span class="en">Delete</span></td><td class="mono">await Book.findByIdAndDelete(id)</td></tr>
+    <tr><td><span class="he">אופרטורים</span><span class="en">Operators</span></td><td class="mono">await Book.find({ year: { $gte: 2000 } })</td></tr>
+  </table>
+  <p class="lead" style="font-size:22px"><span class="he"><code>findById</code> מחזיר <code>null</code> כשאין מסמך, לא שגיאה. בודקים בעצמנו ומחזירים 404</span><span class="en"><code>findById</code> returns <code>null</code> when nothing is found, not an error. Check it yourself and return 404</span></p>
+</section>
+
+<!-- 14 routes -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">מחברים הכל: נתיבים שמדברים עם המסד</span><span class="en">Putting it together: routes that talk to the database</span></h2>
+    <p class="lead"><span class="he">Router נפרד לכל משאב, ו-error handler אחד לכל השרת</span><span class="en">A separate Router per resource, and one error handler for the whole server</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <p class="code-label blue"><span class="he">routes/books.js: קריאה</span><span class="en">routes/books.js: reading</span></p>
+      <pre class="code grow">import { Router } from "express";
+import { Book } from "../models/Book.js";
+const router = Router();
+
+router.get("/", async (req, res) =&gt; {
+  const books = await <span class="g">Book.find()</span>;
+  res.json(books);
+});
+
+router.get("/:id", async (req, res) =&gt; {
+  const book = await <span class="g">Book.findById(req.params.id)</span>;
+  if (!book) return res.sendStatus(404);
+  res.json(book);
+});</pre>
+    </div>
+    <div class="stack">
+      <p class="code-label green"><span class="he">יצירה, חיבור ל-app וטיפול בשגיאות</span><span class="en">Creating, mounting, and handling errors</span></p>
+      <pre class="code grow">router.post("/", async (req, res) =&gt; {
+  const book = await <span class="g">Book.create(req.body)</span>;
+  res.status(201).json(book);
+});
+export default router;
+
+<span class="cm">// server.js</span>
+app.use("/api/books", booksRouter);
+app.use((err, req, res, next) =&gt; {
+  if (err.name === "ValidationError")
+    return res.status(400)
+      .json({ error: err.message });
+  res.status(500).json({ error: "Server error" });
+});</pre>
+    </div>
+  </div>
+  <p class="lead" style="font-size:22px"><span class="he">ב-Express 5 שגיאה בתוך פונקציית <code>async</code> מגיעה אוטומטית ל-error handler, בלי try/catch בכל נתיב</span><span class="en">In Express 5, an error thrown in an <code>async</code> handler reaches the error handler automatically, with no try/catch in every route</span></p>
+</section>
+
+<!-- 15 structure -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">מבנה פרויקט שגדל בלי להתפרק</span><span class="en">A project structure that scales</span></h2>
+    <p class="lead"><span class="he">כל תיקייה עונה על שאלה אחת</span><span class="en">Each folder answers one question</span></p>
+  </div>
+  <div class="cols-wide grow">
+    <div class="defs">
+      <div><span class="t green">models/</span><span class="d"><span class="he">איך הנתונים נראים: סכמות ומודלים</span><span class="en">What the data looks like: schemas and models</span></span></div>
+      <div><span class="t">routes/</span><span class="d"><span class="he">אילו כתובות קיימות ומה כל אחת עושה</span><span class="en">Which URLs exist and what each one does</span></span></div>
+      <div><span class="t">middleware/</span><span class="d"><span class="he">לוגים, אימות, ולידציה וטיפול בשגיאות</span><span class="en">Logging, auth, validation and error handling</span></span></div>
+      <div><span class="t" style="color:var(--soft)">config/</span><span class="d"><span class="he">חיבור למסד והגדרות שמגיעות מ-<code>.env</code></span><span class="en">The database connection and settings from <code>.env</code></span></span></div>
+    </div>
+    <pre class="code" style="font-size:21px">books-api/
+├── <span class="o">.env</span>
+├── .gitignore
+├── package.json
+├── server.js
+├── config/
+│   └── db.js
+├── <span class="g">models/</span>
+│   └── Book.js
+├── <span class="b">routes/</span>
+│   └── books.js
+└── <span class="b">middleware/</span>
+    ├── logger.js
+    └── errorHandler.js</pre>
+  </div>
+</section>
+
+<!-- 16 env -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">סודות, סביבה ואיפה מריצים את המסד</span><span class="en">Secrets, environment, and where the database runs</span></h2>
+    <p class="lead"><span class="he">סיסמת המסד לעולם לא נכתבת בקוד</span><span class="en">The database password is never written in code</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack" style="gap:20px">
+      <div class="box orange">
+        <span class="bt"><span class="he">כללי ברזל</span><span class="en">Ground rules</span></span>
+        <p><span class="he"><code>.env</code> תמיד בתוך <code>.gitignore</code></span><span class="en"><code>.env</code> always goes in <code>.gitignore</code></span></p>
+        <p><span class="he">מעלים <code>.env.example</code> עם שמות בלי ערכים</span><span class="en">Commit a <code>.env.example</code> with names but no values</span></p>
+        <p><span class="he">לא מחזירים ללקוח <code>err.stack</code> או פרטי מסד</span><span class="en">Never return <code>err.stack</code> or database details to the client</span></p>
+      </div>
+      <div class="box green">
+        <span class="bt"><span class="he">שתי דרכים להריץ MongoDB</span><span class="en">Two ways to run MongoDB</span></span>
+        <p><span class="he">Atlas: חינם בענן, מעולה לכיתה ולפריסה</span><span class="en">Atlas: free in the cloud, great for class and deployment</span></p>
+        <p><span class="he">Docker: מקומי, בלי אינטרנט ובלי הרשמה</span><span class="en">Docker: local, no internet and no sign-up</span></p>
+      </div>
+    </div>
+    <div class="stack" style="gap:20px">
+      <pre class="code" style="font-size:20px"><span class="cm"># .env</span>
+PORT=3000
+MONGODB_URI=mongodb+srv://user:pass@
+  cluster0.xxxxx.mongodb.net/books</pre>
+      <pre class="code" style="font-size:20px"><span class="cm"># run with an env file (no dotenv needed)</span>
+node --env-file=.env --watch server.js
+
+<span class="cm"># local MongoDB with Docker</span>
+docker run -d -p 27017:27017 mongo
+<span class="cm"># MONGODB_URI=mongodb://localhost:27017/books</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- 17 next link -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">ואיך כל זה מתחבר ל-Next.js</span><span class="en">And how this connects to Next.js</span></h2>
+    <p class="lead"><span class="he">אותם רעיונות בדיוק, בשמות אחרים</span><span class="en">The exact same ideas, with different names</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1.4fr 1fr">
+    <table style="align-self:start">
+      <tr><th>Express</th><th>Next.js</th></tr>
+      <tr><td class="mono">app.get("/api/books")</td><td class="mono">app/api/books/route.ts → GET()</td></tr>
+      <tr><td class="mono">app.post + fetch</td><td>Server Action</td></tr>
+      <tr><td class="mono">app.use(middleware)</td><td class="mono">proxy.ts</td></tr>
+      <tr><td>error handler</td><td class="mono">error.tsx</td></tr>
+      <tr><td class="mono">connectDB()</td><td><span class="he">חיבור שמור ב-<code>lib/db.ts</code></span><span class="en">A cached connection in <code>lib/db.ts</code></span></td></tr>
+    </table>
+    <div class="card blue" style="align-self:start">
+      <h3><span class="he">מתי בכל זאת שרת נפרד?</span><span class="en">When is a separate server still worth it?</span></h3>
+      <div class="items">
+        <p><span class="he">כשיש כמה לקוחות: אתר, אפליקציה, שותפים</span><span class="en">When there are several clients: a website, an app, partners</span></p>
+        <p><span class="he">עבודות ארוכות ברקע או WebSockets</span><span class="en">Long-running background jobs or WebSockets</span></p>
+        <p><span class="he">צוות backend נפרד או שפה אחרת</span><span class="en">A separate backend team, or another language</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 ex 1-2 -->
+<section class="slide">
+  <h2><span class="he">תרגילים 1 ו-2: השרת הראשון</span><span class="en">Exercises 1 and 2: the first server</span></h2>
+  <div class="cols2 grow" style="align-items:start">
+    <div class="card">
+      <span class="badge blue"><span class="he">תרגיל 1 · קל · 30 דקות</span><span class="en">Exercise 1 · Easy · 30 min</span></span>
+      <h3><span class="he">שרת Express ראשון</span><span class="en">A first Express server</span></h3>
+      <div class="items">
+        <p><span class="he">שרת Express שהפורט שלו מגיע מ-<code>.env</code></span><span class="en">An Express server whose port comes from <code>.env</code></span></p>
+        <p><span class="he"><code>GET /</code> מחזיר הודעה ואת השעה הנוכחית</span><span class="en"><code>GET /</code> returns a message and the current time</span></p>
+        <p><span class="he"><code>GET /health</code> מחזיר <code>status: ok</code></span><span class="en"><code>GET /health</code> returns <code>status: ok</code></span></p>
+        <p><span class="he">כל נתיב אחר מחזיר 404 ב-JSON</span><span class="en">Any other route returns 404 as JSON</span></p>
+        <p class="note"><span class="he">בדיקה: דפדפן ו-curl, השרת עולה עם <code>node --watch</code></span><span class="en">Check: browser and curl, the server runs with <code>node --watch</code></span></p>
+      </div>
+    </div>
+    <div class="card">
+      <span class="badge blue"><span class="he">תרגיל 2 · בינוני · 60 דקות</span><span class="en">Exercise 2 · Medium · 60 min</span></span>
+      <h3><span class="he">API ספרים בזיכרון</span><span class="en">An in-memory books API</span></h3>
+      <div class="items">
+        <p><span class="he">מערך books עם id, title, author, year</span><span class="en">A books array with id, title, author, year</span></p>
+        <p><span class="he">כל חמשת נתיבי ה-REST מטבלת <code>/books</code></span><span class="en">All five REST routes from the <code>/books</code> table</span></p>
+        <p><span class="he">POST בלי title או author מחזיר 400</span><span class="en">A POST without title or author returns 400</span></p>
+        <p><span class="he">id שלא קיים מחזיר 404, מחיקה מחזירה 204</span><span class="en">A missing id returns 404, delete returns 204</span></p>
+        <p class="note"><span class="he">בדיקה: קובץ <code>requests.http</code> עם בקשה לכל נתיב</span><span class="en">Check: a <code>requests.http</code> file with a request per route</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 ex 3-4 -->
+<section class="slide">
+  <h2><span class="he">תרגילים 3 ו-4: middleware ו-MongoDB</span><span class="en">Exercises 3 and 4: middleware and MongoDB</span></h2>
+  <div class="cols2 grow" style="align-items:start">
+    <div class="card">
+      <span class="badge blue"><span class="he">תרגיל 3 · בינוני · 45 דקות</span><span class="en">Exercise 3 · Medium · 45 min</span></span>
+      <h3><span class="he">Middleware משלכם</span><span class="en">Your own middleware</span></h3>
+      <div class="items">
+        <p><span class="he">logger: method, כתובת וזמן תגובה במילישניות</span><span class="en">A logger: method, URL and response time in ms</span></p>
+        <p><span class="he">בדיקת header בשם <code>x-api-key</code> בפעולות כתיבה</span><span class="en">Check an <code>x-api-key</code> header on write operations</span></p>
+        <p><span class="he">בלי מפתח תקין: 401 עם הודעה ברורה</span><span class="en">Without a valid key: 401 with a clear message</span></p>
+        <p><span class="he">error handler מרכזי בקובץ נפרד</span><span class="en">A central error handler in its own file</span></p>
+        <p class="note"><span class="he">בדיקה: POST בלי מפתח נחסם, GET עובר</span><span class="en">Check: a POST without a key is blocked, GET still works</span></p>
+      </div>
+    </div>
+    <div class="card green">
+      <span class="badge green"><span class="he">תרגיל 4 · בינוני · 90 דקות</span><span class="en">Exercise 4 · Medium · 90 min</span></span>
+      <h3><span class="he">מעבר ל-MongoDB</span><span class="en">Moving to MongoDB</span></h3>
+      <div class="items">
+        <p><span class="he">חיבור ל-Atlas או Docker דרך <code>MONGODB_URI</code></span><span class="en">Connect to Atlas or Docker via <code>MONGODB_URI</code></span></p>
+        <p><span class="he">מודל Book: title חובה, year מ-1450 ומעלה</span><span class="en">A Book model: title required, year 1450 or later</span></p>
+        <p><span class="he">להחליף את המערך בקריאות Mongoose</span><span class="en">Replace the array with Mongoose calls</span></p>
+        <p><span class="he">ValidationError ו-CastError מחזירים 400</span><span class="en">ValidationError and CastError return 400</span></p>
+        <p class="note"><span class="he">בדיקה: מפעילים מחדש את השרת והספרים נשארים</span><span class="en">Check: restart the server and the books are still there</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 ex 5-6 -->
+<section class="slide">
+  <h2><span class="he">תרגילים 5 ו-6: שאילתות וקשרים</span><span class="en">Exercises 5 and 6: queries and relations</span></h2>
+  <div class="cols2 grow" style="align-items:start">
+    <div class="card green">
+      <span class="badge green"><span class="he">תרגיל 5 · מתקדם · 60 דקות</span><span class="en">Exercise 5 · Advanced · 60 min</span></span>
+      <h3><span class="he">סינון, מיון ועימוד</span><span class="en">Filtering, sorting and pagination</span></h3>
+      <div class="items">
+        <p><span class="he">סינון לפי author ו-minYear מתוך <code>req.query</code></span><span class="en">Filter by author and minYear from <code>req.query</code></span></p>
+        <p><span class="he">מיון לפי <code>sort=year</code> או <code>sort=-year</code></span><span class="en">Sort by <code>sort=year</code> or <code>sort=-year</code></span></p>
+        <p><span class="he">עימוד עם page ו-limit, בעזרת skip ו-limit</span><span class="en">Pagination with page and limit, using skip and limit</span></p>
+        <p><span class="he">חיפוש חלקי בכותרת עם <code>$regex</code></span><span class="en">Partial title search with <code>$regex</code></span></p>
+        <p class="note"><span class="he">תשובה במבנה: data, page, total</span><span class="en">Response shape: data, page, total</span></p>
+      </div>
+    </div>
+    <div class="card inv">
+      <span class="badge orange"><span class="he">תרגיל 6 · אתגר · בית</span><span class="en">Exercise 6 · Challenge · Homework</span></span>
+      <h3><span class="he">קשרים בין אוספים</span><span class="en">Relations between collections</span></h3>
+      <div class="items">
+        <p><span class="he">מודל Author נפרד עם שם ומדינה</span><span class="en">A separate Author model with name and country</span></p>
+        <p><span class="he">ב-Book: שדה author מסוג ObjectId עם <code>ref</code></span><span class="en">In Book: an author field of type ObjectId with <code>ref</code></span></p>
+        <p><span class="he">רשימת ספרים מחזירה את הסופר עם <code>populate</code></span><span class="en">The book list returns the author with <code>populate</code></span></p>
+        <p><span class="he">נתיב לכל הספרים של סופר אחד</span><span class="en">A route for all books by one author</span></p>
+        <p class="note"><span class="he">בונוס: לחבר את ה-API לממשק Next שבניתם</span><span class="en">Bonus: connect the API to the Next UI you built</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<div class="progress" aria-hidden="true"><i></i></div>
+<nav class="controls" aria-label="Slide controls">
+  <div class="ctl">
+    <button id="prev" type="button"></button>
+    <span id="counter" aria-live="polite"></span>
+    <button id="next" type="button"></button>
+  </div>
+  <div class="ctl">
+    <button id="lang" type="button"></button>
+    <button id="fs" type="button" aria-label="Fullscreen">⛶</button>
+  </div>
+</nav>
+<script>
+(() => {
+  const root = document.documentElement;
+  const stage = document.querySelector('.stage');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const bar = document.querySelector('.progress i');
+  const counter = document.getElementById('counter');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const langBtn = document.getElementById('lang');
+  const fsBtn = document.getElementById('fs');
+  const KEY = 'deck-lang';
+  let index = 0;
+
+  const store = {
+    get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } },
+    set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  };
+
+  function syncUrl() {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', root.lang);
+      url.hash = String(index + 1);
+      history.replaceState(null, '', url);
+    } catch (e) {}
+  }
+
+  function setLang(lang) {
+    const he = lang === 'he';
+    root.lang = he ? 'he' : 'en';
+    root.dir = he ? 'rtl' : 'ltr';
+    document.title = document.body.dataset[he ? 'titleHe' : 'titleEn'] || document.title;
+    langBtn.textContent = he ? 'English' : 'עברית';
+    langBtn.setAttribute('aria-label', he ? 'Switch to English' : 'עבור לעברית');
+    prevBtn.textContent = he ? '→' : '←';
+    nextBtn.textContent = he ? '←' : '→';
+    prevBtn.setAttribute('aria-label', he ? 'השקף הקודם' : 'Previous slide');
+    nextBtn.setAttribute('aria-label', he ? 'השקף הבא' : 'Next slide');
+    store.set(root.lang);
+    syncUrl();
+  }
+
+  function show(n) {
+    index = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => {
+      s.classList.toggle('active', k === index);
+      s.setAttribute('aria-hidden', k === index ? 'false' : 'true');
+    });
+    counter.textContent = (index + 1) + ' / ' + slides.length;
+    bar.style.width = ((index + 1) / slides.length * 100) + '%';
+    syncUrl();
+  }
+
+  function fit() {
+    const w = window.innerWidth;
+    const h = window.innerHeight - 59;
+    const s = Math.min(w / 1600, h / 900) * 0.97;
+    stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+
+  const forwardKey = () => (root.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight');
+  const backKey = () => (root.dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft');
+
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === forwardKey() || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter') { e.preventDefault(); show(index + 1); }
+    else if (e.key === backKey() || e.key === 'PageUp' || e.key === 'Backspace') { e.preventDefault(); show(index - 1); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+    else if (e.key === 'l' || e.key === 'L') setLang(root.lang === 'he' ? 'en' : 'he');
+    else if (e.key === 'f' || e.key === 'F') toggleFs();
+  });
+
+  let touchX = null;
+  document.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) < 50) return;
+    const forward = root.dir === 'rtl' ? dx > 0 : dx < 0;
+    show(index + (forward ? 1 : -1));
+  });
+
+  function toggleFs() {
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    } catch (e) {}
+  }
+
+  prevBtn.addEventListener('click', () => show(index - 1));
+  nextBtn.addEventListener('click', () => show(index + 1));
+  langBtn.addEventListener('click', () => setLang(root.lang === 'he' ? 'en' : 'he'));
+  fsBtn.addEventListener('click', toggleFs);
+  window.addEventListener('resize', fit);
+  window.addEventListener('hashchange', () => {
+    const n = parseInt((window.location.hash || '').slice(1), 10);
+    if (Number.isFinite(n) && n - 1 !== index) show(n - 1);
+  });
+
+  let startLang = 'he';
+  try {
+    const p = new URLSearchParams(window.location.search).get('lang');
+    if (p === 'he' || p === 'en') startLang = p;
+    else if (store.get() === 'en') startLang = 'en';
+  } catch (e) {}
+  const startSlide = parseInt((window.location.hash || '').slice(1), 10);
+
+  fit();
+  index = Number.isFinite(startSlide) ? startSlide - 1 : 0;
+  setLang(startLang);
+  show(index);
+})();
+</script>
+</body>
+</html>

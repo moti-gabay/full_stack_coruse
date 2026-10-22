@@ -1,0 +1,17 @@
+{
+  "name": "ex-4.4-real-data",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env --watch server.js",
+    "seed": "node --env-file=.env scripts/seed.js"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "mongoose": "^9.11.3"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.6.0"
+  }
+}

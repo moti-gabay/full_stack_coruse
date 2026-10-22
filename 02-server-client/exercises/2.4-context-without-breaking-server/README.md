@@ -20,13 +20,12 @@
 - אחרי רענון, העגלה והמצב הכהה נשמרים, ואין אזהרת hydration בקונסול.
 - ההשוואה של גודל ה-bundle, לפני ואחרי, כתובה עם מספרים.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`02-server-client/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-2.4
-cd ex-2.4
-npm install
+npx create-next-app@latest ex-2-4-context-without-breaking-server
+cd ex-2-4-context-without-breaking-server
 npm run dev
 ```

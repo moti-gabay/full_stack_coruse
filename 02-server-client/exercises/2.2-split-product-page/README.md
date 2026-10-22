@@ -18,13 +18,12 @@
 - המונה בכפתור עובד.
 - בקובץ הדף אין hooks ואין event handlers.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`02-server-client/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-2.2
-cd ex-2.2
-npm install
+npx create-next-app@latest ex-2-2-split-product-page
+cd ex-2-2-split-product-page
 npm run dev
 ```

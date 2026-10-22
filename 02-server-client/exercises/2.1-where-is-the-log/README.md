@@ -18,13 +18,12 @@
 - הלוג של קומפוננטת הלקוח מופיע בקונסול של הדפדפן, גם כשלוחצים על המונה.
 - ה-README מסביר לכל לוג איפה הוא מופיע ולמה.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`02-server-client/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-2.1
-cd ex-2.1
-npm install
+npx create-next-app@latest ex-2-1-where-is-the-log
+cd ex-2-1-where-is-the-log
 npm run dev
 ```

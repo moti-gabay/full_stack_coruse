@@ -20,13 +20,12 @@
 - רענון הדף שומר את החיפוש ואת התוצאות.
 - פתיחת הקישור בלשונית חדשה מציגה את אותן תוצאות.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`02-server-client/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-2.3
-cd ex-2.3
-npm install
+npx create-next-app@latest ex-2-3-url-search
+cd ex-2-3-url-search
 npm run dev
 ```

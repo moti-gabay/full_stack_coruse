@@ -20,21 +20,18 @@
 - `GET /api/recipes/:id` מחזיר 200, ומזהה שלא קיים מחזיר 404.
 - `PATCH /api/recipes/:id` מחזיר 200, ומזהה שלא קיים מחזיר 404.
 - `DELETE /api/recipes/:id` מחזיר 204, ו-`GET` לאותו מזהה מחזיר אחרי זה 404.
-- כל בקשה ב-`requests.http` רצה ומחזירה את הסטטוס הצפוי (בטבלת REST בשקף 7).
+- כל בקשה ב-`requests.http` רצה ומחזירה את הסטטוס הצפוי לפי טבלת REST במצגת.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `.env.example`
-- `package.json`
-- `requests.http`
-- `routes/recipes.js`
-- `server.js`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+mkdir ex-2-3-recipes-api
+cd ex-2-3-recipes-api
+npm init -y
+npm pkg set type=module
+npm install express
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch server.js`.

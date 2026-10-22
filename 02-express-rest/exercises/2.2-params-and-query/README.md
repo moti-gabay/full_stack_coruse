@@ -18,17 +18,16 @@
 - `/sum?a=3&b=4` מחזיר 7.
 - `/sum?a=3&b=abc` ו-`/sum?a=3` מחזירים 400.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `.env.example`
-- `package.json`
-- `server.js`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+mkdir ex-2-2-params-and-query
+cd ex-2-2-params-and-query
+npm init -y
+npm pkg set type=module
+npm install express
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch server.js`.

@@ -23,21 +23,16 @@
 - `GET /members/:id/loans` מציג רק השאלות פעילות: השאלה שהוחזרה לא מופיעה.
 - כל נתיב שקיים בקוד מופיע בטבלה ב-README.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `.env.example`
-- `README.md`
-- `package.json`
-- `routes/books.js`
-- `routes/loans.js`
-- `routes/members.js`
-- `server.js`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+mkdir ex-2-4-library-loans-api
+cd ex-2-4-library-loans-api
+npm init -y
+npm pkg set type=module
+npm install express
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch server.js`.

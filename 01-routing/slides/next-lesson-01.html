@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400..700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0F16;--dark:#10151F;--light:#F6F4EF;--paper:#FFFDF8;--band:#E9E5DA;
+  --ink:#141A26;--soft:#4A5263;--line:#D9D4C8;--on-dark:#F1EEE6;--muted-dark:#A9B4C6;
+  --blue:#2563C9;--blue-ink:#1E4FA3;--blue-tint:#E6EEFB;--blue-line:#B9CCEE;--blue-light:#7FA6EA;
+  --orange:#C2561A;--orange-ink:#9A4413;--orange-tint:#FBEADF;--orange-line:#EBC3A8;--orange-light:#F0A272;
+  --green:#2F7D4A;--green-ink:#1F5C36;--green-tint:#E2F1E6;--green-line:#B9DCC4;--green-light:#8FD1A3;
+  --red-ink:#B03A2E;--code:#1B2230;--code-ink:#E6E1D6;--code-dim:#8A93A6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);font-family:'Rubik',Arial,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+html[lang=he] .en,html[lang=en] .he{display:none!important}
+
+.viewport{position:fixed;inset:0 0 59px 0;overflow:hidden}
+.stage{position:absolute;top:50%;left:50%;width:1600px;height:900px;transform-origin:center}
+.slide{position:absolute;inset:0;padding:88px 104px;display:none;flex-direction:column;gap:32px;background:var(--light);color:var(--ink);border-radius:6px;overflow:hidden}
+.slide.active{display:flex}
+.slide.dark{background:var(--dark);color:var(--on-dark)}
+.slide.navy{background:#1E3A6E;color:var(--on-dark)}
+.slide.forest{background:#1F4D30;color:var(--on-dark)}
+.center{justify-content:center}
+.between{justify-content:space-between}
+
+h1{font-size:132px;font-weight:700;line-height:1.02;letter-spacing:-1px}
+h2{font-size:54px;font-weight:600;line-height:1.15}
+.statement{font-size:76px;font-weight:600;line-height:1.15}
+.big{font-size:60px;font-weight:500;line-height:1.2}
+.lead{font-size:26px;line-height:1.45;color:var(--soft)}
+.dark .lead{color:var(--muted-dark)}
+.navy .lead{color:#C3D3F0}
+.forest .lead{color:#BFE3C9}
+.eyebrow{font-size:19px;letter-spacing:2px;color:var(--soft);font-weight:500}
+.dark .eyebrow{color:var(--muted-dark)}
+.navy .eyebrow{color:#C3D3F0}
+.forest .eyebrow{color:#BFE3C9}
+.head{display:flex;flex-direction:column;gap:12px}
+.grow{flex:1;min-height:0}
+b,strong{font-weight:600}
+.hl-blue{color:var(--blue-light)} .hl-orange{color:var(--orange-light)} .hl-green{color:var(--green-light)}
+
+code,.mono{font-family:'JetBrains Mono','Courier New',monospace;unicode-bidi:isolate;direction:ltr}
+code{font-size:.9em}
+pre.code{direction:ltr;text-align:left;unicode-bidi:isolate;background:var(--code);color:var(--code-ink);border-radius:16px;padding:28px 32px;font-family:'JetBrains Mono','Courier New',monospace;font-size:19px;line-height:1.6;white-space:pre;overflow:hidden}
+pre.code .cm{color:var(--code-dim)} pre.code .b{color:var(--blue-light)} pre.code .o{color:var(--orange-light)} pre.code .g{color:var(--green-light)}
+.code-label{font-size:22px;font-weight:600}
+.code-label.blue{color:var(--blue-ink)} .code-label.orange{color:var(--orange-ink)} .code-label.green{color:var(--green-ink)}
+.stack{display:flex;flex-direction:column;gap:14px;min-width:0}
+
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.cols-wide{display:grid;grid-template-columns:1fr 1.25fr;gap:32px}
+.cards{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:10px}
+.card h3{font-size:28px;font-weight:600;line-height:1.2}
+.card p{font-size:21px;line-height:1.45;color:var(--soft)}
+.card .k{font-size:15px;font-weight:600;letter-spacing:1.5px;color:var(--blue-ink)}
+.card.blue{background:var(--blue-tint);border:2px solid var(--blue)}
+.card.orange{background:var(--orange-tint);border:2px solid var(--orange)}
+.card.green{background:var(--green-tint);border:2px solid var(--green)}
+.card.soft-blue{background:var(--blue-tint);border:none}
+.card.soft-orange{background:var(--orange-tint);border:none}
+.card.soft-green{background:var(--green-tint);border:none}
+.card.inv{background:var(--dark);border:none;color:var(--on-dark)}
+.card.inv p{color:var(--muted-dark)}
+.card.navy{background:#1E3A6E;border:none;color:var(--on-dark)}
+.card.navy p{color:#C3D3F0}
+.card.blue h3{color:var(--blue-ink)} .card.orange h3{color:var(--orange-ink)} .card.green h3,.card.soft-green h3{color:var(--green-ink)}
+.card .items{display:flex;flex-direction:column}
+.card .items p{color:var(--ink);font-size:21px;padding:11px 0;border-top:1px solid var(--line)}
+.card.blue .items p{border-color:var(--blue-line)} .card.orange .items p{border-color:var(--orange-line)} .card.green .items p{border-color:var(--green-line)}
+.card.inv .items p{color:var(--on-dark);border-color:#2E3747}
+.card .items p.note{color:var(--soft);font-size:19px}
+.card.green .items p.note{color:var(--green-ink)}
+.card.inv .items p.note{color:var(--muted-dark)}
+.badge{font-size:16px;font-weight:600;letter-spacing:.5px}
+.badge.blue{color:var(--blue-ink)} .badge.green{color:var(--green-ink)} .badge.orange{color:var(--orange-light)}
+
+.list{display:flex;flex-direction:column}
+.list>div{display:flex;gap:28px;align-items:center;padding:22px 0;border-top:1px solid var(--line);font-size:30px;line-height:1.3}
+.list>div:last-child{border-bottom:1px solid var(--line)}
+.list .n{font-size:32px;font-weight:600;color:var(--blue);min-width:52px}
+.list .n.green{color:var(--green)} .list .n.ink{color:var(--ink)}
+.dark .list>div{border-color:#2E3747}
+.dark .list .n{color:var(--blue-light)}
+.list.compact>div{font-size:24px;padding:16px 0}
+
+.defs{display:flex;flex-direction:column}
+.defs>div{display:flex;flex-direction:column;gap:6px;padding:16px 0;border-top:1px solid var(--line)}
+.defs>div:last-child{border-bottom:1px solid var(--line)}
+.defs .t{font-family:'JetBrains Mono','Courier New',monospace;font-size:23px;font-weight:600;color:var(--blue-ink);unicode-bidi:isolate}
+.defs .t.green{color:var(--green-ink)} .defs .t.plain{font-family:'Rubik',Arial,sans-serif}
+.defs .d{font-size:20px;color:var(--soft);line-height:1.4}
+
+table{border-collapse:collapse;width:100%;font-size:23px}
+th,td{text-align:start;padding:14px 18px;border-bottom:1px solid var(--line);line-height:1.35}
+th{background:var(--band);font-weight:600}
+td.mono,th.mono{font-size:21px}
+html[dir=rtl] td.mono,html[dir=rtl] th.mono{text-align:right}
+.t-blue{color:var(--blue-ink)} .t-green{color:var(--green)} .t-orange{color:var(--orange-ink)} .t-red{color:var(--red-ink)} .t-soft{color:var(--soft)}
+
+.pills{display:flex;gap:14px;flex-wrap:wrap}
+.pill{font-size:20px;padding:8px 20px;border-radius:999px;color:var(--dark);font-weight:500}
+.pill.blue{background:var(--blue-light)} .pill.orange{background:var(--orange-light)} .pill.green{background:var(--green-light)}
+
+.flow{display:flex;align-items:center;gap:14px}
+.flow .step{flex:1;text-align:center;padding:20px 12px;border-radius:14px;background:var(--band);font-size:22px;font-weight:600}
+.flow .step.mid{background:var(--blue-tint);border:2px solid var(--blue);color:var(--blue-ink);font-family:'JetBrains Mono',monospace;font-weight:400;font-size:19px;direction:ltr}
+.flow .arrow{color:var(--code-dim);font-size:28px;flex:none}
+html[dir=rtl] .flow .arrow{transform:scaleX(-1)}
+
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;flex-direction:column;gap:6px}
+.tile .n{font-size:20px;font-weight:600;color:var(--blue-ink)}
+.tile p{font-size:22px}
+.tile.now{background:var(--blue-tint);border-color:transparent}
+.tile.last{background:var(--orange-tint);border-color:transparent}
+.tile.last .n{color:var(--orange-ink)}
+
+.box{border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:8px}
+.box.orange{background:var(--orange-tint)} .box.blue{background:var(--blue-tint)} .box.green{background:var(--green-tint)}
+.box .bt{font-size:22px;font-weight:600}
+.box.orange .bt{color:var(--orange-ink)} .box.blue .bt{color:var(--blue-ink)} .box.green .bt{color:var(--green-ink)}
+.box p{font-size:21px;line-height:1.45}
+.rule{font-size:28px;font-weight:600}
+
+/* controls */
+.progress{position:fixed;left:0;right:0;bottom:56px;height:3px;background:#1B2230}
+.progress i{display:block;height:100%;width:0;background:var(--blue-light);transition:width .2s}
+.controls{position:fixed;left:0;right:0;bottom:0;height:56px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:var(--muted-dark);font-size:15px;gap:12px}
+.ctl{display:flex;align-items:center;gap:10px}
+.controls button{background:#1B2230;color:var(--on-dark);border:1px solid #2E3747;border-radius:8px;height:36px;min-width:40px;padding:0 14px;font:inherit;font-size:15px;cursor:pointer}
+.controls button:hover{background:#252E40}
+.controls button:focus-visible{outline:2px solid var(--blue-light);outline-offset:2px}
+#counter{min-width:64px;text-align:center;font-variant-numeric:tabular-nums;direction:ltr}
+
+@media print{
+  @page{size:1600px 900px;margin:0}
+  html,body{overflow:visible;background:none;height:auto}
+  .controls,.progress{display:none}
+  .viewport{position:static;inset:auto}
+  .stage{position:static;transform:none!important;width:1600px;height:auto}
+  .slide{display:flex!important;position:relative;inset:auto;width:1600px;height:900px;border-radius:0;break-after:page}
+}
+</style>
+</head>
+<body data-title-he="Next.js — שיעור 1: מ-React ל-Next" data-title-en="Next.js — Lesson 1: From React to Next">
+<main class="viewport">
+<div class="stage">
+
+<!-- 1 cover -->
+<section class="slide dark between">
+  <p class="eyebrow"><span class="he">קורס Next.js · מפגש 1</span><span class="en">NEXT.JS COURSE · SESSION 1</span></p>
+  <div class="head" style="gap:24px">
+    <h1>Next.js</h1>
+    <p class="big"><span class="he">מ-React ל-Next</span><span class="en">From React to Next</span></p>
+    <p class="lead"><span class="he">מה הוא מוסיף, למה כולם משתמשים בו, ואיך חושבים בו</span><span class="en">What it adds, why everyone uses it, and how to think in it</span></p>
+  </div>
+  <div class="pills">
+    <span class="pill blue"><span class="he">רכיב שרת</span><span class="en">Server component</span></span>
+    <span class="pill orange"><span class="he">רכיב לקוח</span><span class="en">Client component</span></span>
+  </div>
+</section>
+
+<!-- 2 agenda -->
+<section class="slide">
+  <h2><span class="he">מה נעשה היום</span><span class="en">Today’s plan</span></h2>
+  <div class="list">
+    <div><span class="n">01</span><span><span class="he">למה React לבדה כבר לא מספיקה לאפליקציה אמיתית</span><span class="en">Why React alone isn’t enough for a real app</span></span></div>
+    <div><span class="n">02</span><span><span class="he">מה Next.js מוסיף, ולמה כולם משתמשים בו</span><span class="en">What Next.js adds, and why everyone uses it</span></span></div>
+    <div><span class="n">03</span><span><span class="he">השאלה החדשה: הקוד רץ בשרת או בדפדפן?</span><span class="en">The new question: does this code run on the server or in the browser?</span></span></div>
+    <div><span class="n">04</span><span><span class="he">בונים יחד פרויקט ראשון וניתוב לפי תיקיות</span><span class="en">Building a first project together, with folder-based routing</span></span></div>
+  </div>
+</section>
+
+<!-- 3 one line -->
+<section class="slide dark center" style="gap:44px">
+  <p class="eyebrow"><span class="he">ההבדל בשורה אחת</span><span class="en">THE DIFFERENCE IN ONE LINE</span></p>
+  <p class="statement"><span class="he">React עונה על השאלה <span class="hl-blue">איך לבנות קומפוננטה</span></span><span class="en">React answers <span class="hl-blue">how to build a component</span></span></p>
+  <p class="statement"><span class="he">Next עונה על השאלה <span class="hl-orange">איך לבנות אפליקציה</span></span><span class="en">Next answers <span class="hl-orange">how to build an application</span></span></p>
+  <p class="lead"><span class="he">React היא ספרייה. Next.js הוא framework שבנוי מעליה ומחליט בשבילכם את כל השאר</span><span class="en">React is a library. Next.js is a framework built on top of it that makes the rest of the decisions for you</span></p>
+</section>
+
+<!-- 4 pain -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">מה הייתם צריכים להרכיב לבד ב-React</span><span class="en">What you had to assemble yourself in React</span></h2>
+    <p class="lead"><span class="he">אפליקציית Vite היא SPA: הדפדפן מקבל HTML ריק ובונה הכל ב-JavaScript</span><span class="en">A Vite app is an SPA: the browser gets empty HTML and builds everything in JavaScript</span></p>
+  </div>
+  <div class="cards" style="align-items:start">
+    <div class="card"><span class="k">01</span><h3><span class="he">ניתוב</span><span class="en">Routing</span></h3><p><span class="he">ספרייה חיצונית, הגדרה ידנית של כל route</span><span class="en">An external library, every route defined by hand</span></p></div>
+    <div class="card"><span class="k">02</span><h3><span class="he">נתונים</span><span class="en">Data</span></h3><p><span class="he">useEffect, מצבי טעינה ושגיאה בכל קומפוננטה</span><span class="en">useEffect, loading and error states in every component</span></p></div>
+    <div class="card"><span class="k">03</span><h3><span class="he">שרת</span><span class="en">Server</span></h3><p><span class="he">פרויקט Express נפרד, פריסה נפרדת, CORS</span><span class="en">A separate Express project, a separate deployment, CORS</span></p></div>
+    <div class="card"><span class="k">04</span><h3>SEO</h3><p><span class="he">גוגל מקבל דף ריק, ואין תצוגה מקדימה בשיתוף</span><span class="en">Google gets an empty page, and shared links have no preview</span></p></div>
+    <div class="card"><span class="k">05</span><h3><span class="he">ביצועים</span><span class="en">Performance</span></h3><p><span class="he">תמונות, פונטים ופיצול קוד, הכל ידני</span><span class="en">Images, fonts and code splitting, all by hand</span></p></div>
+  </div>
+</section>
+
+<!-- 5 view source -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">מה הדפדפן (וגוגל) באמת מקבלים</span><span class="en">What the browser (and Google) actually receive</span></h2>
+    <p class="lead"><span class="he">אותו דף, View Source בשתי הגרסאות</span><span class="en">The same page, View Source in both versions</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <p class="code-label orange"><span class="he">React עם Vite: דף ריק עד שה-JS נטען</span><span class="en">React with Vite: an empty page until the JS loads</span></p>
+      <pre class="code grow">&lt;body&gt;
+  <span class="o">&lt;div id="root"&gt;&lt;/div&gt;</span>
+  &lt;script src="/assets/index.js"&gt;
+  &lt;/script&gt;
+&lt;/body&gt;</pre>
+    </div>
+    <div class="stack">
+      <p class="code-label blue"><span class="he">Next.js: התוכן כבר בתוך ה-HTML</span><span class="en">Next.js: the content is already in the HTML</span></p>
+      <pre class="code grow">&lt;body&gt;
+  <span class="b">&lt;h1&gt;Shakshuka&lt;/h1&gt;</span>
+  <span class="b">&lt;p&gt;Eggs, tomatoes...&lt;/p&gt;</span>
+  <span class="b">&lt;ul&gt;&lt;li&gt;4 eggs&lt;/li&gt;...</span>
+  &lt;script src="/_next/..."&gt;
+&lt;/body&gt;</pre>
+    </div>
+  </div>
+</section>
+
+<!-- 6 what Next adds -->
+<section class="slide">
+  <h2><span class="he">מה Next.js מוסיף על React</span><span class="en">What Next.js adds on top of React</span></h2>
+  <table>
+    <tr><th style="width:24%"><span class="he">תחום</span><span class="en">Area</span></th><th style="width:34%" class="t-soft">React (Vite)</th><th class="t-blue">Next.js</th></tr>
+    <tr><td><span class="he">ניתוב</span><span class="en">Routing</span></td><td class="t-soft">React Router</td><td><span class="he">תיקייה = route</span><span class="en">Folder = route</span></td></tr>
+    <tr><td><span class="he">איפה הקוד רץ</span><span class="en">Where code runs</span></td><td class="t-soft"><span class="he">רק בדפדפן</span><span class="en">Browser only</span></td><td><span class="he">בשרת כברירת מחדל</span><span class="en">On the server by default</span></td></tr>
+    <tr><td><span class="he">הבאת נתונים</span><span class="en">Data fetching</span></td><td class="t-soft"><code>useEffect + fetch</code></td><td><span class="he"><code>await</code> ישירות בקומפוננטה</span><span class="en"><code>await</code> directly in the component</span></td></tr>
+    <tr><td>Backend</td><td class="t-soft"><span class="he">שרת Express נפרד</span><span class="en">A separate Express server</span></td><td>Server Actions, Route Handlers</td></tr>
+    <tr><td><span class="he">SEO וביצועים</span><span class="en">SEO and performance</span></td><td class="t-soft"><span class="he">ידני או ספריות</span><span class="en">Manual, or libraries</span></td><td><code>metadata</code>, <code>next/image</code>, <code>next/font</code></td></tr>
+    <tr><td><span class="he">טעינה ושגיאות</span><span class="en">Loading and errors</span></td><td class="t-soft"><span class="he">ידני בכל קומפוננטה</span><span class="en">Manual in every component</span></td><td><code>loading.tsx</code>, <code>error.tsx</code></td></tr>
+  </table>
+</section>
+
+<!-- 7 why -->
+<section class="slide">
+  <h2><span class="he">למה כולם משתמשים בו</span><span class="en">Why everyone uses it</span></h2>
+  <div class="grid2 grow">
+    <div class="card"><h3 class="t-blue"><span class="he">מהיר ומדורג</span><span class="en">Fast and searchable</span></h3><p><span class="he">HTML מלא מהשרת: הצגה מיידית ו-SEO טוב</span><span class="en">Full HTML from the server: instant display and good SEO</span></p></div>
+    <div class="card"><h3 class="t-blue"><span class="he">Full-stack בפרויקט אחד</span><span class="en">Full-stack in one project</span></h3><p><span class="he">UI, API ומסד נתונים באותו repo ובאותה שפה</span><span class="en">UI, API and database in the same repo and the same language</span></p></div>
+    <div class="card"><h3 class="t-blue"><span class="he">פחות JavaScript בדפדפן</span><span class="en">Less JavaScript in the browser</span></h3><p><span class="he">קוד שרץ בשרת לא נשלח למשתמש בכלל</span><span class="en">Code that runs on the server is never sent to the user</span></p></div>
+    <div class="card"><h3 class="t-blue"><span class="he">סטנדרט בשוק</span><span class="en">An industry standard</span></h3><p><span class="he">React ממליצה על framework, ורוב משרות ה-React מבקשות Next</span><span class="en">React recommends using a framework, and most React jobs ask for Next</span></p></div>
+  </div>
+</section>
+
+<!-- 8 the question -->
+<section class="slide navy center" style="gap:44px">
+  <p class="eyebrow"><span class="he">השאלה החדשה של הקורס</span><span class="en">THE NEW QUESTION OF THIS COURSE</span></p>
+  <h1 style="font-size:104px"><span class="he">הקוד הזה רץ בשרת או בדפדפן?</span><span class="en">Does this code run on the server or in the browser?</span></h1>
+  <p class="lead"><span class="he">ב-React התשובה תמיד הייתה דפדפן. ב-Next צריך לשאול אותה על כל קומפוננטה</span><span class="en">In React the answer was always “the browser”. In Next you ask it about every component</span></p>
+</section>
+
+<!-- 9 server vs client -->
+<section class="slide">
+  <h2><span class="he">שני סוגי קומפוננטות</span><span class="en">Two kinds of components</span></h2>
+  <div class="cols2" style="align-items:start">
+    <div class="card blue">
+      <h3>Server Component</h3>
+      <p style="color:var(--blue-ink)"><span class="he">ברירת המחדל, בלי שום הצהרה</span><span class="en">The default, no declaration needed</span></p>
+      <div class="items">
+        <p><span class="he"><code>async</code> ו-<code>await</code> ישירות בקומפוננטה</span><span class="en"><code>async</code> and <code>await</code> directly in the component</span></p>
+        <p><span class="he">גישה למסד נתונים ולמפתחות סודיים</span><span class="en">Access to the database and secret keys</span></p>
+        <p><span class="he">הקוד שלה לא נשלח לדפדפן</span><span class="en">Its code is never sent to the browser</span></p>
+        <p><span class="he">אין <code>useState</code> ואין <code>onClick</code></span><span class="en">No <code>useState</code> and no <code>onClick</code></span></p>
+      </div>
+    </div>
+    <div class="card orange">
+      <h3>Client Component</h3>
+      <p style="color:var(--orange-ink)"><span class="he">מתחילה בשורה <code>"use client"</code></span><span class="en">Starts with the line <code>"use client"</code></span></p>
+      <div class="items">
+        <p><code>useState</code>, <code>useEffect</code>, <code>onClick</code></p>
+        <p><span class="he">גישה ל-<code>window</code> ול-<code>localStorage</code></span><span class="en">Access to <code>window</code> and <code>localStorage</code></span></p>
+        <p><span class="he">נשלחת לדפדפן ועוברת hydration</span><span class="en">Sent to the browser and hydrated</span></p>
+        <p><span class="he">זה React שאתם כבר מכירים</span><span class="en">This is the React you already know</span></p>
+      </div>
+    </div>
+  </div>
+  <p class="rule"><span class="he">הכלל: מתחילים בשרת, ויורדים ל-Client רק בעלים שצריכים אינטראקציה</span><span class="en">The rule: start on the server, and drop down to Client only in the leaves that need interaction</span></p>
+</section>
+
+<!-- 10 before / after -->
+<section class="slide">
+  <h2><span class="he">אותה רשימת מתכונים, לפני ואחרי</span><span class="en">The same recipe list, before and after</span></h2>
+  <div class="cols2 grow">
+    <div class="stack">
+      <p class="code-label orange"><span class="he">React: שלושה states ו-useEffect</span><span class="en">React: state and useEffect</span></p>
+      <pre class="code grow">function Recipes() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() =&gt; {
+    fetch("/api/recipes")
+      .then((r) =&gt; r.json())
+      .then((d) =&gt; {
+        setData(d);
+        setLoading(false);
+      });
+  }, []);
+  if (loading) return &lt;Spinner /&gt;;
+  return &lt;List items={data} /&gt;;
+}</pre>
+    </div>
+    <div class="stack">
+      <p class="code-label blue"><span class="he">Next: קומפוננטת שרת async</span><span class="en">Next: an async server component</span></p>
+      <pre class="code grow"><span class="cm">// app/recipes/page.tsx</span>
+export default async function Page() {
+  <span class="b">const recipes = await db.recipe.findMany();</span>
+  return &lt;List items={recipes} /&gt;;
+}
+
+<span class="cm">// app/recipes/loading.tsx</span>
+export default function Loading() {
+  return &lt;Spinner /&gt;;
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- 11 routing -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">ניתוב לפי תיקיות: תיקייה היא כתובת</span><span class="en">Folder-based routing: a folder is a URL</span></h2>
+    <p class="lead"><span class="he">אין קובץ הגדרות routes. מבנה התיקיות בתוך <code>app</code> הוא הניתוב</span><span class="en">There’s no routes config file. The folder structure inside <code>app</code> is the routing</span></p>
+  </div>
+  <div class="cols-wide grow">
+    <div class="defs">
+      <div><span class="t">page.tsx</span><span class="d"><span class="he">הדף עצמו. בלעדיו לתיקייה אין כתובת</span><span class="en">The page itself. Without it the folder has no URL</span></span></div>
+      <div><span class="t">layout.tsx</span><span class="d"><span class="he">מעטפת משותפת שנשארת במקום בזמן ניווט</span><span class="en">A shared shell that stays in place while navigating</span></span></div>
+      <div><span class="t">[slug]</span><span class="d"><span class="he">חלק דינמי בכתובת, מגיע ל-<code>params</code></span><span class="en">A dynamic URL segment, available in <code>params</code></span></span></div>
+      <div><span class="t">&lt;Link&gt;</span><span class="d"><span class="he">במקום תגית a: ניווט בלי רענון ועם prefetch</span><span class="en">Instead of an a tag: navigation without a reload, with prefetching</span></span></div>
+    </div>
+    <pre class="code" style="font-size:21px">app/
+├── layout.tsx
+├── page.tsx                <span class="b">→ /</span>
+├── about/
+│   └── page.tsx            <span class="b">→ /about</span>
+└── recipes/
+    ├── page.tsx            <span class="b">→ /recipes</span>
+    └── [slug]/
+        └── page.tsx        <span class="b">→ /recipes/shakshuka</span></pre>
+  </div>
+</section>
+
+<!-- 12 demo -->
+<section class="slide dark">
+  <h2><span class="he">הדגמה חיה: הפרויקט הראשון</span><span class="en">Live demo: the first project</span></h2>
+  <div class="cols-wide grow" style="align-items:stretch">
+    <div class="list compact">
+      <div><span class="n">1</span><span><span class="he">ליצור פרויקט עם ברירות המחדל: TypeScript, Tailwind, App Router</span><span class="en">Create a project with the defaults: TypeScript, Tailwind, App Router</span></span></div>
+      <div><span class="n">2</span><span><span class="he">לסייר בתיקיות: <code>app</code>, <code>public</code>, <code>next.config.ts</code></span><span class="en">Tour the folders: <code>app</code>, <code>public</code>, <code>next.config.ts</code></span></span></div>
+      <div><span class="n">3</span><span><span class="he">לשנות את <code>page.tsx</code> ולראות את Fast Refresh</span><span class="en">Edit <code>page.tsx</code> and watch Fast Refresh</span></span></div>
+      <div><span class="n">4</span><span><span class="he">להוסיף את דף about וניווט עם Link ב-layout</span><span class="en">Add an about page and Link navigation in the layout</span></span></div>
+      <div><span class="n">5</span><span><span class="he">לפתוח View Source ולראות HTML מלא</span><span class="en">Open View Source and see full HTML</span></span></div>
+    </div>
+    <pre class="code" style="font-size:22px;border:1px solid #2E3747"><span class="cm">$</span> npx create-next-app@latest recipes
+<span class="cm">$</span> cd recipes
+<span class="cm">$</span> npm run dev
+
+<span class="b">▲ Next.js 16</span>
+<span class="cm">- Local: http://localhost:3000</span></pre>
+  </div>
+</section>
+
+<!-- 13 course map -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">מפת הקורס: 12 מפגשים, פרויקט אחד שגדל</span><span class="en">Course map: 12 sessions, one growing project</span></h2>
+    <p class="lead"><span class="he">כל מפגש מוסיף שכבה לאותה אפליקציית מתכונים</span><span class="en">Each session adds a layer to the same recipe app</span></p>
+  </div>
+  <div class="tiles grow">
+    <div class="tile now"><span class="n">01</span><p><span class="he">מ-React ל-Next</span><span class="en">From React to Next</span></p></div>
+    <div class="tile"><span class="n">02</span><p><span class="he">ניתוב מתקדם</span><span class="en">Advanced routing</span></p></div>
+    <div class="tile"><span class="n">03</span><p><span class="he">שרת מול לקוח</span><span class="en">Server vs. client</span></p></div>
+    <div class="tile"><span class="n">04</span><p><span class="he">הבאת נתונים</span><span class="en">Data fetching</span></p></div>
+    <div class="tile"><span class="n">05</span><p><span class="he">רינדור ו-Cache</span><span class="en">Rendering and cache</span></p></div>
+    <div class="tile"><span class="n">06</span><p><span class="he">Server Actions וטפסים</span><span class="en">Server Actions and forms</span></p></div>
+    <div class="tile"><span class="n">07</span><p><span class="he">מסד נתונים</span><span class="en">Database</span></p></div>
+    <div class="tile"><span class="n">08</span><p><span class="he">API ו-proxy</span><span class="en">API and proxy</span></p></div>
+    <div class="tile"><span class="n">09</span><p><span class="he">אימות והרשאות</span><span class="en">Auth and permissions</span></p></div>
+    <div class="tile"><span class="n">10</span><p><span class="he">עיצוב ו-SEO</span><span class="en">Styling and SEO</span></p></div>
+    <div class="tile"><span class="n">11</span><p><span class="he">ביצועים ופריסה</span><span class="en">Performance and deployment</span></p></div>
+    <div class="tile last"><span class="n">12</span><p><span class="he">מתקדם והצגות גמר</span><span class="en">Advanced topics and final presentations</span></p></div>
+  </div>
+</section>
+
+<!-- 14 homework -->
+<section class="slide">
+  <h2><span class="he">תרגיל בית: להמיר אפליקציה ל-Next</span><span class="en">Homework: convert an app to Next</span></h2>
+  <div class="grid2 grow" style="grid-template-columns:1.5fr 1fr">
+    <div class="card">
+      <h3><span class="he">קחו אפליקציית React שבניתם, עם לפחות 3 דפים</span><span class="en">Take a React app you built, with at least 3 pages</span></h3>
+      <div class="items">
+        <p><span class="he">ניתוב לפי תיקיות במקום React Router</span><span class="en">Folder-based routing instead of React Router</span></p>
+        <p><span class="he">layout משותף עם תפריט ניווט ב-Link</span><span class="en">A shared layout with a Link navigation menu</span></p>
+        <p><span class="he">לפחות דף דינמי אחד, למשל <code>[id]</code></span><span class="en">At least one dynamic page, for example <code>[id]</code></span></p>
+        <p><span class="he">הערה ליד כל קומפוננטה: שרת או לקוח, ולמה</span><span class="en">A comment next to every component: server or client, and why</span></p>
+      </div>
+    </div>
+    <div class="card navy" style="justify-content:space-between">
+      <div class="stack">
+        <p class="eyebrow"><span class="he">בשיעור הבא</span><span class="en">NEXT SESSION</span></p>
+        <h3 style="font-size:40px"><span class="he">ניתוב מתקדם</span><span class="en">Advanced routing</span></h3>
+        <p><span class="he">layouts מקוננים, קבוצות routes, ודפי טעינה, שגיאה ו-404</span><span class="en">Nested layouts, route groups, and loading, error and 404 pages</span></p>
+      </div>
+      <p><span class="he">הגשה: קישור ל-GitHub לפני המפגש</span><span class="en">Submit: a GitHub link before the session</span></p>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<div class="progress" aria-hidden="true"><i></i></div>
+<nav class="controls" aria-label="Slide controls">
+  <div class="ctl">
+    <button id="prev" type="button"></button>
+    <span id="counter" aria-live="polite"></span>
+    <button id="next" type="button"></button>
+  </div>
+  <div class="ctl">
+    <button id="lang" type="button"></button>
+    <button id="fs" type="button" aria-label="Fullscreen">⛶</button>
+  </div>
+</nav>
+<script>
+(() => {
+  const root = document.documentElement;
+  const stage = document.querySelector('.stage');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const bar = document.querySelector('.progress i');
+  const counter = document.getElementById('counter');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const langBtn = document.getElementById('lang');
+  const fsBtn = document.getElementById('fs');
+  const KEY = 'deck-lang';
+  let index = 0;
+
+  const store = {
+    get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } },
+    set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  };
+
+  function syncUrl() {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', root.lang);
+      url.hash = String(index + 1);
+      history.replaceState(null, '', url);
+    } catch (e) {}
+  }
+
+  function setLang(lang) {
+    const he = lang === 'he';
+    root.lang = he ? 'he' : 'en';
+    root.dir = he ? 'rtl' : 'ltr';
+    document.title = document.body.dataset[he ? 'titleHe' : 'titleEn'] || document.title;
+    langBtn.textContent = he ? 'English' : 'עברית';
+    langBtn.setAttribute('aria-label', he ? 'Switch to English' : 'עבור לעברית');
+    prevBtn.textContent = he ? '→' : '←';
+    nextBtn.textContent = he ? '←' : '→';
+    prevBtn.setAttribute('aria-label', he ? 'השקף הקודם' : 'Previous slide');
+    nextBtn.setAttribute('aria-label', he ? 'השקף הבא' : 'Next slide');
+    store.set(root.lang);
+    syncUrl();
+  }
+
+  function show(n) {
+    index = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => {
+      s.classList.toggle('active', k === index);
+      s.setAttribute('aria-hidden', k === index ? 'false' : 'true');
+    });
+    counter.textContent = (index + 1) + ' / ' + slides.length;
+    bar.style.width = ((index + 1) / slides.length * 100) + '%';
+    syncUrl();
+  }
+
+  function fit() {
+    const w = window.innerWidth;
+    const h = window.innerHeight - 59;
+    const s = Math.min(w / 1600, h / 900) * 0.97;
+    stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+
+  const forwardKey = () => (root.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight');
+  const backKey = () => (root.dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft');
+
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === forwardKey() || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter') { e.preventDefault(); show(index + 1); }
+    else if (e.key === backKey() || e.key === 'PageUp' || e.key === 'Backspace') { e.preventDefault(); show(index - 1); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+    else if (e.key === 'l' || e.key === 'L') setLang(root.lang === 'he' ? 'en' : 'he');
+    else if (e.key === 'f' || e.key === 'F') toggleFs();
+  });
+
+  let touchX = null;
+  document.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) < 50) return;
+    const forward = root.dir === 'rtl' ? dx > 0 : dx < 0;
+    show(index + (forward ? 1 : -1));
+  });
+
+  function toggleFs() {
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    } catch (e) {}
+  }
+
+  prevBtn.addEventListener('click', () => show(index - 1));
+  nextBtn.addEventListener('click', () => show(index + 1));
+  langBtn.addEventListener('click', () => setLang(root.lang === 'he' ? 'en' : 'he'));
+  fsBtn.addEventListener('click', toggleFs);
+  window.addEventListener('resize', fit);
+  window.addEventListener('hashchange', () => {
+    const n = parseInt((window.location.hash || '').slice(1), 10);
+    if (Number.isFinite(n) && n - 1 !== index) show(n - 1);
+  });
+
+  let startLang = 'he';
+  try {
+    const p = new URLSearchParams(window.location.search).get('lang');
+    if (p === 'he' || p === 'en') startLang = p;
+    else if (store.get() === 'en') startLang = 'en';
+  } catch (e) {}
+  const startSlide = parseInt((window.location.hash || '').slice(1), 10);
+
+  fit();
+  index = Number.isFinite(startSlide) ? startSlide - 1 : 0;
+  setLang(startLang);
+  show(index);
+})();
+</script>
+</body>
+</html>

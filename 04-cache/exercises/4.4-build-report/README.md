@@ -18,13 +18,12 @@
 - בדוח מופיע כל נתיב מפלט ה-build, עם הסימון שלו והסיבה.
 - לנתיב שתוקן יש פלט build לפני ואחרי, ואחרי התיקון הוא כבר לא דינמי.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`04-cache/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-4.4
-cd ex-4.4
-npm install
+npx create-next-app@latest ex-4-4-build-report
+cd ex-4-4-build-report
 npm run dev
 ```

@@ -4,11 +4,11 @@
 
 ## המשימה
 
-> להפעיל `cacheComponents: true`. רכיב עם `"use cache"` שמציג את שעת היצירה, ורכיב בלי. לרענן ולתעד מה משתנה ומה לא
+> לבדוק ב-`next.config.ts` שמופעל `cacheComponents: true`. רכיב עם `"use cache"` שמציג את שעת היצירה, ורכיב בלי. לרענן ולתעד מה משתנה ומה לא
 
 ### רשימת דרישות
 
-- [ ] להפעיל `cacheComponents: true`
+- [ ] לבדוק ב-`next.config.ts` שמופעל `cacheComponents: true`
 - [ ] רכיב עם `"use cache"` שמציג את שעת היצירה
 - [ ] ורכיב בלי
 - [ ] לרענן ולתעד מה משתנה ומה לא
@@ -19,13 +19,12 @@
 - אחרי `npm run build && npm start`, רענון הדף משאיר את השעה ברכיב עם `"use cache"`, ומשנה את השעה ברכיב בלי.
 - התיעוד מתאר מה השתנה בכל רענון ומה לא.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`04-cache/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-4.1
-cd ex-4.1
-npm install
+npx create-next-app@latest ex-4-1-see-the-cache
+cd ex-4-1-see-the-cache
 npm run dev
 ```

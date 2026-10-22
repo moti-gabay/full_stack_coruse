@@ -4,12 +4,12 @@
 
 ## המשימה
 
-> דף חדשות עם `cacheLife("minutes")` ו-`cacheTag("news")`. כפתור admin שמפעיל Server Action עם `revalidateTag("news")` ומרענן מיד
+> דף חדשות עם `cacheLife("minutes")` ו-`cacheTag("news")`. כפתור admin שמפעיל Server Action עם `updateTag("news")` ומרענן מיד
 
 ### רשימת דרישות
 
 - [ ] דף חדשות עם `cacheLife("minutes")` ו-`cacheTag("news")`
-- [ ] כפתור admin שמפעיל Server Action עם `revalidateTag("news")`
+- [ ] כפתור admin שמפעיל Server Action עם `updateTag("news")`
 - [ ] ומרענן מיד
 
 ## איך בודקים שזה עובד
@@ -17,13 +17,12 @@
 - במצב production (`npm run build && npm start`), רענונים בתוך אותה דקה מציגים את אותם נתונים.
 - לחיצה על כפתור ה-admin מציגה נתונים חדשים מיד, בלי לחכות שהזמן יפוג.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`04-cache/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-4.2
-cd ex-4.2
-npm install
+npx create-next-app@latest ex-4-2-updating-news
+cd ex-4-2-updating-news
 npm run dev
 ```

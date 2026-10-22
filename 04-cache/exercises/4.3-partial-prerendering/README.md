@@ -18,13 +18,12 @@
 - ב-View Source פרטי המוצר נמצאים ב-HTML, ובמקום "צפית לאחרונה" מופיע ה-fallback של ה-Suspense.
 - "צפית לאחרונה" משתנה לפי ה-cookie.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`04-cache/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-4.3
-cd ex-4.3
-npm install
+npx create-next-app@latest ex-4-3-partial-prerendering
+cd ex-4-3-partial-prerendering
 npm run dev
 ```

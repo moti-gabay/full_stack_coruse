@@ -18,13 +18,12 @@
 - מעבר בין דפים בתפריט לא טוען את כל הדף מחדש (בלשונית Network אין בקשת document חדשה).
 - הקישור של הדף הנוכחי מודגש, וההדגשה עוברת כשמנווטים.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`01-routing/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-1.1
-cd ex-1.1
-npm install
+npx create-next-app@latest ex-1-1-pages-and-nav
+cd ex-1-1-pages-and-nav
 npm run dev
 ```

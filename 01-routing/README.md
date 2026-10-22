@@ -19,11 +19,4 @@
 
 ## איך עובדים
 
-בתיקייה [`starter/`](starter/) יש פרויקט Next.js נקי (create-next-app: TypeScript, Tailwind CSS, App Router). לכל תרגיל העתיקו אותו לתיקייה חדשה:
-
-```bash
-cp -r starter ex-1
-cd ex-1
-npm install
-npm run dev
-```
+ה-branch הזה הוא חומר קריאה בלבד: הוראות, דרישות ובדיקות, בלי קוד. את התרגילים כותבים בתיקייה משלכם, מחוץ ל-repo. לכל תרגיל יוצרים פרויקט חדש עם `npx create-next-app@latest` וברירות המחדל המומלצות. הפרטים בסעיף "איפה מתחילים" של כל תרגיל.

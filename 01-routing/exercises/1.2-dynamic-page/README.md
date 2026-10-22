@@ -18,13 +18,12 @@
 - `/recipes/nope` מציג דף 404.
 - אין אזהרות על גישה ל-`params` בלי `await` בטרמינל או בקונסול.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`01-routing/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-1.2
-cd ex-1.2
-npm install
+npx create-next-app@latest ex-1-2-dynamic-page
+cd ex-1-2-dynamic-page
 npm run dev
 ```

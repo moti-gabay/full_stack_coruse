@@ -20,13 +20,12 @@
 - כפתור Back בדפדפן סוגר את ה-modal.
 - בפלט של `npm run build`, הנתיב `/photo/[id]` נבנה מראש לכל התמונות.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`01-routing/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-1.4
-cd ex-1.4
-npm install
+npx create-next-app@latest ex-1-4-modal-gallery
+cd ex-1-4-modal-gallery
 npm run dev
 ```

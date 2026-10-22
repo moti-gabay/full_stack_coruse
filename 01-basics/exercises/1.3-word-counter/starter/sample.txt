@@ -1,0 +1,5 @@
+Node.js runs JavaScript outside the browser.
+Node.js uses one thread and an event loop.
+The event loop lets Node.js handle many requests.
+Files, network and databases run in the background.
+The code keeps running while Node.js waits.

@@ -1,0 +1,9 @@
+{
+  "name": "ex-1.1-hello-node",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch hello.js"
+  }
+}

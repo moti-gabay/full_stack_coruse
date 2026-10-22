@@ -14,22 +14,20 @@
 
 ## איך בודקים שזה עובד
 
-- `npm run dev` מתחבר בהצלחה ומדפיס את כל הספרים באוסף.
+- הרצת הסקריפט מתחברת בהצלחה ומדפיסה את כל הספרים באוסף.
 - ב-Compass או ב-Atlas רואים אוסף `books` עם הספרים שנוספו.
 - כתובת המסד מגיעה מ-`.env` ולא כתובה בקוד.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `.env.example`
-- `index.js`
-- `models/Book.js`
-- `package.json`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+mkdir ex-4-1-first-connection
+cd ex-4-1-first-connection
+npm init -y
+npm pkg set type=module
+npm install mongoose
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch index.js`.

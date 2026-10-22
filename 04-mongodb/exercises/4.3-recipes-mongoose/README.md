@@ -1,5 +1,7 @@
 # תרגיל 4.3 · API מתכונים עם Mongoose
 
+**בונה על:** תרגיל 2.3 (API מתכונים בזיכרון). ממשיכים באותו פרויקט.
+
 **רמה:** בינוני · **זמן משוער:** 90 דק'
 
 ## המשימה
@@ -23,22 +25,14 @@
 - למתכון שנוצר יש `createdAt` ו-`updatedAt`.
 - `GET /api/recipes/abc` (מזהה לא תקין) מחזיר 400 ולא 500.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
+ממשיכים באותו פרויקט של תרגיל 2.3, מחוץ ל-repo הזה. אם אתם רוצים לשמור את הגרסה הקודמת, העתיקו את התיקייה לפני שמתחילים.
 
-- `.env.example`
-- `db.js`
-- `middleware/errorHandler.js`
-- `models/Recipe.js`
-- `package.json`
-- `requests.http`
-- `routes/recipes.js`
-- `server.js`
+חבילות נוספות לתרגיל הזה:
 
 ```bash
-cd starter
-npm install
-cp .env.example .env   # ומלאו את הערכים
-npm run dev
+npm install mongoose
 ```
+
+סודות והגדרות (פורט, כתובת המסד, מפתחות) נכנסים לקובץ `.env` מחוץ ל-Git, ולצידו `.env.example` בלי ערכים אמיתיים. מריצים עם `node --env-file=.env --watch server.js`.

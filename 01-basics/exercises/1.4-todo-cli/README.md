@@ -23,18 +23,15 @@
 - `remove 1` מוחק את המשימה, והיא לא מופיעה ב-`list`.
 - המשימות נשמרות ב-`tasks.json` ונשארות גם בהרצה הבאה.
 - `node todo.js foo` מציג עזרה.
-- `npm test` עובר, ויש בדיקה לכל אחת מהפקודות.
+- `node --test` עובר, ויש בדיקה לכל אחת מהפקודות.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `package.json`
-- `test/todo.test.js`
-- `todo.js`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-npm run dev
+mkdir ex-1-4-todo-cli
+cd ex-1-4-todo-cli
+npm init -y
+npm pkg set type=module
 ```

@@ -18,16 +18,13 @@
 - `average([])` מחזיר 0 (ולא `NaN`).
 - הייבוא והייצוא כתובים ב-`import`/`export`, בלי `require`.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `app.js`
-- `math.js`
-- `package.json`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-npm run dev
+mkdir ex-1-2-my-module
+cd ex-1-2-my-module
+npm init -y
+npm pkg set type=module
 ```

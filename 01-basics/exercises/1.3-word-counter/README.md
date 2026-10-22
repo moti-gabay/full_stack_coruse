@@ -16,20 +16,17 @@
 
 ## איך בודקים שזה עובד
 
-- הרצה על `sample.txt` יוצרת `report.json` עם מספר השורות, מספר המילים ו-5 המילים הנפוצות.
+- הרצה על קובץ טקסט לדוגמה יוצרת `report.json` עם מספר השורות, מספר המילים ו-5 המילים הנפוצות.
 - על קובץ קצר שספרתם ידנית, המספרים ב-`report.json` תואמים.
 - הרצה על קובץ שלא קיים מדפיסה הודעת שגיאה ברורה, בלי stack trace.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `counter.js`
-- `package.json`
-- `sample.txt`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-npm run dev
+mkdir ex-1-3-word-counter
+cd ex-1-3-word-counter
+npm init -y
+npm pkg set type=module
 ```

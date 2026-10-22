@@ -19,15 +19,13 @@
 - `node hello.js דנה` מדפיס את גרסת Node, את מערכת ההפעלה, את התאריך וברכה אישית עם השם דנה.
 - `node hello.js` (בלי שם) מדפיס הוראות שימוש במקום ברכה.
 
-## קבצי התחלה
+## איפה מתחילים
 
-בתיקייה [`starter/`](starter/) יש קבצים ריקים עם הערות `// TODO` שמתארות מה לממש:
-
-- `hello.js`
-- `package.json`
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה:
 
 ```bash
-cd starter
-npm install
-npm run dev
+mkdir ex-1-1-hello-node
+cd ex-1-1-hello-node
+npm init -y
+npm pkg set type=module
 ```

@@ -613,91 +613,23 @@ docker run -d -p 27017:27017 mongo
   </div>
 </section>
 
-<!-- 18 ex 1-2 -->
+<!-- 18 exercises pointer -->
 <section class="slide">
-  <h2><span class="he">תרגילים 1 ו-2: השרת הראשון</span><span class="en">Exercises 1 and 2: the first server</span></h2>
-  <div class="cols2 grow" style="align-items:start">
-    <div class="card">
-      <span class="badge blue"><span class="he">תרגיל 1 · קל · 30 דקות</span><span class="en">Exercise 1 · Easy · 30 min</span></span>
-      <h3><span class="he">שרת Express ראשון</span><span class="en">A first Express server</span></h3>
-      <div class="items">
-        <p><span class="he">שרת Express שהפורט שלו מגיע מ-<code>.env</code></span><span class="en">An Express server whose port comes from <code>.env</code></span></p>
-        <p><span class="he"><code>GET /</code> מחזיר הודעה ואת השעה הנוכחית</span><span class="en"><code>GET /</code> returns a message and the current time</span></p>
-        <p><span class="he"><code>GET /health</code> מחזיר <code>status: ok</code></span><span class="en"><code>GET /health</code> returns <code>status: ok</code></span></p>
-        <p><span class="he">כל נתיב אחר מחזיר 404 ב-JSON</span><span class="en">Any other route returns 404 as JSON</span></p>
-        <p class="note"><span class="he">בדיקה: דפדפן ו-curl, השרת עולה עם <code>node --watch</code></span><span class="en">Check: browser and curl, the server runs with <code>node --watch</code></span></p>
-      </div>
-    </div>
-    <div class="card">
-      <span class="badge blue"><span class="he">תרגיל 2 · בינוני · 60 דקות</span><span class="en">Exercise 2 · Medium · 60 min</span></span>
-      <h3><span class="he">API ספרים בזיכרון</span><span class="en">An in-memory books API</span></h3>
-      <div class="items">
-        <p><span class="he">מערך books עם id, title, author, year</span><span class="en">A books array with id, title, author, year</span></p>
-        <p><span class="he">כל חמשת נתיבי ה-REST מטבלת <code>/books</code></span><span class="en">All five REST routes from the <code>/books</code> table</span></p>
-        <p><span class="he">POST בלי title או author מחזיר 400</span><span class="en">A POST without title or author returns 400</span></p>
-        <p><span class="he">id שלא קיים מחזיר 404, מחיקה מחזירה 204</span><span class="en">A missing id returns 404, delete returns 204</span></p>
-        <p class="note"><span class="he">בדיקה: קובץ <code>requests.http</code> עם בקשה לכל נתיב</span><span class="en">Check: a <code>requests.http</code> file with a request per route</span></p>
-      </div>
-    </div>
+  <div class="head">
+    <h2><span class="he">התרגילים: כל נושא ב-branch משלו</span><span class="en">Exercises: each topic in its own branch</span></h2>
+    <p class="lead"><span class="he">בכל branch יש 4 תרגילים, מקל למורכב. עובדים בתיקייה נפרדת משלכם, לא בתוך ה-repo של הקורס</span><span class="en">Each branch has 4 exercises, from easy to complex. Work in your own separate folder, not inside the course repo</span></p>
   </div>
-</section>
-
-<!-- 19 ex 3-4 -->
-<section class="slide">
-  <h2><span class="he">תרגילים 3 ו-4: middleware ו-MongoDB</span><span class="en">Exercises 3 and 4: middleware and MongoDB</span></h2>
-  <div class="cols2 grow" style="align-items:start">
-    <div class="card">
-      <span class="badge blue"><span class="he">תרגיל 3 · בינוני · 45 דקות</span><span class="en">Exercise 3 · Medium · 45 min</span></span>
-      <h3><span class="he">Middleware משלכם</span><span class="en">Your own middleware</span></h3>
-      <div class="items">
-        <p><span class="he">logger: method, כתובת וזמן תגובה במילישניות</span><span class="en">A logger: method, URL and response time in ms</span></p>
-        <p><span class="he">בדיקת header בשם <code>x-api-key</code> בפעולות כתיבה</span><span class="en">Check an <code>x-api-key</code> header on write operations</span></p>
-        <p><span class="he">בלי מפתח תקין: 401 עם הודעה ברורה</span><span class="en">Without a valid key: 401 with a clear message</span></p>
-        <p><span class="he">error handler מרכזי בקובץ נפרד</span><span class="en">A central error handler in its own file</span></p>
-        <p class="note"><span class="he">בדיקה: POST בלי מפתח נחסם, GET עובר</span><span class="en">Check: a POST without a key is blocked, GET still works</span></p>
-      </div>
-    </div>
-    <div class="card green">
-      <span class="badge green"><span class="he">תרגיל 4 · בינוני · 90 דקות</span><span class="en">Exercise 4 · Medium · 90 min</span></span>
-      <h3><span class="he">מעבר ל-MongoDB</span><span class="en">Moving to MongoDB</span></h3>
-      <div class="items">
-        <p><span class="he">חיבור ל-Atlas או Docker דרך <code>MONGODB_URI</code></span><span class="en">Connect to Atlas or Docker via <code>MONGODB_URI</code></span></p>
-        <p><span class="he">מודל Book: title חובה, year מ-1450 ומעלה</span><span class="en">A Book model: title required, year 1450 or later</span></p>
-        <p><span class="he">להחליף את המערך בקריאות Mongoose</span><span class="en">Replace the array with Mongoose calls</span></p>
-        <p><span class="he">ValidationError ו-CastError מחזירים 400</span><span class="en">ValidationError and CastError return 400</span></p>
-        <p class="note"><span class="he">בדיקה: מפעילים מחדש את השרת והספרים נשארים</span><span class="en">Check: restart the server and the books are still there</span></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 20 ex 5-6 -->
-<section class="slide">
-  <h2><span class="he">תרגילים 5 ו-6: שאילתות וקשרים</span><span class="en">Exercises 5 and 6: queries and relations</span></h2>
-  <div class="cols2 grow" style="align-items:start">
-    <div class="card green">
-      <span class="badge green"><span class="he">תרגיל 5 · מתקדם · 60 דקות</span><span class="en">Exercise 5 · Advanced · 60 min</span></span>
-      <h3><span class="he">סינון, מיון ועימוד</span><span class="en">Filtering, sorting and pagination</span></h3>
-      <div class="items">
-        <p><span class="he">סינון לפי author ו-minYear מתוך <code>req.query</code></span><span class="en">Filter by author and minYear from <code>req.query</code></span></p>
-        <p><span class="he">מיון לפי <code>sort=year</code> או <code>sort=-year</code></span><span class="en">Sort by <code>sort=year</code> or <code>sort=-year</code></span></p>
-        <p><span class="he">עימוד עם page ו-limit, בעזרת skip ו-limit</span><span class="en">Pagination with page and limit, using skip and limit</span></p>
-        <p><span class="he">חיפוש חלקי בכותרת עם <code>$regex</code></span><span class="en">Partial title search with <code>$regex</code></span></p>
-        <p class="note"><span class="he">תשובה במבנה: data, page, total</span><span class="en">Response shape: data, page, total</span></p>
-      </div>
-    </div>
-    <div class="card inv">
-      <span class="badge orange"><span class="he">תרגיל 6 · אתגר · בית</span><span class="en">Exercise 6 · Challenge · Homework</span></span>
-      <h3><span class="he">קשרים בין אוספים</span><span class="en">Relations between collections</span></h3>
-      <div class="items">
-        <p><span class="he">מודל Author נפרד עם שם ומדינה</span><span class="en">A separate Author model with name and country</span></p>
-        <p><span class="he">ב-Book: שדה author מסוג ObjectId עם <code>ref</code></span><span class="en">In Book: an author field of type ObjectId with <code>ref</code></span></p>
-        <p><span class="he">רשימת ספרים מחזירה את הסופר עם <code>populate</code></span><span class="en">The book list returns the author with <code>populate</code></span></p>
-        <p><span class="he">נתיב לכל הספרים של סופר אחד</span><span class="en">A route for all books by one author</span></p>
-        <p class="note"><span class="he">בונוס: לחבר את ה-API לממשק Next שבניתם</span><span class="en">Bonus: connect the API to the Next UI you built</span></p>
-      </div>
-    </div>
-  </div>
+  <table>
+    <tr><th style="width:36%">Branch</th><th><span class="he">נושא</span><span class="en">Topic</span></th></tr>
+    <tr><td class="mono t-blue">node/01-basics</td><td><span class="he">יסודות Node.js</span><span class="en">Node.js basics</span></td></tr>
+    <tr><td class="mono t-blue">node/02-express-rest</td><td><span class="he">Express ו-REST</span><span class="en">Express and REST</span></td></tr>
+    <tr><td class="mono t-blue">node/03-middleware</td><td><span class="he">Middleware וטיפול בשגיאות</span><span class="en">Middleware and error handling</span></td></tr>
+    <tr><td class="mono t-green">node/04-mongodb</td><td><span class="he">MongoDB ו-Mongoose</span><span class="en">MongoDB and Mongoose</span></td></tr>
+    <tr><td class="mono t-green">node/05-queries-relations</td><td><span class="he">שאילתות מתקדמות וקשרים</span><span class="en">Advanced queries and relations</span></td></tr>
+    <tr><td class="mono t-green">node/06-auth</td><td><span class="he">אימות והרשאות</span><span class="en">Authentication and authorization</span></td></tr>
+    <tr><td class="mono">node/projects</td><td><span class="he">3 פרויקטים ארוכים</span><span class="en">3 long projects</span></td></tr>
+  </table>
+  <p class="lead" style="font-size:22px"><code>git switch node/02-express-rest</code></p>
 </section>
 
 </div>

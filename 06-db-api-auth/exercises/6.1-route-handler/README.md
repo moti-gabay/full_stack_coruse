@@ -18,13 +18,12 @@
 - `POST /api/recipes` יוצר מתכון, ו-`GET` שאחריו כולל אותו.
 - ב-`requests.http` יש בקשה ל-`GET` ובקשה ל-`POST`, ושתיהן עובדות.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`06-db-api-auth/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-6.1
-cd ex-6.1
-npm install
+npx create-next-app@latest ex-6-1-route-handler
+cd ex-6-1-route-handler
 npm run dev
 ```

@@ -18,13 +18,12 @@
 - cookie של שפה, או header בשם `Accept-Language`, מפנים לשפה המתאימה.
 - בקשות לקבצים סטטיים (`/_next/static`, תמונות, favicon) לא עוברות ב-proxy (בדקו עם לוג בתוך ה-proxy).
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`06-db-api-auth/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-6.3
-cd ex-6.3
-npm install
+npx create-next-app@latest ex-6-3-proxy
+cd ex-6-3-proxy
 npm run dev
 ```

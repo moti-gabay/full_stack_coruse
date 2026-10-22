@@ -22,13 +22,12 @@
 - קריאה ל-action עם מזהה של משאב של משתמש אחר נחסמת בשרת.
 - ההדגמה של ההתקפה מתועדת: מה נשלח ומה חזר.
 
-## קבצי התחלה
+## איפה מתחילים
 
-עובדים בתוך העתק של [`starter/`](../../starter/) של הנושא, פרויקט Next.js נקי. מריצים מתיקיית הנושא (`06-db-api-auth/`):
+עובדים בתיקייה משלכם, מחוץ ל-repo הזה. יוצרים פרויקט Next.js חדש ובוחרים **Yes, use recommended defaults**:
 
 ```bash
-cp -r starter ex-6.4
-cd ex-6.4
-npm install
+npx create-next-app@latest ex-6-4-full-auth
+cd ex-6-4-full-auth
 npm run dev
 ```

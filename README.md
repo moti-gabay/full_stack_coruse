@@ -28,6 +28,7 @@
 | `node/04-mongodb` | חיבור ל-MongoDB, שאילתות ב-mongosh, וסכמות עם Mongoose |
 | `node/05-queries-relations` | סינון, מיון, עימוד, קשרים עם populate ו-aggregation |
 | `node/06-auth` | הרשמה עם bcrypt, ‏JWT, בעלות על משאבים, תפקידים ו-refresh token |
+| `node/07-auth-mongodb` | אימות משתמשים מול MongoDB: הרשמה, התחברות, טוקן ב-cookie ופתקים עם בעלות |
 | `node/projects` | שלושה פרויקטים ארוכים ב-Node: משימות, תורים וצ'אט בזמן אמת |
 
 ### חלק ב׳ — Next.js

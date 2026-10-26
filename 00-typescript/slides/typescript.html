@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400..700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0F16;--dark:#10151F;--light:#F6F4EF;--paper:#FFFDF8;--band:#E9E5DA;
+  --ink:#141A26;--soft:#4A5263;--line:#D9D4C8;--on-dark:#F1EEE6;--muted-dark:#A9B4C6;
+  --blue:#2563C9;--blue-ink:#1E4FA3;--blue-tint:#E6EEFB;--blue-line:#B9CCEE;--blue-light:#7FA6EA;
+  --orange:#C2561A;--orange-ink:#9A4413;--orange-tint:#FBEADF;--orange-line:#EBC3A8;--orange-light:#F0A272;
+  --green:#2F7D4A;--green-ink:#1F5C36;--green-tint:#E2F1E6;--green-line:#B9DCC4;--green-light:#8FD1A3;
+  --red-ink:#B03A2E;--code:#1B2230;--code-ink:#E6E1D6;--code-dim:#8A93A6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);font-family:'Rubik',Arial,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+html[lang=he] .en,html[lang=en] .he{display:none!important}
+
+.viewport{position:fixed;inset:0 0 59px 0;overflow:hidden}
+.stage{position:absolute;top:50%;left:50%;width:1600px;height:900px;transform-origin:center}
+.slide{position:absolute;inset:0;padding:88px 104px;display:none;flex-direction:column;gap:32px;background:var(--light);color:var(--ink);border-radius:6px;overflow:hidden}
+.slide.active{display:flex}
+.slide.dark{background:var(--dark);color:var(--on-dark)}
+.slide.navy{background:#1E3A6E;color:var(--on-dark)}
+.slide.forest{background:#1F4D30;color:var(--on-dark)}
+.center{justify-content:center}
+.between{justify-content:space-between}
+
+h1{font-size:132px;font-weight:700;line-height:1.02;letter-spacing:-1px}
+h2{font-size:54px;font-weight:600;line-height:1.15}
+.statement{font-size:76px;font-weight:600;line-height:1.15}
+.big{font-size:60px;font-weight:500;line-height:1.2}
+.lead{font-size:26px;line-height:1.45;color:var(--soft)}
+.dark .lead{color:var(--muted-dark)}
+.navy .lead{color:#C3D3F0}
+.forest .lead{color:#BFE3C9}
+.eyebrow{font-size:19px;letter-spacing:2px;color:var(--soft);font-weight:500}
+.dark .eyebrow{color:var(--muted-dark)}
+.navy .eyebrow{color:#C3D3F0}
+.forest .eyebrow{color:#BFE3C9}
+.head{display:flex;flex-direction:column;gap:12px}
+.grow{flex:1;min-height:0}
+b,strong{font-weight:600}
+.hl-blue{color:var(--blue-light)} .hl-orange{color:var(--orange-light)} .hl-green{color:var(--green-light)}
+
+code,.mono{font-family:'JetBrains Mono','Courier New',monospace;unicode-bidi:isolate;direction:ltr}
+code{font-size:.9em}
+pre.code{direction:ltr;text-align:left;unicode-bidi:isolate;background:var(--code);color:var(--code-ink);border-radius:16px;padding:28px 32px;font-family:'JetBrains Mono','Courier New',monospace;font-size:19px;line-height:1.6;white-space:pre;overflow:hidden}
+pre.code .cm{color:var(--code-dim)} pre.code .b{color:var(--blue-light)} pre.code .o{color:var(--orange-light)} pre.code .g{color:var(--green-light)}
+.code-label{font-size:22px;font-weight:600}
+.code-label.blue{color:var(--blue-ink)} .code-label.orange{color:var(--orange-ink)} .code-label.green{color:var(--green-ink)}
+.stack{display:flex;flex-direction:column;gap:14px;min-width:0}
+
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.cols-wide{display:grid;grid-template-columns:1fr 1.25fr;gap:32px}
+.cards{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:10px}
+.card h3{font-size:28px;font-weight:600;line-height:1.2}
+.card p{font-size:21px;line-height:1.45;color:var(--soft)}
+.card .k{font-size:15px;font-weight:600;letter-spacing:1.5px;color:var(--blue-ink)}
+.card.blue{background:var(--blue-tint);border:2px solid var(--blue)}
+.card.orange{background:var(--orange-tint);border:2px solid var(--orange)}
+.card.green{background:var(--green-tint);border:2px solid var(--green)}
+.card.soft-blue{background:var(--blue-tint);border:none}
+.card.soft-orange{background:var(--orange-tint);border:none}
+.card.soft-green{background:var(--green-tint);border:none}
+.card.inv{background:var(--dark);border:none;color:var(--on-dark)}
+.card.inv p{color:var(--muted-dark)}
+.card.navy{background:#1E3A6E;border:none;color:var(--on-dark)}
+.card.navy p{color:#C3D3F0}
+.card.blue h3{color:var(--blue-ink)} .card.orange h3{color:var(--orange-ink)} .card.green h3,.card.soft-green h3{color:var(--green-ink)}
+.card .items{display:flex;flex-direction:column}
+.card .items p{color:var(--ink);font-size:21px;padding:11px 0;border-top:1px solid var(--line)}
+.card.blue .items p{border-color:var(--blue-line)} .card.orange .items p{border-color:var(--orange-line)} .card.green .items p{border-color:var(--green-line)}
+.card.inv .items p{color:var(--on-dark);border-color:#2E3747}
+.card .items p.note{color:var(--soft);font-size:19px}
+.card.green .items p.note{color:var(--green-ink)}
+.card.inv .items p.note{color:var(--muted-dark)}
+.badge{font-size:16px;font-weight:600;letter-spacing:.5px}
+.badge.blue{color:var(--blue-ink)} .badge.green{color:var(--green-ink)} .badge.orange{color:var(--orange-light)}
+
+.list{display:flex;flex-direction:column}
+.list>div{display:flex;gap:28px;align-items:center;padding:22px 0;border-top:1px solid var(--line);font-size:30px;line-height:1.3}
+.list>div:last-child{border-bottom:1px solid var(--line)}
+.list .n{font-size:32px;font-weight:600;color:var(--blue);min-width:52px}
+.list .n.green{color:var(--green)} .list .n.ink{color:var(--ink)}
+.dark .list>div{border-color:#2E3747}
+.dark .list .n{color:var(--blue-light)}
+.list.compact>div{font-size:24px;padding:16px 0}
+
+.defs{display:flex;flex-direction:column}
+.defs>div{display:flex;flex-direction:column;gap:6px;padding:16px 0;border-top:1px solid var(--line)}
+.defs>div:last-child{border-bottom:1px solid var(--line)}
+.defs .t{font-family:'JetBrains Mono','Courier New',monospace;font-size:23px;font-weight:600;color:var(--blue-ink);unicode-bidi:isolate}
+.defs .t.green{color:var(--green-ink)} .defs .t.plain{font-family:'Rubik',Arial,sans-serif}
+.defs .t:not(.plain){direction:ltr}
+html[dir=rtl] .defs .t:not(.plain){text-align:right}
+.defs .d{font-size:20px;color:var(--soft);line-height:1.4}
+.defs .d code{white-space:nowrap}
+
+table{border-collapse:collapse;width:100%;font-size:23px}
+th,td{text-align:start;padding:14px 18px;border-bottom:1px solid var(--line);line-height:1.35}
+th{background:var(--band);font-weight:600}
+td.mono,th.mono{font-size:21px}
+html[dir=rtl] td.mono,html[dir=rtl] th.mono{text-align:right}
+.t-blue{color:var(--blue-ink)} .t-green{color:var(--green)} .t-orange{color:var(--orange-ink)} .t-red{color:var(--red-ink)} .t-soft{color:var(--soft)}
+
+.pills{display:flex;gap:14px;flex-wrap:wrap}
+.pill{font-size:20px;padding:8px 20px;border-radius:999px;color:var(--dark);font-weight:500}
+.pill.blue{background:var(--blue-light)} .pill.orange{background:var(--orange-light)} .pill.green{background:var(--green-light)}
+
+.flow{display:flex;align-items:center;gap:14px}
+.flow .step{flex:1;text-align:center;padding:20px 12px;border-radius:14px;background:var(--band);font-size:22px;font-weight:600}
+.flow .step.mid{background:var(--blue-tint);border:2px solid var(--blue);color:var(--blue-ink);font-family:'JetBrains Mono',monospace;font-weight:400;font-size:19px;direction:ltr}
+.flow .arrow{color:var(--code-dim);font-size:28px;flex:none}
+html[dir=rtl] .flow .arrow{transform:scaleX(-1)}
+
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;flex-direction:column;gap:6px}
+.tile .n{font-size:20px;font-weight:600;color:var(--blue-ink)}
+.tile p{font-size:22px}
+.tile.now{background:var(--blue-tint);border-color:transparent}
+.tile.last{background:var(--orange-tint);border-color:transparent}
+.tile.last .n{color:var(--orange-ink)}
+
+.box{border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:8px}
+.box.orange{background:var(--orange-tint)} .box.blue{background:var(--blue-tint)} .box.green{background:var(--green-tint)}
+.box .bt{font-size:22px;font-weight:600}
+.box.orange .bt{color:var(--orange-ink)} .box.blue .bt{color:var(--blue-ink)} .box.green .bt{color:var(--green-ink)}
+.box p{font-size:21px;line-height:1.45}
+.rule{font-size:28px;font-weight:600}
+
+/* controls */
+.progress{position:fixed;left:0;right:0;bottom:56px;height:3px;background:#1B2230}
+.progress i{display:block;height:100%;width:0;background:var(--blue-light);transition:width .2s}
+.controls{position:fixed;left:0;right:0;bottom:0;height:56px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:var(--muted-dark);font-size:15px;gap:12px}
+.ctl{display:flex;align-items:center;gap:10px}
+.controls button{background:#1B2230;color:var(--on-dark);border:1px solid #2E3747;border-radius:8px;height:36px;min-width:40px;padding:0 14px;font:inherit;font-size:15px;cursor:pointer}
+.controls button:hover{background:#252E40}
+.controls button:focus-visible{outline:2px solid var(--blue-light);outline-offset:2px}
+#counter{min-width:64px;text-align:center;font-variant-numeric:tabular-nums;direction:ltr}
+
+@media print{
+  @page{size:1600px 900px;margin:0}
+  html,body{overflow:visible;background:none;height:auto}
+  .controls,.progress{display:none}
+  .viewport{position:static;inset:auto}
+  .stage{position:static;transform:none!important;width:1600px;height:auto}
+  .slide{display:flex!important;position:relative;inset:auto;width:1600px;height:900px;border-radius:0;break-after:page}
+}
+</style>
+</head>
+<body data-title-he="TypeScript ל-React ו-Next.js" data-title-en="TypeScript for React and Next.js">
+<main class="viewport">
+<div class="stage">
+
+<!-- 1 cover -->
+<section class="slide dark between">
+  <p class="eyebrow"><span class="he">קורס Next.js · שיעור TypeScript</span><span class="en">NEXT.JS COURSE · TYPESCRIPT LESSON</span></p>
+  <div class="head" style="gap:24px">
+    <h1>TypeScript</h1>
+    <p class="big"><span class="he">JavaScript עם רשת ביטחון</span><span class="en">JavaScript with a safety net</span></p>
+    <p class="lead"><span class="he">כל מה שצריך כדי לכתוב React ו-Next.js עם טיפוסים, בלי לפחד מהשגיאות האדומות</span><span class="en">Everything you need to write React and Next.js with types, without fearing the red squiggles</span></p>
+  </div>
+  <div class="pills">
+    <span class="pill blue" dir="ltr">.ts</span>
+    <span class="pill orange" dir="ltr">.tsx</span>
+  </div>
+</section>
+
+<!-- 2 agenda -->
+<section class="slide">
+  <h2><span class="he">מה נעשה היום</span><span class="en">Today’s plan</span></h2>
+  <div class="list">
+    <div><span class="n">01</span><span><span class="he">למה TypeScript, ומה הוא בעצם עושה</span><span class="en">Why TypeScript, and what it actually does</span></span></div>
+    <div><span class="n">02</span><span><span class="he">טיפוסים בסיסיים, אובייקטים ו-unions</span><span class="en">Basic types, objects and unions</span></span></div>
+    <div><span class="n">03</span><span><span class="he">צמצום טיפוסים, פונקציות ו-generics</span><span class="en">Narrowing, functions and generics</span></span></div>
+    <div><span class="n">04</span><span><span class="he">TypeScript ב-React וב-Next.js</span><span class="en">TypeScript in React and Next.js</span></span></div>
+    <div><span class="n">05</span><span><span class="he">לקרוא שגיאות, ו-10 תרגילים</span><span class="en">Reading errors, and 10 exercises</span></span></div>
+  </div>
+</section>
+
+<!-- 3 why -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">למה TypeScript: אותו באג, פעמיים</span><span class="en">Why TypeScript: the same bug, twice</span></h2>
+    <p class="lead"><span class="he">מחיר שהגיע מטופס כמחרוזת. JavaScript לא מתלונן, TypeScript עוצר לפני שהקוד רץ</span><span class="en">A price that came from a form as a string. JavaScript doesn’t complain, TypeScript stops it before the code runs</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <p class="code-label orange"><span class="he">JavaScript: הבאג מתגלה אצל המשתמש</span><span class="en">JavaScript: the user finds the bug</span></p>
+      <pre class="code grow">function total(items) {
+  return items.reduce(
+    (sum, i) =&gt; sum + i.price, 0
+  );
+}
+
+total([{ name: "Pen", price: "5" }]);
+<span class="o">// "05"  ← a string, no error</span></pre>
+    </div>
+    <div class="stack">
+      <p class="code-label blue"><span class="he">TypeScript: הבאג מתגלה בעורך</span><span class="en">TypeScript: the editor finds the bug</span></p>
+      <pre class="code grow"><span class="b">type Item = { name: string; price: number };</span>
+
+function total(items: <span class="b">Item[]</span>): <span class="b">number</span> {
+  return items.reduce(
+    (sum, i) =&gt; sum + i.price, 0
+  );
+}
+
+total([{ name: "Pen", price: "5" }]);
+<span class="o">// error: Type 'string' is not
+//   assignable to type 'number'.</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- 4 compile time -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">הטיפוסים קיימים רק בזמן הכתיבה</span><span class="en">Types only exist while you write code</span></h2>
+    <p class="lead"><span class="he">TypeScript בודק את הקוד, ואז מוחק את כל הטיפוסים. מה שרץ בדפדפן וב-Node הוא JavaScript רגיל</span><span class="en">TypeScript checks your code, then deletes every type. What runs in the browser and Node is plain JavaScript</span></p>
+  </div>
+  <div class="flow">
+    <div class="step"><span class="he">כותבים</span><span class="en">You write</span> <code>.ts / .tsx</code></div><span class="arrow">➜</span>
+    <div class="step mid">TypeScript checks</div><span class="arrow">➜</span>
+    <div class="step mid">types erased</div><span class="arrow">➜</span>
+    <div class="step"><span class="he">רץ</span><span class="en">Runs as</span> <code>.js</code></div>
+  </div>
+  <div class="cols2">
+    <div class="box blue">
+      <span class="bt"><span class="he">מה TypeScript נותן</span><span class="en">What TypeScript gives you</span></span>
+      <p><span class="he">שגיאות לפני שהקוד רץ, השלמה אוטומטית, ושינוי שמות בטוח בכל הפרויקט</span><span class="en">Errors before the code runs, autocomplete, and safe renaming across the project</span></p>
+    </div>
+    <div class="box orange">
+      <span class="bt"><span class="he">מה הוא לא נותן</span><span class="en">What it doesn’t give you</span></span>
+      <p><span class="he">בדיקה בזמן ריצה. נתונים מ-API, מטופס או מ-<code>JSON.parse</code> לא נבדקים. בשביל זה יש ולידציה, למשל Zod</span><span class="en">Runtime checks. Data from an API, a form or <code>JSON.parse</code> isn’t checked. That’s what validation, like Zod, is for</span></p>
+    </div>
+  </div>
+  <p class="rule"><span class="he">ב-Next.js אין מה להתקין: <code>create-next-app</code> כבר מגדיר TypeScript</span><span class="en">Nothing to install in Next.js: <code>create-next-app</code> already sets up TypeScript</span></p>
+</section>
+
+<!-- 5 basic types -->
+<section class="slide">
+  <h2><span class="he">הטיפוסים הבסיסיים</span><span class="en">The basic types</span></h2>
+  <table>
+    <tr><th style="width:26%"><span class="he">טיפוס</span><span class="en">Type</span></th><th style="width:40%"><span class="he">דוגמה</span><span class="en">Example</span></th><th><span class="he">מתי</span><span class="en">When</span></th></tr>
+    <tr><td class="mono t-blue">string · number · boolean</td><td class="mono">let age: number = 30</td><td><span class="he">ערכים פשוטים</span><span class="en">Simple values</span></td></tr>
+    <tr><td class="mono t-blue">string[]</td><td class="mono">let tags: string[] = ["a"]</td><td><span class="he">מערך. אותו דבר כמו <code>Array&lt;string&gt;</code></span><span class="en">An array. Same as <code>Array&lt;string&gt;</code></span></td></tr>
+    <tr><td class="mono t-blue">"a" | "b"</td><td class="mono">let size: "S" | "M" | "L"</td><td><span class="he">רק ערכים מסוימים</span><span class="en">Only specific values</span></td></tr>
+    <tr><td class="mono t-blue">null · undefined</td><td class="mono">let user: User | null = null</td><td><span class="he">ערך שאולי חסר</span><span class="en">A value that may be missing</span></td></tr>
+    <tr><td class="mono t-green">unknown</td><td class="mono">const data: unknown = JSON.parse(s)</td><td><span class="he">לא יודעים מה הגיע. חייבים לבדוק לפני שימוש</span><span class="en">You don’t know what arrived. Must check before use</span></td></tr>
+    <tr><td class="mono t-red">any</td><td class="mono">let x: any</td><td><span class="he">מכבה את TypeScript. להימנע</span><span class="en">Turns TypeScript off. Avoid it</span></td></tr>
+  </table>
+</section>
+
+<!-- 6 inference -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">לא צריך לכתוב טיפוס בכל מקום</span><span class="en">You don’t need to write types everywhere</span></h2>
+    <p class="lead"><span class="he">TypeScript מסיק את הטיפוס מהערך (inference). כותבים טיפוס רק איפה שהוא לא יכול לדעת</span><span class="en">TypeScript infers the type from the value. Write a type only where it can’t know</span></p>
+  </div>
+  <div class="cols-wide grow">
+    <div class="defs">
+      <div><span class="t plain"><span class="he">לא צריך טיפוס</span><span class="en">No type needed</span></span><span class="d"><span class="he">משתנה עם ערך התחלתי, ערך שפונקציה מחזירה</span><span class="en">A variable with an initial value, a function’s return value</span></span></div>
+      <div><span class="t plain"><span class="he">צריך טיפוס</span><span class="en">Type needed</span></span><span class="d"><span class="he">פרמטרים של פונקציה, מערך ריק, <code>null</code> שיתמלא אחר כך</span><span class="en">Function parameters, an empty array, a <code>null</code> filled later</span></span></div>
+      <div><span class="t plain"><span class="he">טיפ</span><span class="en">Tip</span></span><span class="d"><span class="he">עוברים עם העכבר על משתנה, ורואים מה TypeScript הסיק</span><span class="en">Hover over a variable to see what TypeScript inferred</span></span></div>
+    </div>
+    <pre class="code"><span class="cm">// Inferred: no annotation needed</span>
+let count = 0;             <span class="cm">// number</span>
+const title = "Hello";     <span class="cm">// "Hello"</span>
+const tags = ["a", "b"];   <span class="cm">// string[]</span>
+
+count = "five";
+<span class="o">// error: Type 'string' is not
+//   assignable to type 'number'.</span>
+
+<span class="cm">// Annotate where TS can't know</span>
+function greet(<span class="b">name: string</span>) {
+  return `Hi ${name}`;     <span class="cm">// returns string</span>
+}
+const users: <span class="b">User[]</span> = [];</pre>
+  </div>
+</section>
+
+<!-- 7 objects -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">אובייקטים: <code>type</code> ו-<code>interface</code></span><span class="en">Objects: <code>type</code> and <code>interface</code></span></h2>
+    <p class="lead"><span class="he">מתארים איך נראה אובייקט: אילו שדות יש בו, ומה הטיפוס של כל אחד</span><span class="en">Describe an object’s shape: which fields it has, and the type of each</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <pre class="code grow">type User = {
+  id: number;
+  name: string;
+  <span class="b">email?: string;</span>           <span class="cm">// optional</span>
+  <span class="b">readonly createdAt: Date;</span> <span class="cm">// can't change</span>
+};
+
+const u: User = {
+  id: 1,
+  name: "Dana",
+  createdAt: new Date(),
+};                          <span class="cm">// email may be missing</span></pre>
+    </div>
+    <div class="stack">
+      <pre class="code"><span class="cm">// The same, with interface</span>
+interface User {
+  id: number;
+  name: string;
+}
+interface Admin extends User {
+  permissions: string[];
+}
+
+<span class="cm">// Or with type</span>
+type Admin = User &amp; { permissions: string[] };</pre>
+      <div class="box blue">
+        <span class="bt"><span class="he">מה לבחור?</span><span class="en">Which one?</span></span>
+        <p><span class="he">כמעט אותו דבר. <code>type</code> יודע גם unions, לכן בקורס נשתמש ב-<code>type</code> באופן עקבי</span><span class="en">Almost the same. <code>type</code> can also do unions, so in this course we use <code>type</code> consistently</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 unions -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">Union: אחד מכמה ערכים</span><span class="en">Unions: one of several values</span></h2>
+    <p class="lead"><span class="he">במקום <code>string</code> שמקבל כל דבר, רשימה סגורה של ערכים מותרים. העורך גם משלים אותם</span><span class="en">Instead of a <code>string</code> that accepts anything, a closed list of allowed values. The editor autocompletes them too</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1fr 1.3fr">
+    <div class="defs">
+      <div><span class="t">"easy" | "medium" | "hard"</span><span class="d"><span class="he">רק שלושת הערכים האלה. שגיאת כתיב נתפסת מיד</span><span class="en">Only these three values. A typo is caught immediately</span></span></div>
+      <div><span class="t">string | number</span><span class="d"><span class="he">אחד משני טיפוסים. לפני שימוש צריך לבדוק איזה (בשקף הבא)</span><span class="en">One of two types. Check which before using it (next slide)</span></span></div>
+      <div><span class="t">User | null</span><span class="d"><span class="he">משתמש, או שעוד אין. הדפוס הנפוץ ביותר ב-React</span><span class="en">A user, or none yet. The most common pattern in React</span></span></div>
+    </div>
+    <pre class="code" style="font-size:18px">type Difficulty = <span class="b">"easy" | "medium" | "hard"</span>;
+
+type Recipe = {
+  id: number;
+  title: string;
+  difficulty: <span class="b">Difficulty</span>;
+  prepMinutes: number;
+};
+
+const r: Recipe = {
+  id: 1,
+  title: "Shakshuka",
+  difficulty: "hardd",
+  prepMinutes: 20,
+};
+<span class="o">// error: Type '"hardd"' is not assignable
+//   to type 'Difficulty'.
+//   Did you mean '"hard"'?</span></pre>
+  </div>
+</section>
+
+<!-- 9 narrowing -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">צמצום טיפוסים (Narrowing)</span><span class="en">Narrowing</span></h2>
+    <p class="lead"><span class="he">אחרי בדיקה עם <code>if</code>, TypeScript יודע איזה טיפוס נשאר. זה מה שהופך את <code>undefined</code> לבטוח</span><span class="en">After an <code>if</code> check, TypeScript knows which type is left. That’s what makes <code>undefined</code> safe</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <p class="code-label blue"><span class="he">הקלאסיקה: <code>find</code> מחזיר אולי <code>undefined</code></span><span class="en">The classic: <code>find</code> may return <code>undefined</code></span></p>
+      <pre class="code grow">const recipe = recipes.find(
+  (r) =&gt; r.id === id
+);
+<span class="cm">// recipe: Recipe | undefined</span>
+
+recipe.title;
+<span class="o">// error: 'recipe' is possibly 'undefined'.</span>
+
+if (!recipe) return null;
+recipe.title;   <span class="cm">// OK: recipe is Recipe now</span>
+
+recipe<span class="b">?.</span>title;              <span class="cm">// or optional chaining</span>
+recipe?.title <span class="b">??</span> "Untitled";  <span class="cm">// with a fallback</span></pre>
+    </div>
+    <div class="stack">
+      <p class="code-label green"><span class="he">בדיקה עם <code>typeof</code></span><span class="en">Checking with <code>typeof</code></span></p>
+      <pre class="code grow">function format(value: string | number) {
+  if (<span class="g">typeof value === "number"</span>) {
+    return value.toFixed(2);
+    <span class="cm">// value: number here</span>
+  }
+  return value.toUpperCase();
+  <span class="cm">// value: string here</span>
+}</pre>
+      <div class="box orange">
+        <span class="bt"><span class="he">לא להשתיק עם <code>!</code></span><span class="en">Don’t silence it with <code>!</code></span></span>
+        <p><span class="he"><code>recipe!.title</code> מעלים את השגיאה, אבל הקוד עדיין יקרוס אם אין מתכון</span><span class="en"><code>recipe!.title</code> hides the error, but the code still crashes if there’s no recipe</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 functions -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">פונקציות</span><span class="en">Functions</span></h2>
+    <p class="lead"><span class="he">פרמטרים תמיד עם טיפוס. את הערך המוחזר TypeScript מסיק לבד</span><span class="en">Parameters always get a type. TypeScript infers the return value on its own</span></p>
+  </div>
+  <div class="cols-wide grow">
+    <div class="defs">
+      <div><span class="t">(a: number, b: number)</span><span class="d"><span class="he">טיפוס לכל פרמטר. בלעדיו: <code>implicitly has an 'any' type</code></span><span class="en">A type per parameter. Without it: <code>implicitly has an 'any' type</code></span></span></div>
+      <div><span class="t">): number</span><span class="d"><span class="he">טיפוס החזרה. לא חובה, אבל מומלץ בפונקציות שמייצאים</span><span class="en">Return type. Optional, but recommended for exported functions</span></span></div>
+      <div><span class="t">level?: …</span><span class="d"><span class="he">פרמטר אופציונלי, או ערך ברירת מחדל</span><span class="en">An optional parameter, or a default value</span></span></div>
+      <div><span class="t">void</span><span class="d"><span class="he">הפונקציה לא מחזירה כלום</span><span class="en">The function returns nothing</span></span></div>
+    </div>
+    <pre class="code">function add(a: number, b: number): number {
+  return a + b;
+}
+
+const greet = (name: string, greeting = "Hi") =&gt;
+  `${greeting}, ${name}`;   <span class="cm">// returns string</span>
+
+function log(
+  message: string,
+  level?: "info" | "error"
+): void {
+  console.log(level ?? "info", message);
+}
+
+<span class="cm">// A function as a type: for callbacks and props</span>
+<span class="b">type OnSelect = (id: number) =&gt; void;</span></pre>
+  </div>
+</section>
+
+<!-- 11 generics -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">Generics: טיפוס כפרמטר</span><span class="en">Generics: a type as a parameter</span></h2>
+    <p class="lead"><span class="he">פונקציה אחת שעובדת עם כל טיפוס, ושומרת עליו. <code>T</code> הוא משתנה של טיפוס</span><span class="en">One function that works with any type and keeps it. <code>T</code> is a type variable</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <p class="code-label blue"><span class="he">לכתוב generic</span><span class="en">Writing a generic</span></p>
+      <pre class="code grow">function first<span class="b">&lt;T&gt;</span>(items: <span class="b">T</span>[]): <span class="b">T</span> | undefined {
+  return items[0];
+}
+
+const n = first([1, 2, 3]);
+<span class="cm">// n: number | undefined</span>
+
+const s = first(["a", "b"]);
+<span class="cm">// s: string | undefined</span></pre>
+    </div>
+    <div class="stack">
+      <p class="code-label green"><span class="he">אתם כבר משתמשים בהם</span><span class="en">You already use them</span></p>
+      <pre class="code grow">const [user, setUser] =
+  useState<span class="g">&lt;User | null&gt;</span>(null);
+
+const ids: Array<span class="g">&lt;number&gt;</span> = [1, 2];
+
+const cache = new Map<span class="g">&lt;string, Recipe&gt;</span>();
+
+const res: Promise<span class="g">&lt;Response&gt;</span> = fetch(url);</pre>
+    </div>
+  </div>
+  <p class="rule"><span class="he">בקורס בעיקר נשתמש ב-generics. לכתוב אותם צריך פחות</span><span class="en">In this course you’ll mostly use generics. You’ll write them less often</span></p>
+</section>
+
+<!-- 12 utility -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">Utility types: טיפוס חדש מטיפוס קיים</span><span class="en">Utility types: a new type from an existing one</span></h2>
+    <p class="lead"><span class="he">במקום לכתוב את <code>Recipe</code> מחדש לכל טופס, גוזרים ממנו</span><span class="en">Instead of rewriting <code>Recipe</code> for every form, derive from it</span></p>
+  </div>
+  <table>
+    <tr><th style="width:30%"><span class="he">טיפוס</span><span class="en">Type</span></th><th style="width:34%"><span class="he">מה הוא עושה</span><span class="en">What it does</span></th><th><span class="he">שימוש נפוץ</span><span class="en">Common use</span></th></tr>
+    <tr><td class="mono t-blue">Omit&lt;Recipe, "id"&gt;</td><td><span class="he">כל השדות חוץ מאלה</span><span class="en">All fields except these</span></td><td><span class="he">טופס יצירה: עוד אין <code>id</code></span><span class="en">A create form: no <code>id</code> yet</span></td></tr>
+    <tr><td class="mono t-blue">Partial&lt;Recipe&gt;</td><td><span class="he">כל השדות אופציונליים</span><span class="en">Every field optional</span></td><td><span class="he">עדכון חלקי (PATCH)</span><span class="en">A partial update (PATCH)</span></td></tr>
+    <tr><td class="mono t-blue">Pick&lt;Recipe, "id" | "title"&gt;</td><td><span class="he">רק השדות האלה</span><span class="en">Only these fields</span></td><td><span class="he">props של כרטיס ברשימה</span><span class="en">Props for a list card</span></td></tr>
+    <tr><td class="mono t-blue">Record&lt;Difficulty, number&gt;</td><td><span class="he">אובייקט עם מפתחות ידועים</span><span class="en">An object with known keys</span></td><td><span class="he">ספירה לכל רמת קושי</span><span class="en">A count per difficulty</span></td></tr>
+    <tr><td class="mono t-blue">Recipe["difficulty"]</td><td><span class="he">הטיפוס של שדה אחד</span><span class="en">The type of one field</span></td><td><span class="he">לא לכתוב את ה-union פעמיים</span><span class="en">Avoid repeating the union</span></td></tr>
+  </table>
+</section>
+
+<!-- 13 react section -->
+<section class="slide navy center" style="gap:44px">
+  <p class="eyebrow"><span class="he">חלק שני</span><span class="en">PART TWO</span></p>
+  <h1 style="font-size:104px"><span class="he">TypeScript ב-React וב-Next.js</span><span class="en">TypeScript in React and Next.js</span></h1>
+  <p class="lead"><span class="he">props, state, אירועים, דפים דינמיים ו-Server Actions</span><span class="en">Props, state, events, dynamic pages and Server Actions</span></p>
+</section>
+
+<!-- 14 props -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">טיפוס ל-props</span><span class="en">Typing props</span></h2>
+    <p class="lead"><span class="he"><code>type</code> אחד לכל קומפוננטה. מי שמשתמש בה מקבל השלמה אוטומטית ושגיאה אם שכח משהו</span><span class="en">One <code>type</code> per component. Whoever uses it gets autocomplete, and an error if something is missing</span></p>
+  </div>
+  <div class="cols2 grow">
+    <pre class="code"><span class="b">type ButtonProps = {
+  label: string;
+  variant?: "primary" | "secondary";
+  onClick: () =&gt; void;
+};</span>
+
+export default function Button({
+  label,
+  variant = "primary",
+  onClick,
+}: <span class="b">ButtonProps</span>) {
+  return (
+    &lt;button className={variant} onClick={onClick}&gt;
+      {label}
+    &lt;/button&gt;
+  );
+}</pre>
+    <div class="stack">
+      <pre class="code"><span class="cm">// Using it</span>
+&lt;Button label="Save" /&gt;
+<span class="o">// error: Property 'onClick' is missing
+//   in type '{ label: string; }' but
+//   required in type 'ButtonProps'.</span></pre>
+      <pre class="code"><span class="cm">// A component that wraps content</span>
+type CardProps = {
+  title: string;
+  <span class="g">children: React.ReactNode;</span>
+};</pre>
+    </div>
+  </div>
+</section>
+
+<!-- 15 state & events -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">State ואירועים</span><span class="en">State and events</span></h2>
+    <p class="lead"><span class="he">ב-<code>useState</code> הטיפוס מוסק מהערך ההתחלתי. כותבים אותו רק כשההתחלה היא <code>null</code> או מערך ריק</span><span class="en">In <code>useState</code> the type is inferred from the initial value. Write it only when you start with <code>null</code> or an empty array</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1fr 1.5fr">
+    <div class="defs">
+      <div><span class="t">useState("")</span><span class="d"><span class="he">מוסק: <code>string</code></span><span class="en">Inferred: <code>string</code></span></span></div>
+      <div><span class="t">useState&lt;User | null&gt;(null)</span><span class="d"><span class="he">בלי הטיפוס, <code>null</code> הוא הטיפוס היחיד שמותר</span><span class="en">Without the type, <code>null</code> is the only allowed value</span></span></div>
+      <div><span class="t">React.ChangeEvent&lt;…&gt;</span><span class="d"><span class="he">לא זוכרים טיפוס של אירוע? עוברים עם העכבר על <code>onChange</code></span><span class="en">Can’t remember an event type? Hover over <code>onChange</code></span></span></div>
+    </div>
+    <pre class="code" style="font-size:17px">"use client";
+import { useState } from "react";
+
+type User = { id: number; name: string };
+
+export default function Search() {
+  const [query, setQuery] = useState("");
+  const [user, setUser] = useState<span class="b">&lt;User | null&gt;</span>(null);
+
+  function handleChange(e: <span class="b">React.ChangeEvent&lt;HTMLInputElement&gt;</span>) {
+    setQuery(e.target.value);
+  }
+
+  function handleSubmit(e: <span class="b">React.FormEvent&lt;HTMLFormElement&gt;</span>) {
+    e.preventDefault();
+  }
+  <span class="cm">// ...</span>
+}</pre>
+  </div>
+</section>
+
+<!-- 16 next -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">TypeScript ב-Next.js</span><span class="en">TypeScript in Next.js</span></h2>
+    <p class="lead"><span class="he">שלושה מקומות שבהם TypeScript ב-Next מבלבל מתחילים</span><span class="en">Three places where TypeScript in Next confuses beginners</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <p class="code-label blue"><span class="he">1. <code>params</code> הוא Promise</span><span class="en">1. <code>params</code> is a Promise</span></p>
+      <pre class="code">type Props = {
+  params: <span class="b">Promise&lt;{ id: string }&gt;</span>;
+};
+
+export default async function Page(
+  { params }: Props
+) {
+  const { id } = await params;
+  <span class="cm">// id is always a string</span>
+}
+
+<span class="cm">// Or Next's built-in helper:</span>
+<span class="cm">// { params }: PageProps&lt;"/recipes/[id]"&gt;</span></pre>
+    </div>
+    <div class="stack">
+      <p class="code-label orange"><span class="he">2. <code>res.json()</code> לא נבדק</span><span class="en">2. <code>res.json()</code> isn’t checked</span></p>
+      <pre class="code">const recipe: Recipe = await res.json();
+<span class="o">// any → Recipe: TypeScript trusts you</span></pre>
+      <p class="code-label green"><span class="he">3. <code>FormData</code> ב-Server Action</span><span class="en">3. <code>FormData</code> in a Server Action</span></p>
+      <pre class="code">const title = formData.get("title");
+<span class="cm">// FormDataEntryValue | null</span>
+if (<span class="g">typeof title !== "string"</span>) return;
+<span class="cm">// title: string</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- 17 any vs unknown -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he"><code>any</code> מול <code>unknown</code></span><span class="en"><code>any</code> vs. <code>unknown</code></span></h2>
+    <p class="lead"><span class="he">שניהם אומרים ״לא יודע מה זה״. ההבדל: מה TypeScript מרשה לעשות עם הערך</span><span class="en">Both say “I don’t know what this is”. The difference: what TypeScript lets you do with the value</span></p>
+  </div>
+  <div class="cols2" style="align-items:start">
+    <div class="card orange">
+      <h3>any</h3>
+      <p style="color:var(--orange-ink)"><span class="he">מכבה את הבדיקה. הכל מותר</span><span class="en">Turns checking off. Anything goes</span></p>
+      <pre class="code">const a: any = JSON.parse(text);
+a.foo.bar();
+<span class="cm">// no error, crashes at runtime</span></pre>
+    </div>
+    <div class="card blue">
+      <h3>unknown</h3>
+      <p style="color:var(--blue-ink)"><span class="he">חייבים לבדוק לפני כל שימוש</span><span class="en">You must check before any use</span></p>
+      <pre class="code">const u: unknown = JSON.parse(text);
+u.foo;
+<span class="o">// error: 'u' is of type 'unknown'.</span>
+
+if (typeof u === "string") {
+  u.toUpperCase();   <span class="cm">// OK</span>
+}</pre>
+    </div>
+  </div>
+  <p class="rule"><span class="he">כשלא יודעים מה הגיע: <code>unknown</code>, ואז בודקים</span><span class="en">When you don’t know what arrived: <code>unknown</code>, then check</span></p>
+</section>
+
+<!-- 18 common errors -->
+<section class="slide">
+  <h2><span class="he">לקרוא את השגיאה: 6 הנפוצות</span><span class="en">Reading the error: the 6 most common</span></h2>
+  <table style="font-size:21px">
+    <tr><th style="width:42%"><span class="he">השגיאה</span><span class="en">The error</span></th><th style="width:28%"><span class="he">מה היא אומרת</span><span class="en">What it means</span></th><th><span class="he">מה עושים</span><span class="en">What to do</span></th></tr>
+    <tr><td class="mono" style="font-size:18px">'x' is possibly 'undefined'.</td><td><span class="he">הערך אולי חסר</span><span class="en">The value may be missing</span></td><td><span class="he">בדיקת <code>if</code>, <code>?.</code> או <code>??</code></span><span class="en">An <code>if</code> check, <code>?.</code> or <code>??</code></span></td></tr>
+    <tr><td class="mono" style="font-size:18px">Type 'X' is not assignable to type 'Y'.</td><td><span class="he">ערך מהטיפוס הלא נכון</span><span class="en">A value of the wrong type</span></td><td><span class="he">לתקן את הערך, או את הטיפוס</span><span class="en">Fix the value, or the type</span></td></tr>
+    <tr><td class="mono" style="font-size:18px">Property 'x' does not exist on type 'Y'.</td><td><span class="he">שגיאת כתיב, או שדה שלא הוגדר</span><span class="en">A typo, or a field that isn’t defined</span></td><td><span class="he">לבדוק את השם. לפעמים השגיאה מציעה תיקון: <code>Did you mean</code></span><span class="en">Check the name. The error often suggests a fix: <code>Did you mean</code></span></td></tr>
+    <tr><td class="mono" style="font-size:18px">Property 'x' is missing in type …</td><td><span class="he">חסר שדה חובה</span><span class="en">A required field is missing</span></td><td><span class="he">להעביר אותו, או לסמן <code>?</code></span><span class="en">Pass it, or mark it <code>?</code></span></td></tr>
+    <tr><td class="mono" style="font-size:18px">Parameter 'x' implicitly has an 'any' type.</td><td><span class="he">פרמטר בלי טיפוס</span><span class="en">A parameter without a type</span></td><td><span class="he">להוסיף טיפוס לפרמטר</span><span class="en">Add a type to the parameter</span></td></tr>
+    <tr><td class="mono" style="font-size:18px">'x' is of type 'unknown'.</td><td><span class="he">משתמשים בערך לפני שבדקו אותו</span><span class="en">Using a value before checking it</span></td><td><span class="he">לצמצם עם <code>typeof</code> או בדיקה אחרת</span><span class="en">Narrow with <code>typeof</code> or another check</span></td></tr>
+  </table>
+  <p class="lead" style="font-size:21px"><span class="he">קוראים את השגיאה מהסוף להתחלה: החלק האחרון אומר מה ציפו לקבל</span><span class="en">Read the error from the end: the last part says what was expected</span></p>
+</section>
+
+<!-- 19 tools -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">כלים שחוסכים זמן</span><span class="en">Tools that save time</span></h2>
+    <p class="lead"><span class="he">רוב העבודה עם TypeScript קורית בעורך, לא בטרמינל</span><span class="en">Most of the work with TypeScript happens in the editor, not the terminal</span></p>
+  </div>
+  <div class="cols-wide grow">
+    <div class="defs">
+      <div><span class="t plain"><span class="he">מעבר עם העכבר</span><span class="en">Hover</span></span><span class="d"><span class="he">מציג את הטיפוס של כל משתנה, ואת השגיאה המלאה</span><span class="en">Shows every variable’s type, and the full error</span></span></div>
+      <div><span class="t">Ctrl + Space</span><span class="d"><span class="he">השלמה אוטומטית: שדות, ערכי union, props</span><span class="en">Autocomplete: fields, union values, props</span></span></div>
+      <div><span class="t">F12 · F2</span><span class="d"><span class="he">מעבר להגדרה · שינוי שם בכל הפרויקט</span><span class="en">Go to definition · rename across the project</span></span></div>
+      <div><span class="t">npx tsc --noEmit</span><span class="d"><span class="he">בודק את כל הפרויקט בלי לבנות. ב-Next מריצים קודם <code>npx next typegen</code>, אחרת <code>PageProps</code> לא מוכר</span><span class="en">Checks the whole project without building. In Next, run <code>npx next typegen</code> first, or <code>PageProps</code> isn’t found</span></span></div>
+    </div>
+    <div class="stack">
+      <p class="code-label"><span class="he">tsconfig.json: מה שחשוב</span><span class="en">tsconfig.json: what matters</span></p>
+      <pre class="code">{
+  "compilerOptions": {
+    <span class="b">"strict": true</span>,
+    "paths": {
+      <span class="b">"@/*": ["./*"]</span>
+    }
+  }
+}</pre>
+      <div class="box blue">
+        <span class="bt"><span class="he">שני אלה כבר מוגדרים</span><span class="en">Both are already set</span></span>
+        <p><span class="he"><code>strict</code> מפעיל את כל הבדיקות. <code>@/</code> הוא שורש הפרויקט. לא לכבות את <code>strict</code></span><span class="en"><code>strict</code> turns on every check. <code>@/</code> is the project root. Don’t turn <code>strict</code> off</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 exercises -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">התרגילים</span><span class="en">The exercises</span></h2>
+    <p class="lead"><span class="he">מקל למורכב. T.1–T.7 בלי React, אפשר לפתור ב-TypeScript Playground</span><span class="en">From easy to complex. T.1–T.7 have no React and can be solved in the TypeScript Playground</span></p>
+  </div>
+  <table style="font-size:21px">
+    <tr><th style="width:9%">#</th><th><span class="he">תרגיל</span><span class="en">Exercise</span></th><th style="width:15%"><span class="he">רמה</span><span class="en">Level</span></th><th style="width:13%"><span class="he">זמן</span><span class="en">Time</span></th></tr>
+    <tr><td class="mono">T.1</td><td><span class="he">מ-JavaScript ל-TypeScript</span><span class="en">From JavaScript to TypeScript</span></td><td><span class="he">קל</span><span class="en">Easy</span></td><td><span class="he">20 דק'</span><span class="en">20 min</span></td></tr>
+    <tr><td class="mono">T.2</td><td><span class="he">מתארים נתונים</span><span class="en">Modeling data</span></td><td><span class="he">קל</span><span class="en">Easy</span></td><td><span class="he">20 דק'</span><span class="en">20 min</span></td></tr>
+    <tr><td class="mono">T.3</td><td><span class="he">פונקציות על מערך</span><span class="en">Functions over an array</span></td><td><span class="he">קל</span><span class="en">Easy</span></td><td><span class="he">30 דק'</span><span class="en">30 min</span></td></tr>
+    <tr><td class="mono">T.4</td><td><span class="he">לקרוא את השגיאה</span><span class="en">Read the error</span></td><td><span class="he">בינוני</span><span class="en">Medium</span></td><td><span class="he">30 דק'</span><span class="en">30 min</span></td></tr>
+    <tr><td class="mono">T.5</td><td><span class="he">צורות ו-union מובחן</span><span class="en">Shapes and discriminated unions</span></td><td><span class="he">בינוני</span><span class="en">Medium</span></td><td><span class="he">30 דק'</span><span class="en">30 min</span></td></tr>
+    <tr><td class="mono">T.6–T.7</td><td><span class="he">Generics ו-utility types</span><span class="en">Generics and utility types</span></td><td><span class="he">בינוני</span><span class="en">Medium</span></td><td><span class="he">75 דק'</span><span class="en">75 min</span></td></tr>
+    <tr><td class="mono">T.8–T.9</td><td><span class="he">קומפוננטות React ודף Next</span><span class="en">React components and a Next page</span></td><td><span class="he">בינוני</span><span class="en">Medium</span></td><td><span class="he">90 דק'</span><span class="en">90 min</span></td></tr>
+    <tr><td class="mono">T.10</td><td><span class="he">שכבת API בטוחה</span><span class="en">A type-safe API layer</span></td><td><span class="he">מורכב</span><span class="en">Complex</span></td><td><span class="he">3 שעות</span><span class="en">3 hours</span></td></tr>
+  </table>
+</section>
+
+<!-- 21 summary -->
+<section class="slide dark">
+  <h2><span class="he">חמישה כללים לקחת הביתה</span><span class="en">Five rules to take home</span></h2>
+  <div class="list">
+    <div><span class="n">1</span><span><span class="he">לתת ל-TypeScript להסיק. לכתוב טיפוס לפרמטרים ולערכים ריקים</span><span class="en">Let TypeScript infer. Write types for parameters and empty values</span></span></div>
+    <div><span class="n">2</span><span><span class="he">union של ערכים במקום <code>string</code> פתוח</span><span class="en">A union of values instead of an open <code>string</code></span></span></div>
+    <div><span class="n">3</span><span><span class="he">לטפל ב-<code>undefined</code>, לא להשתיק אותו עם <code>!</code></span><span class="en">Handle <code>undefined</code>, don’t silence it with <code>!</code></span></span></div>
+    <div><span class="n">4</span><span><span class="he"><code>unknown</code> במקום <code>any</code></span><span class="en"><code>unknown</code> instead of <code>any</code></span></span></div>
+    <div><span class="n">5</span><span><span class="he">הטיפוסים נעלמים בזמן ריצה. נתונים מבחוץ צריך לבדוק</span><span class="en">Types vanish at runtime. Data from outside must be checked</span></span></div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<div class="progress" aria-hidden="true"><i></i></div>
+<nav class="controls" aria-label="Slide controls">
+  <div class="ctl">
+    <button id="prev" type="button"></button>
+    <span id="counter" aria-live="polite"></span>
+    <button id="next" type="button"></button>
+  </div>
+  <div class="ctl">
+    <button id="lang" type="button"></button>
+    <button id="fs" type="button" aria-label="Fullscreen">⛶</button>
+  </div>
+</nav>
+<script>
+(() => {
+  const root = document.documentElement;
+  const stage = document.querySelector('.stage');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const bar = document.querySelector('.progress i');
+  const counter = document.getElementById('counter');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const langBtn = document.getElementById('lang');
+  const fsBtn = document.getElementById('fs');
+  const KEY = 'deck-lang';
+  let index = 0;
+
+  const store = {
+    get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } },
+    set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  };
+
+  function syncUrl() {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', root.lang);
+      url.hash = String(index + 1);
+      history.replaceState(null, '', url);
+    } catch (e) {}
+  }
+
+  function setLang(lang) {
+    const he = lang === 'he';
+    root.lang = he ? 'he' : 'en';
+    root.dir = he ? 'rtl' : 'ltr';
+    document.title = document.body.dataset[he ? 'titleHe' : 'titleEn'] || document.title;
+    langBtn.textContent = he ? 'English' : 'עברית';
+    langBtn.setAttribute('aria-label', he ? 'Switch to English' : 'עבור לעברית');
+    prevBtn.textContent = he ? '→' : '←';
+    nextBtn.textContent = he ? '←' : '→';
+    prevBtn.setAttribute('aria-label', he ? 'השקף הקודם' : 'Previous slide');
+    nextBtn.setAttribute('aria-label', he ? 'השקף הבא' : 'Next slide');
+    store.set(root.lang);
+    syncUrl();
+  }
+
+  function show(n) {
+    index = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => {
+      s.classList.toggle('active', k === index);
+      s.setAttribute('aria-hidden', k === index ? 'false' : 'true');
+    });
+    counter.textContent = (index + 1) + ' / ' + slides.length;
+    bar.style.width = ((index + 1) / slides.length * 100) + '%';
+    syncUrl();
+  }
+
+  function fit() {
+    const w = window.innerWidth;
+    const h = window.innerHeight - 59;
+    const s = Math.min(w / 1600, h / 900) * 0.97;
+    stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+
+  const forwardKey = () => (root.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight');
+  const backKey = () => (root.dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft');
+
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === forwardKey() || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter') { e.preventDefault(); show(index + 1); }
+    else if (e.key === backKey() || e.key === 'PageUp' || e.key === 'Backspace') { e.preventDefault(); show(index - 1); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+    else if (e.key === 'l' || e.key === 'L') setLang(root.lang === 'he' ? 'en' : 'he');
+    else if (e.key === 'f' || e.key === 'F') toggleFs();
+  });
+
+  let touchX = null;
+  document.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) < 50) return;
+    const forward = root.dir === 'rtl' ? dx > 0 : dx < 0;
+    show(index + (forward ? 1 : -1));
+  });
+
+  function toggleFs() {
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    } catch (e) {}
+  }
+
+  prevBtn.addEventListener('click', () => show(index - 1));
+  nextBtn.addEventListener('click', () => show(index + 1));
+  langBtn.addEventListener('click', () => setLang(root.lang === 'he' ? 'en' : 'he'));
+  fsBtn.addEventListener('click', toggleFs);
+  window.addEventListener('resize', fit);
+  window.addEventListener('hashchange', () => {
+    const n = parseInt((window.location.hash || '').slice(1), 10);
+    if (Number.isFinite(n) && n - 1 !== index) show(n - 1);
+  });
+
+  let startLang = 'he';
+  try {
+    const p = new URLSearchParams(window.location.search).get('lang');
+    if (p === 'he' || p === 'en') startLang = p;
+    else if (store.get() === 'en') startLang = 'en';
+  } catch (e) {}
+  const startSlide = parseInt((window.location.hash || '').slice(1), 10);
+
+  fit();
+  index = Number.isFinite(startSlide) ? startSlide - 1 : 0;
+  setLang(startLang);
+  show(index);
+})();
+</script>
+</body>
+</html>

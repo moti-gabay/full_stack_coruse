@@ -34,6 +34,7 @@
 
 | Branch | נושא |
 | --- | --- |
+| `next/00-typescript` | TypeScript: טיפוסים, union ו-generics, ואחר כך רכיבי React ודף Next עם Server Action |
 | `next/01-routing` | ניתוב לפי תיקיות, layouts, דפים דינמיים, Parallel ו-Intercepting Routes |
 | `next/02-server-client` | Server Components מול Client Components, ואיפה עובר הגבול |
 | `next/03-data-fetching` | הבאת נתונים בשרת, ‏Suspense ו-streaming, ‏error boundaries |

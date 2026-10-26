@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400..700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0F16;--dark:#10151F;--light:#F6F4EF;--paper:#FFFDF8;--band:#E9E5DA;
+  --ink:#141A26;--soft:#4A5263;--line:#D9D4C8;--on-dark:#F1EEE6;--muted-dark:#A9B4C6;
+  --blue:#2563C9;--blue-ink:#1E4FA3;--blue-tint:#E6EEFB;--blue-line:#B9CCEE;--blue-light:#7FA6EA;
+  --orange:#C2561A;--orange-ink:#9A4413;--orange-tint:#FBEADF;--orange-line:#EBC3A8;--orange-light:#F0A272;
+  --green:#2F7D4A;--green-ink:#1F5C36;--green-tint:#E2F1E6;--green-line:#B9DCC4;--green-light:#8FD1A3;
+  --red-ink:#B03A2E;--code:#1B2230;--code-ink:#E6E1D6;--code-dim:#8A93A6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);font-family:'Rubik',Arial,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+html[lang=he] .en,html[lang=en] .he{display:none!important}
+
+.viewport{position:fixed;inset:0 0 59px 0;overflow:hidden}
+.stage{position:absolute;top:50%;left:50%;width:1600px;height:900px;transform-origin:center}
+.slide{position:absolute;inset:0;padding:88px 104px;display:none;flex-direction:column;gap:32px;background:var(--light);color:var(--ink);border-radius:6px;overflow:hidden}
+.slide.active{display:flex}
+.slide.dark{background:var(--dark);color:var(--on-dark)}
+.slide.navy{background:#1E3A6E;color:var(--on-dark)}
+.slide.forest{background:#1F4D30;color:var(--on-dark)}
+.center{justify-content:center}
+.between{justify-content:space-between}
+
+h1{font-size:132px;font-weight:700;line-height:1.02;letter-spacing:-1px}
+h2{font-size:54px;font-weight:600;line-height:1.15}
+.statement{font-size:76px;font-weight:600;line-height:1.15}
+.big{font-size:60px;font-weight:500;line-height:1.2}
+.lead{font-size:26px;line-height:1.45;color:var(--soft)}
+.dark .lead{color:var(--muted-dark)}
+.navy .lead{color:#C3D3F0}
+.forest .lead{color:#BFE3C9}
+.eyebrow{font-size:19px;letter-spacing:2px;color:var(--soft);font-weight:500}
+.dark .eyebrow{color:var(--muted-dark)}
+.navy .eyebrow{color:#C3D3F0}
+.forest .eyebrow{color:#BFE3C9}
+.head{display:flex;flex-direction:column;gap:12px}
+.grow{flex:1;min-height:0}
+b,strong{font-weight:600}
+.hl-blue{color:var(--blue-light)} .hl-orange{color:var(--orange-light)} .hl-green{color:var(--green-light)}
+
+code,.mono{font-family:'JetBrains Mono','Courier New',monospace;unicode-bidi:isolate;direction:ltr}
+code{font-size:.9em}
+pre.code{direction:ltr;text-align:left;unicode-bidi:isolate;background:var(--code);color:var(--code-ink);border-radius:16px;padding:28px 32px;font-family:'JetBrains Mono','Courier New',monospace;font-size:19px;line-height:1.6;white-space:pre;overflow:hidden}
+pre.code .cm{color:var(--code-dim)} pre.code .b{color:var(--blue-light)} pre.code .o{color:var(--orange-light)} pre.code .g{color:var(--green-light)}
+.code-label{font-size:22px;font-weight:600}
+.code-label.blue{color:var(--blue-ink)} .code-label.orange{color:var(--orange-ink)} .code-label.green{color:var(--green-ink)}
+.stack{display:flex;flex-direction:column;gap:14px;min-width:0}
+
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.cols-wide{display:grid;grid-template-columns:1fr 1.25fr;gap:32px}
+.cards{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:10px}
+.card h3{font-size:28px;font-weight:600;line-height:1.2}
+.card p{font-size:21px;line-height:1.45;color:var(--soft)}
+.card .k{font-size:15px;font-weight:600;letter-spacing:1.5px;color:var(--blue-ink)}
+.card.blue{background:var(--blue-tint);border:2px solid var(--blue)}
+.card.orange{background:var(--orange-tint);border:2px solid var(--orange)}
+.card.green{background:var(--green-tint);border:2px solid var(--green)}
+.card.soft-blue{background:var(--blue-tint);border:none}
+.card.soft-orange{background:var(--orange-tint);border:none}
+.card.soft-green{background:var(--green-tint);border:none}
+.card.inv{background:var(--dark);border:none;color:var(--on-dark)}
+.card.inv p{color:var(--muted-dark)}
+.card.navy{background:#1E3A6E;border:none;color:var(--on-dark)}
+.card.navy p{color:#C3D3F0}
+.card.blue h3{color:var(--blue-ink)} .card.orange h3{color:var(--orange-ink)} .card.green h3,.card.soft-green h3{color:var(--green-ink)}
+.card .items{display:flex;flex-direction:column}
+.card .items p{color:var(--ink);font-size:21px;padding:11px 0;border-top:1px solid var(--line)}
+.card.blue .items p{border-color:var(--blue-line)} .card.orange .items p{border-color:var(--orange-line)} .card.green .items p{border-color:var(--green-line)}
+.card.inv .items p{color:var(--on-dark);border-color:#2E3747}
+.card .items p.note{color:var(--soft);font-size:19px}
+.card.green .items p.note{color:var(--green-ink)}
+.card.inv .items p.note{color:var(--muted-dark)}
+.badge{font-size:16px;font-weight:600;letter-spacing:.5px}
+.badge.blue{color:var(--blue-ink)} .badge.green{color:var(--green-ink)} .badge.orange{color:var(--orange-light)}
+
+.list{display:flex;flex-direction:column}
+.list>div{display:flex;gap:28px;align-items:center;padding:22px 0;border-top:1px solid var(--line);font-size:30px;line-height:1.3}
+.list>div:last-child{border-bottom:1px solid var(--line)}
+.list .n{font-size:32px;font-weight:600;color:var(--blue);min-width:52px}
+.list .n.green{color:var(--green)} .list .n.ink{color:var(--ink)}
+.dark .list>div{border-color:#2E3747}
+.dark .list .n{color:var(--blue-light)}
+.list.compact>div{font-size:24px;padding:16px 0}
+
+.defs{display:flex;flex-direction:column}
+.defs>div{display:flex;flex-direction:column;gap:6px;padding:16px 0;border-top:1px solid var(--line)}
+.defs>div:last-child{border-bottom:1px solid var(--line)}
+.defs .t{font-family:'JetBrains Mono','Courier New',monospace;font-size:23px;font-weight:600;color:var(--blue-ink);unicode-bidi:isolate}
+.defs .t.green{color:var(--green-ink)} .defs .t.plain{font-family:'Rubik',Arial,sans-serif}
+.defs .t:not(.plain){direction:ltr}
+html[dir=rtl] .defs .t:not(.plain){text-align:right}
+.defs .d{font-size:20px;color:var(--soft);line-height:1.4}
+.defs .d code{white-space:nowrap}
+
+table{border-collapse:collapse;width:100%;font-size:23px}
+th,td{text-align:start;padding:14px 18px;border-bottom:1px solid var(--line);line-height:1.35}
+th{background:var(--band);font-weight:600}
+td.mono,th.mono{font-size:21px}
+html[dir=rtl] td.mono,html[dir=rtl] th.mono{text-align:right}
+.t-blue{color:var(--blue-ink)} .t-green{color:var(--green)} .t-orange{color:var(--orange-ink)} .t-red{color:var(--red-ink)} .t-soft{color:var(--soft)}
+
+.pills{display:flex;gap:14px;flex-wrap:wrap}
+.pill{font-size:20px;padding:8px 20px;border-radius:999px;color:var(--dark);font-weight:500}
+.pill.blue{background:var(--blue-light)} .pill.orange{background:var(--orange-light)} .pill.green{background:var(--green-light)}
+
+.flow{display:flex;align-items:center;gap:14px}
+.flow .step{flex:1;text-align:center;padding:20px 12px;border-radius:14px;background:var(--band);font-size:22px;font-weight:600}
+.flow .step.mid{background:var(--blue-tint);border:2px solid var(--blue);color:var(--blue-ink);font-family:'JetBrains Mono',monospace;font-weight:400;font-size:19px;direction:ltr}
+.flow .arrow{color:var(--code-dim);font-size:28px;flex:none}
+html[dir=rtl] .flow .arrow{transform:scaleX(-1)}
+
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:flex;flex-direction:column;gap:6px}
+.tile .n{font-size:20px;font-weight:600;color:var(--blue-ink)}
+.tile p{font-size:22px}
+.tile.now{background:var(--blue-tint);border-color:transparent}
+.tile.last{background:var(--orange-tint);border-color:transparent}
+.tile.last .n{color:var(--orange-ink)}
+
+.box{border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:8px}
+.box.orange{background:var(--orange-tint)} .box.blue{background:var(--blue-tint)} .box.green{background:var(--green-tint)}
+.box .bt{font-size:22px;font-weight:600}
+.box.orange .bt{color:var(--orange-ink)} .box.blue .bt{color:var(--blue-ink)} .box.green .bt{color:var(--green-ink)}
+.box p{font-size:21px;line-height:1.45}
+.rule{font-size:28px;font-weight:600}
+
+/* controls */
+.progress{position:fixed;left:0;right:0;bottom:56px;height:3px;background:#1B2230}
+.progress i{display:block;height:100%;width:0;background:var(--blue-light);transition:width .2s}
+.controls{position:fixed;left:0;right:0;bottom:0;height:56px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:var(--muted-dark);font-size:15px;gap:12px}
+.ctl{display:flex;align-items:center;gap:10px}
+.controls button{background:#1B2230;color:var(--on-dark);border:1px solid #2E3747;border-radius:8px;height:36px;min-width:40px;padding:0 14px;font:inherit;font-size:15px;cursor:pointer}
+.controls button:hover{background:#252E40}
+.controls button:focus-visible{outline:2px solid var(--blue-light);outline-offset:2px}
+#counter{min-width:64px;text-align:center;font-variant-numeric:tabular-nums;direction:ltr}
+
+@media print{
+  @page{size:1600px 900px;margin:0}
+  html,body{overflow:visible;background:none;height:auto}
+  .controls,.progress{display:none}
+  .viewport{position:static;inset:auto}
+  .stage{position:static;transform:none!important;width:1600px;height:auto}
+  .slide{display:flex!important;position:relative;inset:auto;width:1600px;height:900px;border-radius:0;break-after:page}
+}
+</style>
+</head>
+<body data-title-he="Node.js: MongoDB ואימות משתמשים" data-title-en="Node.js: MongoDB and User Authentication">
+<main class="viewport">
+<div class="stage">
+
+<!-- 1 cover -->
+<section class="slide dark between">
+  <p class="eyebrow"><span class="he">יחידת צד שרת · חלק 2</span><span class="en">SERVER-SIDE UNIT · PART 2</span></p>
+  <div class="head" style="gap:24px">
+    <h1 style="font-size:116px"><span class="he">הרשמה והתחברות</span><span class="en">Sign up and log in</span></h1>
+    <p class="big"><span class="he">Node.js, MongoDB ואימות משתמשים עם JWT</span><span class="en">Node.js, MongoDB and user authentication with JWT</span></p>
+    <p class="lead"><span class="he">מחיבור למסד הנתונים ועד API מאובטח שזוכר מי מחובר</span><span class="en">From connecting to the database to a secure API that remembers who’s logged in</span></p>
+  </div>
+  <div class="pills">
+    <span class="pill green">MongoDB</span>
+    <span class="pill blue">bcrypt</span>
+    <span class="pill orange">JWT</span>
+  </div>
+</section>
+
+<!-- 2 agenda -->
+<section class="slide">
+  <h2><span class="he">מה נבנה היום</span><span class="en">What we’ll build today</span></h2>
+  <div class="list compact">
+    <div><span class="n green">01</span><span><span class="he">פרויקט Express שמחובר ל-MongoDB</span><span class="en">An Express project connected to MongoDB</span></span></div>
+    <div><span class="n">02</span><span><span class="he">מודל משתמש, ואיך שומרים סיסמה בצורה בטוחה</span><span class="en">A user model, and how to store a password safely</span></span></div>
+    <div><span class="n">03</span><span><span class="he">הרשמה והתחברות</span><span class="en">Registration and login</span></span></div>
+    <div><span class="n">04</span><span><span class="he">JWT: מה זה טוקן, ואיפה שומרים אותו</span><span class="en">JWT: what a token is, and where to store it</span></span></div>
+    <div><span class="n">05</span><span><span class="he">הגנה על נתיבים: משתמש מחובר, בעלות ותפקידים</span><span class="en">Protecting routes: logged-in users, ownership and roles</span></span></div>
+    <div><span class="n ink">06</span><span><span class="he">חיבור ל-Next.js, רשימת אבטחה ו-10 תרגילים</span><span class="en">Connecting Next.js, a security checklist and 10 exercises</span></span></div>
+  </div>
+</section>
+
+<!-- 3 the flow -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">התמונה הגדולה: שני רגעים</span><span class="en">The big picture: two moments</span></h2>
+    <p class="lead"><span class="he">פעם אחת מוכיחים מי אתם עם סיסמה. אחר כך כל בקשה מוכיחה את זה עם טוקן</span><span class="en">Once, you prove who you are with a password. After that, every request proves it with a token</span></p>
+  </div>
+  <div class="stack" style="gap:12px">
+    <p class="code-label green"><span class="he">1. הרשמה או התחברות</span><span class="en">1. Register or log in</span></p>
+    <div class="flow">
+      <div class="step"><span class="he">אימייל וסיסמה</span><span class="en">Email and password</span></div><span class="arrow">➜</span>
+      <div class="step mid">bcrypt</div><span class="arrow">➜</span>
+      <div class="step mid">MongoDB</div><span class="arrow">➜</span>
+      <div class="step mid">jwt.sign</div><span class="arrow">➜</span>
+      <div class="step"><span class="he">cookie בדפדפן</span><span class="en">Cookie in the browser</span></div>
+    </div>
+  </div>
+  <div class="stack" style="gap:12px">
+    <p class="code-label blue"><span class="he">2. כל בקשה אחר כך</span><span class="en">2. Every request after that</span></p>
+    <div class="flow">
+      <div class="step"><span class="he">בקשה עם cookie</span><span class="en">Request with cookie</span></div><span class="arrow">➜</span>
+      <div class="step mid">requireAuth</div><span class="arrow">➜</span>
+      <div class="step mid">jwt.verify</div><span class="arrow">➜</span>
+      <div class="step mid">req.user</div><span class="arrow">➜</span>
+      <div class="step"><span class="he">הנתיב עצמו</span><span class="en">The route itself</span></div>
+    </div>
+  </div>
+  <p class="rule"><span class="he">הסיסמה עוברת ברשת רק פעם אחת. מאז, השרת סומך על הטוקן</span><span class="en">The password crosses the network once. From then on, the server trusts the token</span></p>
+</section>
+
+<!-- 4 setup -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">הקמת הפרויקט</span><span class="en">Setting up the project</span></h2>
+    <p class="lead"><span class="he">שש חבילות, וכל אחת עושה דבר אחד</span><span class="en">Six packages, each doing one thing</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1.1fr 1fr">
+    <div class="stack">
+      <pre class="code" style="font-size:18px"><span class="cm">$</span> npm init -y
+<span class="cm">$</span> npm pkg set type=module
+<span class="cm">$</span> npm i express mongoose bcryptjs \
+    jsonwebtoken cookie-parser cors</pre>
+      <table style="font-size:20px">
+        <tr><td class="mono t-blue">express</td><td><span class="he">השרת והנתיבים</span><span class="en">The server and routes</span></td></tr>
+        <tr><td class="mono t-green">mongoose</td><td><span class="he">חיבור ל-MongoDB, סכמות ומודלים</span><span class="en">MongoDB connection, schemas, models</span></td></tr>
+        <tr><td class="mono t-blue">bcryptjs</td><td><span class="he">הצפנה חד-כיוונית של סיסמאות</span><span class="en">One-way password hashing</span></td></tr>
+        <tr><td class="mono t-orange">jsonwebtoken</td><td><span class="he">יצירה ובדיקה של טוקנים</span><span class="en">Creating and verifying tokens</span></td></tr>
+        <tr><td class="mono t-blue">cookie-parser</td><td><span class="he">קריאת cookies מהבקשה</span><span class="en">Reading cookies from the request</span></td></tr>
+        <tr><td class="mono t-blue">cors</td><td><span class="he">גישה מהאתר שרץ בפורט אחר</span><span class="en">Access from a site on another port</span></td></tr>
+      </table>
+    </div>
+    <pre class="code" style="font-size:16px;line-height:1.45">auth-api/
+├── <span class="o">.env</span>
+├── package.json
+├── requests.http
+└── src/
+    ├── server.js     <span class="cm">← connect + listen</span>
+    ├── app.js        <span class="cm">← express app</span>
+    ├── config/db.js
+    ├── <span class="g">models/</span>
+    │   ├── User.js
+    │   └── Note.js
+    ├── lib/tokens.js
+    ├── <span class="b">middleware/</span>
+    │   ├── requireAuth.js
+    │   └── errorHandler.js
+    └── <span class="b">routes/</span>
+        ├── auth.js
+        └── notes.js</pre>
+  </div>
+</section>
+
+<!-- 5 connect -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">חיבור ל-MongoDB</span><span class="en">Connecting to MongoDB</span></h2>
+    <p class="lead"><span class="he">מתחברים פעם אחת לפני שהשרת עולה. אם חסר משהו ב-<code>.env</code>, עוצרים מיד</span><span class="en">Connect once before the server starts. If something is missing in <code>.env</code>, stop right away</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <pre class="code" style="font-size:18px"><span class="cm"># .env</span>
+PORT=4000
+MONGODB_URI=mongodb://localhost:27017/auth-api
+JWT_SECRET=<span class="o">long-random-string</span>
+CLIENT_URL=http://localhost:3000</pre>
+      <pre class="code grow" style="font-size:18px"><span class="cm">// src/config/db.js</span>
+import mongoose from "mongoose";
+
+export async function connectDB(uri) {
+  await <span class="g">mongoose.connect(uri)</span>;
+  console.log("MongoDB connected");
+}</pre>
+    </div>
+    <pre class="code" style="font-size:18px"><span class="cm">// src/server.js</span>
+import app from "./app.js";
+import { connectDB } from "./config/db.js";
+
+const { PORT = 4000, MONGODB_URI, JWT_SECRET } =
+  process.env;
+
+<span class="b">if (!MONGODB_URI || !JWT_SECRET) {
+  console.error("Missing MONGODB_URI or JWT_SECRET");
+  process.exit(1);
+}</span>
+
+await connectDB(MONGODB_URI);
+app.listen(PORT);
+
+<span class="cm"># run it</span>
+<span class="cm"># node --env-file=.env --watch src/server.js</span></pre>
+  </div>
+</section>
+
+<!-- 6 connection errors -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">כשהחיבור נכשל</span><span class="en">When the connection fails</span></h2>
+    <p class="lead"><span class="he">חמש התקלות שכמעט כל תלמיד פוגש בפעם הראשונה</span><span class="en">The five problems almost every student hits the first time</span></p>
+  </div>
+  <table style="font-size:21px">
+    <tr><th style="width:38%"><span class="he">מה רואים</span><span class="en">What you see</span></th><th style="width:30%"><span class="he">הסיבה</span><span class="en">The cause</span></th><th><span class="he">מה עושים</span><span class="en">What to do</span></th></tr>
+    <tr><td class="mono" style="font-size:18px">ECONNREFUSED 127.0.0.1:27017</td><td><span class="he">MongoDB מקומי לא רץ</span><span class="en">Local MongoDB isn’t running</span></td><td><code>docker run -d -p 27017:27017 mongo</code></td></tr>
+    <tr><td class="mono" style="font-size:18px">bad auth : authentication failed</td><td><span class="he">שם משתמש או סיסמה של המסד שגויים</span><span class="en">Wrong database username or password</span></td><td><span class="he">משתמש המסד ב-Atlas, לא משתמש האתר</span><span class="en">Use the Atlas database user, not your site login</span></td></tr>
+    <tr><td class="mono" style="font-size:18px">Server selection timed out</td><td><span class="he">כתובת ה-IP לא מאושרת ב-Atlas</span><span class="en">Your IP isn’t allowed in Atlas</span></td><td><span class="he">Network Access ← Add IP</span><span class="en">Network Access → Add IP</span></td></tr>
+    <tr><td class="mono" style="font-size:18px">querySrv ENOTFOUND</td><td><span class="he">שגיאה בכתובת ה-cluster</span><span class="en">A typo in the cluster address</span></td><td><span class="he">להעתיק שוב את ה-URI מ-Atlas</span><span class="en">Copy the URI from Atlas again</span></td></tr>
+    <tr><td><span class="he">הנתונים נשמרים במסד בשם <code>test</code></span><span class="en">Data lands in a database called <code>test</code></span></td><td><span class="he">חסר שם מסד בסוף ה-URI</span><span class="en">No database name at the end of the URI</span></td><td><span class="he">להוסיף <code>/auth-api</code> בסוף</span><span class="en">Add <code>/auth-api</code> at the end</span></td></tr>
+  </table>
+  <p class="lead" style="font-size:21px"><span class="he">סיסמה עם תווים כמו <code>@</code> או <code>#</code> צריך לקודד ב-URI. הכי פשוט: סיסמת מסד בלי תווים מיוחדים</span><span class="en">A password with characters like <code>@</code> or <code>#</code> must be encoded in the URI. Simplest: a database password without special characters</span></p>
+</section>
+
+<!-- 7 authn vs authz -->
+<section class="slide navy">
+  <div class="head">
+    <p class="eyebrow"><span class="he">שני מושגים שמתבלבלים</span><span class="en">TWO CONCEPTS PEOPLE MIX UP</span></p>
+    <h2><span class="he">אימות מול הרשאה</span><span class="en">Authentication vs. authorization</span></h2>
+  </div>
+  <div class="cols2 grow" style="align-items:start">
+    <div class="card" style="gap:16px">
+      <span class="k">AUTHENTICATION</span>
+      <h3 style="font-size:40px;color:var(--ink)"><span class="he">אימות: מי אתה?</span><span class="en">Who are you?</span></h3>
+      <p><span class="he">הרשמה, התחברות, בדיקת הטוקן בכל בקשה</span><span class="en">Registration, login, checking the token on every request</span></p>
+      <p style="color:var(--ink);font-weight:600"><span class="he">נכשל? <code>401 Unauthorized</code></span><span class="en">Failed? <code>401 Unauthorized</code></span></p>
+    </div>
+    <div class="card" style="gap:16px">
+      <span class="k">AUTHORIZATION</span>
+      <h3 style="font-size:40px;color:var(--ink)"><span class="he">הרשאה: מה מותר לך?</span><span class="en">What are you allowed to do?</span></h3>
+      <p><span class="he">רק הבעלים מוחק את הפתק שלו. רק admin רואה את כל המשתמשים</span><span class="en">Only the owner deletes their note. Only an admin sees all users</span></p>
+      <p style="color:var(--ink);font-weight:600"><span class="he">נכשל? <code>403 Forbidden</code></span><span class="en">Failed? <code>403 Forbidden</code></span></p>
+    </div>
+  </div>
+  <p class="lead"><span class="he">קודם אימות, אחר כך הרשאה. אי אפשר לבדוק מה מותר למישהו לפני שיודעים מי הוא</span><span class="en">Authentication first, then authorization. You can’t check what someone may do before you know who they are</span></p>
+</section>
+
+<!-- 8 passwords -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">סיסמאות: אף פעם לא שומרים אותן</span><span class="en">Passwords: never store them</span></h2>
+    <p class="lead"><span class="he">שומרים hash: תוצאה של פונקציה חד-כיוונית. אפשר לבדוק סיסמה מולו, אבל אי אפשר לשחזר ממנו את הסיסמה</span><span class="en">Store a hash: the output of a one-way function. You can check a password against it, but you can’t recover the password from it</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack" style="gap:16px">
+      <p class="code-label"><span class="he">איך נראה hash של bcrypt</span><span class="en">What a bcrypt hash looks like</span></p>
+      <pre class="code" style="font-size:19px"><span class="b">$2b$</span><span class="o">10$</span><span class="g">w31KhiEVX7gu5beyZG0X0u</span>qg8Lzs1f
+mrQdLk7/UIQ4q.q2xb7S87u</pre>
+      <table style="font-size:20px">
+        <tr><td class="mono t-blue">$2b$</td><td><span class="he">גרסת האלגוריתם</span><span class="en">Algorithm version</span></td></tr>
+        <tr><td class="mono t-orange">10$</td><td><span class="he">עלות: 2<sup>10</sup> סבבים. כל +1 מכפיל את הזמן</span><span class="en">Cost: 2<sup>10</sup> rounds. Each +1 doubles the time</span></td></tr>
+        <tr><td class="mono t-green">w31K…</td><td><span class="he">salt אקראי: 22 התווים הראשונים</span><span class="en">Random salt: the first 22 characters</span></td></tr>
+        <tr><td class="mono">qg8L…</td><td><span class="he">ה-hash עצמו</span><span class="en">The hash itself</span></td></tr>
+      </table>
+    </div>
+    <div class="stack" style="gap:16px">
+      <pre class="code">import bcrypt from "bcryptjs";
+
+<span class="cm">// at registration</span>
+const hash = await bcrypt.hash("secret123", 10);
+
+<span class="cm">// at login</span>
+await bcrypt.compare("secret123", hash); <span class="cm">// true</span>
+await bcrypt.compare("wrong", hash);     <span class="cm">// false</span></pre>
+      <div class="box blue">
+        <span class="bt"><span class="he">למה salt?</span><span class="en">Why a salt?</span></span>
+        <p><span class="he">אותה סיסמה מקבלת hash שונה בכל פעם. כך שני משתמשים עם <code>123456</code> לא נראים זהים במסד, ואי אפשר להשתמש בטבלאות מוכנות</span><span class="en">The same password gets a different hash every time. Two users with <code>123456</code> don’t look the same in the database, and precomputed tables don’t work</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 user model -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">מודל המשתמש</span><span class="en">The user model</span></h2>
+    <p class="lead"><span class="he">שתי שכבות הגנה: ה-hash לא נשלף מהמסד, וגם אם נשלף, הוא לא נשלח ללקוח</span><span class="en">Two layers of protection: the hash isn’t loaded from the database, and even when it is, it isn’t sent to the client</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1.5fr 1fr">
+    <pre class="code" style="font-size:15px;line-height:1.4">const userSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    email: {
+      type: String, required: true,
+      <span class="g">unique: true, lowercase: true</span>, trim: true,
+    },
+    passwordHash: {
+      type: String, required: true, <span class="b">select: false</span>,
+    },
+    role: {
+      type: String, enum: ["user", "admin"], default: "user",
+    },
+  },
+  { timestamps: true }
+);
+
+userSchema.set("toJSON", {
+  transform: (_doc, ret) =&gt; {
+    <span class="b">delete ret.passwordHash;</span>
+    delete ret.__v;
+    return ret;
+  },
+});</pre>
+    <div class="defs">
+      <div><span class="t green">unique: true</span><span class="d"><span class="he">אינדקס במסד: שני משתמשים לא יכולים לקבל אותו אימייל</span><span class="en">A database index: two users can’t share an email</span></span></div>
+      <div><span class="t green">lowercase: true</span><span class="d"><span class="he"><code>Dana@X.com</code> ו-<code>dana@x.com</code> הם אותו משתמש</span><span class="en"><code>Dana@X.com</code> and <code>dana@x.com</code> are the same user</span></span></div>
+      <div><span class="t">select: false</span><span class="d"><span class="he">לא נשלף, אלא אם מבקשים במפורש: <code>.select("+passwordHash")</code></span><span class="en">Not loaded unless you ask: <code>.select("+passwordHash")</code></span></span></div>
+      <div><span class="t">toJSON</span><span class="d"><span class="he">מוחק את ה-hash בכל פעם ש-<code>res.json</code> שולח משתמש</span><span class="en">Removes the hash whenever <code>res.json</code> sends a user</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 register -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">הרשמה</span><span class="en">Registration</span></h2>
+    <p class="lead"><span class="he">לבדוק את הקלט, לוודא שהאימייל פנוי, לשמור hash, ולחבר את המשתמש מיד</span><span class="en">Validate the input, make sure the email is free, store a hash, and log the user in right away</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1.6fr 1fr">
+    <pre class="code" style="font-size:17px">router.post("/register", async (req, res) =&gt; {
+  const { name, password } = req.body ?? {};
+  const email = normalizeEmail(req.body?.email);
+
+  if (typeof name !== "string" || !name.trim())
+    return res.status(400).json({ error: "Name is required" });
+  if (!EMAIL_RE.test(email))
+    return res.status(400).json({ error: "A valid email is required" });
+  if (typeof password !== "string" || password.length &lt; 8)
+    return res.status(400).json({ error: "Password: 8+ characters" });
+
+  if (await User.exists({ email }))
+    return res.status(<span class="o">409</span>).json({ error: "Email is already registered" });
+
+  const passwordHash = await <span class="b">bcrypt.hash(password, 10)</span>;
+  const user = await User.create({ name, email, passwordHash });
+
+  setAuthCookie(res, user);   <span class="cm">// logged in right after sign-up</span>
+  res.status(<span class="g">201</span>).json({ user });
+});</pre>
+    <div class="list compact" style="align-self:start">
+      <div><span class="n">400</span><span><span class="he">קלט חסר או לא תקין</span><span class="en">Missing or invalid input</span></span></div>
+      <div><span class="n">409</span><span><span class="he">האימייל כבר רשום</span><span class="en">Email already registered</span></span></div>
+      <div><span class="n">201</span><span><span class="he">נוצר. בלי ה-hash בתשובה</span><span class="en">Created. No hash in the response</span></span></div>
+      <div><span class="n ink">→</span><span><span class="he"><code>normalizeEmail</code> מנקה רווחים ואותיות גדולות לפני הבדיקה</span><span class="en"><code>normalizeEmail</code> trims and lowercases before validating</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 login -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">התחברות</span><span class="en">Login</span></h2>
+    <p class="lead"><span class="he">מוצאים את המשתמש, משווים את הסיסמה ל-hash, ומחזירים טוקן</span><span class="en">Find the user, compare the password to the hash, and return a token</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1.6fr 1fr">
+    <pre class="code" style="font-size:16px">router.post("/login", async (req, res) =&gt; {
+  const email = normalizeEmail(req.body?.email);
+  const { password } = req.body ?? {};
+
+  if (!email || typeof password !== "string")
+    return res.status(400).json({ error: "Email and password are required" });
+
+  const user = await User.findOne({ email })
+    .select(<span class="b">"+passwordHash"</span>);
+
+  const ok = user !== null &amp;&amp;
+    (await <span class="b">bcrypt.compare(password, user.passwordHash)</span>);
+
+  if (!ok)
+    return res.status(401).json({ error: <span class="o">"Wrong email or password"</span> });
+
+  setAuthCookie(res, user);
+  res.json({ user });
+});</pre>
+    <div class="stack" style="gap:16px">
+      <div class="box orange">
+        <span class="bt"><span class="he">אותה הודעה בשני המקרים</span><span class="en">The same message in both cases</span></span>
+        <p><span class="he">"אין משתמש כזה" או "סיסמה שגויה"? לא מגלים. אחרת כל אחד יכול לבדוק אילו אימיילים רשומים באתר</span><span class="en">“No such user” or “wrong password”? Don’t say. Otherwise anyone can check which emails are registered</span></p>
+      </div>
+      <div class="box blue">
+        <span class="bt"><code>select("+passwordHash")</code></span>
+        <p><span class="he">המקום היחיד בקוד שבו שולפים את ה-hash</span><span class="en">The only place in the code that loads the hash</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 jwt anatomy -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">JWT: מה יש בתוך הטוקן</span><span class="en">JWT: what’s inside the token</span></h2>
+    <p class="lead"><span class="he">שלושה חלקים מופרדים בנקודות. כל אחד יכול לקרוא אותו, אבל רק השרת יכול לחתום עליו</span><span class="en">Three parts separated by dots. Anyone can read it, but only the server can sign it</span></p>
+  </div>
+  <pre class="code" style="font-size:20px;white-space:pre-wrap;word-break:break-all"><span class="b">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span>.<span class="g">eyJzdWIiOiI2NzFhMmIzYzRkNWU2ZjcwODE5MmEzYjQiLCJyb2xlIjoidXNlciIsImlhdCI6MTc5MjY1ODAwMCwiZXhwIjoxNzkzMjYyODAwfQ</span>.<span class="o">Xq3v9k2…</span></pre>
+  <div class="grid4" style="grid-template-columns:1fr 1.4fr 1fr">
+    <div class="card"><span class="k">HEADER</span><p><span class="he">האלגוריתם: <code>HS256</code></span><span class="en">The algorithm: <code>HS256</code></span></p></div>
+    <div class="card soft-green">
+      <span class="k" style="color:var(--green-ink)">PAYLOAD</span>
+      <pre class="code" style="font-size:16px;padding:16px 20px">{ "sub": "671a2b3c4d5e6f708192a3b4",
+  "role": "user",
+  "iat": 1792658000, "exp": 1793262800 }</pre>
+    </div>
+    <div class="card soft-orange"><span class="k" style="color:var(--orange-ink)">SIGNATURE</span><p style="color:var(--ink)"><span class="he">חתימה עם <code>JWT_SECRET</code>. שינוי של תו אחד ב-payload, והחתימה כבר לא תואמת</span><span class="en">Signed with <code>JWT_SECRET</code>. Change one character of the payload, and the signature no longer matches</span></p></div>
+  </div>
+  <p class="rule"><span class="he">ה-payload מקודד, לא מוצפן. לא שמים בו סיסמאות או מידע פרטי</span><span class="en">The payload is encoded, not encrypted. Never put passwords or private data in it</span></p>
+</section>
+
+<!-- 13 sign / verify -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">יצירה ובדיקה של טוקן</span><span class="en">Signing and verifying a token</span></h2>
+    <p class="lead"><span class="he">שתי פונקציות בקובץ אחד, כדי שהסוד וזמן התפוגה יוגדרו במקום אחד</span><span class="en">Two functions in one file, so the secret and the expiry live in one place</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1.4fr 1fr">
+    <pre class="code" style="font-size:17px">// src/lib/tokens.js
+import jwt from "jsonwebtoken";
+
+export function signToken(user) {
+  return jwt.sign(
+    { sub: user.id, role: user.role },  <span class="cm">// payload</span>
+    process.env.JWT_SECRET,             <span class="cm">// secret</span>
+    { <span class="b">expiresIn: "7d"</span> }
+  );
+}
+
+export function verifyToken(token) {
+  return jwt.verify(token, process.env.JWT_SECRET);
+  <span class="cm">// returns the payload, or throws</span>
+}</pre>
+    <div class="defs">
+      <div><span class="t">sub</span><span class="d"><span class="he">"subject": המזהה של המשתמש. זה מה שמזהה אותו בכל בקשה</span><span class="en">“Subject”: the user’s id. This is what identifies them on every request</span></span></div>
+      <div><span class="t">expiresIn</span><span class="d"><span class="he">אחרי 7 ימים הטוקן פג, וצריך להתחבר מחדש</span><span class="en">After 7 days the token expires, and the user logs in again</span></span></div>
+      <div><span class="t">JWT_SECRET</span><span class="d"><span class="he">מחרוזת ארוכה ואקראית ב-<code>.env</code>. מי שמחזיק אותה יכול לזייף כל טוקן</span><span class="en">A long random string in <code>.env</code>. Whoever has it can forge any token</span></span></div>
+      <div><span class="t">jwt.verify</span><span class="d"><span class="he">זורק שגיאה אם החתימה לא תקינה, או שהטוקן פג</span><span class="en">Throws if the signature is invalid, or the token has expired</span></span></div>
+    </div>
+  </div>
+  <pre class="code" style="font-size:15px;padding:14px 22px"><span class="cm"># a good JWT_SECRET, generated once:</span>
+node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"</pre>
+</section>
+
+<!-- 14 where to store -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">איפה שומרים את הטוקן?</span><span class="en">Where do you store the token?</span></h2>
+    <p class="lead"><span class="he">ההחלטה הכי חשובה בשיעור. לכל מקום יש מחיר</span><span class="en">The most important decision in this lesson. Every option has a cost</span></p>
+  </div>
+  <table style="font-size:22px">
+    <tr><th style="width:30%"></th><th class="t-green" style="width:26%">httpOnly cookie</th><th style="width:22%">localStorage</th><th><span class="he">משתנה בזיכרון</span><span class="en">In-memory variable</span></th></tr>
+    <tr><td><span class="he">JavaScript יכול לקרוא אותו?</span><span class="en">Can JavaScript read it?</span></td><td class="t-green"><span class="he">לא, מוגן מגניבה</span><span class="en">No, safe from theft</span></td><td class="t-red"><span class="he">כן</span><span class="en">Yes</span></td><td class="t-red"><span class="he">כן</span><span class="en">Yes</span></td></tr>
+    <tr><td><span class="he">נשלח עם כל בקשה</span><span class="en">Sent with each request</span></td><td><span class="he">אוטומטית, על ידי הדפדפן</span><span class="en">Automatically, by the browser</span></td><td><span class="he">ידנית, ב-header</span><span class="en">Manually, in a header</span></td><td><span class="he">ידנית, ב-header</span><span class="en">Manually, in a header</span></td></tr>
+    <tr><td><span class="he">נשאר אחרי רענון</span><span class="en">Survives a refresh</span></td><td><span class="he">כן</span><span class="en">Yes</span></td><td><span class="he">כן</span><span class="en">Yes</span></td><td class="t-red"><span class="he">לא</span><span class="en">No</span></td></tr>
+    <tr><td><span class="he">צריך הגנה מ-CSRF</span><span class="en">Needs CSRF protection</span></td><td><span class="he">כן: <code>sameSite</code></span><span class="en">Yes: <code>sameSite</code></span></td><td><span class="he">לא</span><span class="en">No</span></td><td><span class="he">לא</span><span class="en">No</span></td></tr>
+    <tr style="background:var(--band)"><td><b><span class="he">מתאים ל-</span><span class="en">Good for</span></b></td><td class="t-green"><b><span class="he">אתרים. הבחירה שלנו</span><span class="en">Websites. Our choice</span></b></td><td><span class="he">לא לטוקני התחברות</span><span class="en">Not for auth tokens</span></td><td><span class="he">אפליקציות מובייל ו-API</span><span class="en">Mobile apps and APIs</span></td></tr>
+  </table>
+  <p class="lead" style="font-size:21px"><span class="he">XSS: קוד זדוני שרץ באתר וגונב כל מה ש-JavaScript יכול לקרוא. cookie מסוג httpOnly פשוט לא נגיש לו</span><span class="en">XSS: malicious code running on your site that steals whatever JavaScript can read. An httpOnly cookie is simply out of its reach</span></p>
+</section>
+
+<!-- 15 cookie -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">שמירת הטוקן ב-cookie</span><span class="en">Storing the token in a cookie</span></h2>
+    <p class="lead"><span class="he">השרת קובע את ה-cookie, והדפדפן שולח אותו לבד בכל בקשה הבאה</span><span class="en">The server sets the cookie, and the browser sends it on every following request</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1.3fr 1fr">
+    <pre class="code" style="font-size:18px">export const cookieOptions = {
+  <span class="b">httpOnly: true</span>,
+  <span class="b">secure: process.env.NODE_ENV === "production"</span>,
+  <span class="b">sameSite: "lax"</span>,
+  <span class="b">maxAge: 7 * 24 * 60 * 60 * 1000</span>, <span class="cm">// 7 days, in ms</span>
+};
+
+function setAuthCookie(res, user) {
+  res.cookie("token", signToken(user), cookieOptions);
+}
+
+router.post("/logout", (req, res) =&gt; {
+  res.clearCookie("token", cookieOptions);
+  res.status(204).end();
+});
+
+<span class="cm">// src/app.js</span>
+app.use(cookieParser());  <span class="cm">// fills req.cookies</span></pre>
+    <div class="defs">
+      <div><span class="t">httpOnly</span><span class="d"><span class="he">JavaScript בדפדפן לא יכול לקרוא אותו. <code>document.cookie</code> לא יראה אותו</span><span class="en">Browser JavaScript can’t read it. <code>document.cookie</code> won’t show it</span></span></div>
+      <div><span class="t">secure</span><span class="d"><span class="he">נשלח רק ב-HTTPS. בפיתוח על localhost חייב להיות כבוי</span><span class="en">Sent only over HTTPS. Must be off on localhost during development</span></span></div>
+      <div><span class="t">sameSite: "lax"</span><span class="d"><span class="he">לא נשלח ב-POST שמגיע מאתר אחר. ההגנה הבסיסית מ-CSRF</span><span class="en">Not sent on a POST from another site. The basic CSRF protection</span></span></div>
+      <div><span class="t">maxAge</span><span class="d"><span class="he">כמה זמן הדפדפן שומר אותו. כדאי שיתאים ל-<code>expiresIn</code></span><span class="en">How long the browser keeps it. Should match <code>expiresIn</code></span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 16 requireAuth -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">Middleware שבודק מי מחובר</span><span class="en">A middleware that checks who’s logged in</span></h2>
+    <p class="lead"><span class="he">שומר הסף של כל נתיב מוגן: מוצא טוקן, בודק אותו, ושם את המשתמש ב-<code>req.user</code></span><span class="en">The gatekeeper of every protected route: finds a token, checks it, and puts the user on <code>req.user</code></span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1.6fr 1fr">
+    <pre class="code" style="font-size:14.5px;line-height:1.4">export async function requireAuth(req, res, next) {
+  <span class="cm">// 1. Find the token: cookie first, then a Bearer header</span>
+  const header = req.get("authorization");
+  const token = req.cookies?.token ??
+    (header?.startsWith("Bearer ") ? header.slice(7) : null);
+  if (!token)
+    return res.status(401).json({ error: "Not logged in" });
+
+  <span class="cm">// 2. Check the signature and expiry</span>
+  let payload;
+  try {
+    payload = <span class="b">verifyToken(token)</span>;
+  } catch {
+    return res.status(401).json({ error: "Invalid or expired token" });
+  }
+
+  <span class="cm">// 3. Load the user: they may have been deleted</span>
+  const user = await User.findById(payload.sub);
+  if (!user)
+    return res.status(401).json({ error: "User no longer exists" });
+
+  <span class="b">req.user = user;</span>
+  next();
+}</pre>
+    <div class="stack" style="gap:16px">
+      <div class="box blue">
+        <span class="bt"><span class="he">למה גם Bearer?</span><span class="en">Why Bearer too?</span></span>
+        <p><span class="he">אפליקציית מובייל או Postman שולחים <code>Authorization: Bearer &lt;token&gt;</code>. אותו middleware משרת את שניהם</span><span class="en">A mobile app or Postman sends <code>Authorization: Bearer &lt;token&gt;</code>. The same middleware serves both</span></p>
+      </div>
+      <div class="box green">
+        <span class="bt"><span class="he">למה לטעון את המשתמש?</span><span class="en">Why load the user?</span></span>
+        <p><span class="he">הטוקן חי 7 ימים. אם המשתמש נמחק או שהתפקיד שלו השתנה, רוצים לדעת עכשיו</span><span class="en">The token lives for 7 days. If the user was deleted or their role changed, you want to know now</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 17 protecting -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">להגן על נתיבים</span><span class="en">Protecting routes</span></h2>
+    <p class="lead"><span class="he">שלוש רמות: מחובר, בעלים של המשאב, ותפקיד</span><span class="en">Three levels: logged in, owner of the resource, and role</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <p class="code-label blue"><span class="he">מחובר, ובעלים</span><span class="en">Logged in, and owner</span></p>
+      <pre class="code grow" style="font-size:17px">router.use(<span class="b">requireAuth</span>); <span class="cm">// every route below</span>
+
+router.get("/", async (req, res) =&gt; {
+  const notes = await Note.find({
+    owner: <span class="b">req.user.id</span>,   <span class="cm">// only mine</span>
+  });
+  res.json(notes);
+});
+
+router.delete("/:id", async (req, res) =&gt; {
+  const note = await Note.findById(req.params.id);
+  if (!note) return res.status(404).json(…);
+
+  if (!note.owner.equals(req.user.id))
+    return res.status(<span class="o">403</span>).json({ error: "Not yours" });
+
+  await note.deleteOne();
+  res.status(204).end();
+});</pre>
+    </div>
+    <div class="stack">
+      <p class="code-label green"><span class="he">תפקיד</span><span class="en">Role</span></p>
+      <pre class="code" style="font-size:17px">export function requireRole(role) {
+  return (req, res, next) =&gt; {
+    if (req.user?.role !== role)
+      return res.status(<span class="o">403</span>).json({ error: "Forbidden" });
+    next();
+  };
+}
+
+<span class="cm">// src/routes/admin.js</span>
+router.use(requireAuth, <span class="g">requireRole("admin")</span>);
+
+<span class="cm">// /api/auth/me</span>
+router.get("/me", requireAuth, (req, res) =&gt; {
+  res.json({ user: req.user });
+});</pre>
+      <div class="box orange">
+        <span class="bt"><span class="he">לא סומכים על הלקוח</span><span class="en">Don’t trust the client</span></span>
+        <p><span class="he">הבעלים נקבע מ-<code>req.user.id</code>, אף פעם לא מ-<code>req.body</code></span><span class="en">The owner comes from <code>req.user.id</code>, never from <code>req.body</code></span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 status codes -->
+<section class="slide">
+  <h2><span class="he">קודי הסטטוס של אימות</span><span class="en">Status codes for auth</span></h2>
+  <table style="font-size:23px">
+    <tr><th style="width:12%"><span class="he">קוד</span><span class="en">Code</span></th><th style="width:30%"><span class="he">משמעות</span><span class="en">Meaning</span></th><th><span class="he">דוגמה</span><span class="en">Example</span></th></tr>
+    <tr><td class="mono t-orange">400</td><td><span class="he">בקשה לא תקינה</span><span class="en">Bad request</span></td><td><span class="he">סיסמה קצרה מ-8 תווים, אימייל לא תקין</span><span class="en">A password under 8 characters, an invalid email</span></td></tr>
+    <tr><td class="mono t-red">401</td><td><span class="he">לא מזוהה</span><span class="en">Not identified</span></td><td><span class="he">אין טוקן, טוקן פג, סיסמה שגויה</span><span class="en">No token, an expired token, a wrong password</span></td></tr>
+    <tr><td class="mono t-red">403</td><td><span class="he">מזוהה, אבל אסור</span><span class="en">Identified, but not allowed</span></td><td><span class="he">מחיקת פתק של מישהו אחר, נתיב admin למשתמש רגיל</span><span class="en">Deleting someone else’s note, an admin route for a regular user</span></td></tr>
+    <tr><td class="mono t-soft">404</td><td><span class="he">לא נמצא</span><span class="en">Not found</span></td><td><span class="he">פתק שלא קיים</span><span class="en">A note that doesn’t exist</span></td></tr>
+    <tr><td class="mono t-orange">409</td><td><span class="he">התנגשות</span><span class="en">Conflict</span></td><td><span class="he">הרשמה עם אימייל שכבר רשום</span><span class="en">Registering with an email that’s already taken</span></td></tr>
+    <tr><td class="mono t-orange">429</td><td><span class="he">יותר מדי בקשות</span><span class="en">Too many requests</span></td><td><span class="he">ניסיון לנחש סיסמה שוב ושוב</span><span class="en">Trying to guess a password again and again</span></td></tr>
+  </table>
+  <p class="rule"><span class="he">401: "מי אתה?". 403: "אני יודע מי אתה, והתשובה היא לא"</span><span class="en">401: “Who are you?” 403: “I know who you are, and the answer is no”</span></p>
+</section>
+
+<!-- 19 frontend -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">חיבור מהאתר: Next.js או React</span><span class="en">Calling it from the site: Next.js or React</span></h2>
+    <p class="lead"><span class="he">האתר רץ על פורט 3000 וה-API על 4000. שני צעדים כדי שה-cookie יעבור ביניהם</span><span class="en">The site runs on port 3000 and the API on 4000. Two steps to get the cookie across</span></p>
+  </div>
+  <div class="cols2 grow">
+    <div class="stack">
+      <p class="code-label green"><span class="he">בשרת: CORS עם credentials</span><span class="en">On the server: CORS with credentials</span></p>
+      <pre class="code" style="font-size:18px">import cors from "cors";
+
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  <span class="g">credentials: true</span>,
+}));</pre>
+      <div class="box orange">
+        <span class="bt"><span class="he">לא <code>origin: "*"</code></span><span class="en">Not <code>origin: "*"</code></span></span>
+        <p><span class="he">הדפדפן לא מוכן לשלוח cookies לשרת שפתוח לכל אתר. צריך כתובת מדויקת</span><span class="en">The browser won’t send cookies to a server open to every site. You need an exact address</span></p>
+      </div>
+    </div>
+    <div class="stack">
+      <p class="code-label blue"><span class="he">באתר: <code>credentials: "include"</code></span><span class="en">On the site: <code>credentials: "include"</code></span></p>
+      <pre class="code grow" style="font-size:18px">const res = await fetch(
+  "http://localhost:4000/api/auth/login",
+  {
+    method: "POST",
+    <span class="b">credentials: "include"</span>,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  }
+);
+
+<span class="cm">// same on every request: /auth/me, /notes…</span></pre>
+    </div>
+  </div>
+  <p class="lead" style="font-size:21px"><span class="he">בלי <code>credentials: "include"</code>, הדפדפן לא שומר את ה-cookie ולא שולח אותו. זו התקלה הנפוצה ביותר בחיבור</span><span class="en">Without <code>credentials: "include"</code>, the browser neither stores nor sends the cookie. It’s the most common connection bug</span></p>
+</section>
+
+<!-- 20 testing -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">בדיקה בלי אתר: requests.http</span><span class="en">Testing without a site: requests.http</span></h2>
+    <p class="lead"><span class="he">התוסף REST Client ב-VS Code שומר את ה-cookie אחרי התחברות, בדיוק כמו דפדפן</span><span class="en">The REST Client extension in VS Code keeps the cookie after login, just like a browser</span></p>
+  </div>
+  <div class="cols-wide grow" style="grid-template-columns:1.2fr 1fr">
+    <pre class="code" style="font-size:18px">@api = http://localhost:4000/api
+
+### Register
+POST {{api}}/auth/register
+Content-Type: application/json
+
+{ "name": "Dana", "email": "dana@example.com",
+  "password": "secret123" }
+
+### Who am I? (uses the saved cookie)
+GET {{api}}/auth/me
+
+### Create a note
+POST {{api}}/notes
+Content-Type: application/json
+
+{ "text": "My first note" }</pre>
+    <div class="list compact" style="align-self:start">
+      <div><span class="n">1</span><span><span class="he">שולחים הרשמה, ובודקים <code>Set-Cookie</code> בתשובה</span><span class="en">Send register, and check <code>Set-Cookie</code> in the response</span></span></div>
+      <div><span class="n">2</span><span><span class="he"><code>/auth/me</code> מחזיר את המשתמש בלי לשלוח טוקן ידנית</span><span class="en"><code>/auth/me</code> returns the user without sending a token by hand</span></span></div>
+      <div><span class="n">3</span><span><span class="he">מתנתקים, ו-<code>/auth/me</code> מחזיר 401</span><span class="en">Log out, and <code>/auth/me</code> returns 401</span></span></div>
+      <div><span class="n">4</span><span><span class="he">הדביקו את הטוקן ב-jwt.io וראו את ה-payload</span><span class="en">Paste the token into jwt.io and see the payload</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 21 security -->
+<section class="slide">
+  <h2><span class="he">רשימת אבטחה לפני שמעלים לאוויר</span><span class="en">A security checklist before going live</span></h2>
+  <div class="grid2 grow">
+    <div class="list compact" style="align-self:start">
+      <div><span class="n">1</span><span><span class="he"><code>JWT_SECRET</code> ארוך ואקראי, רק ב-<code>.env</code>, ו-<code>.env</code> ב-<code>.gitignore</code></span><span class="en"><code>JWT_SECRET</code> long and random, only in <code>.env</code>, and <code>.env</code> in <code>.gitignore</code></span></span></div>
+      <div><span class="n">2</span><span><span class="he">סיסמאות רק כ-hash של bcrypt</span><span class="en">Passwords only as bcrypt hashes</span></span></div>
+      <div><span class="n">3</span><span><span class="he">ה-hash לא יוצא מהשרת: <code>select: false</code> ו-<code>toJSON</code></span><span class="en">The hash never leaves the server: <code>select: false</code> and <code>toJSON</code></span></span></div>
+      <div><span class="n">4</span><span><span class="he">אותה הודעת שגיאה לאימייל ולסיסמה שגויים</span><span class="en">The same error for a wrong email and a wrong password</span></span></div>
+    </div>
+    <div class="list compact" style="align-self:start">
+      <div><span class="n">5</span><span><span class="he">הגבלת ניסיונות התחברות כושלים (429)</span><span class="en">Rate-limit failed login attempts (429)</span></span></div>
+      <div><span class="n">6</span><span><span class="he">טוקן עם תפוגה, ב-cookie מסוג httpOnly, secure ו-sameSite</span><span class="en">A token that expires, in an httpOnly, secure, sameSite cookie</span></span></div>
+      <div><span class="n">7</span><span><span class="he">בעלות והרשאות נבדקות בשרת, בכל נתיב</span><span class="en">Ownership and permissions checked on the server, on every route</span></span></div>
+      <div><span class="n">8</span><span><span class="he">לא כותבים סיסמאות או טוקנים ללוגים</span><span class="en">Never write passwords or tokens to logs</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 22 exercises -->
+<section class="slide">
+  <div class="head">
+    <h2><span class="he">התרגילים: פרויקט אחד שגדל</span><span class="en">The exercises: one growing project</span></h2>
+    <p class="lead"><span class="he">A.1–A.9 בונים את ה-API צעד אחרי צעד. A.10 מחבר אליו אתר Next.js</span><span class="en">A.1–A.9 build the API step by step. A.10 connects a Next.js site to it</span></p>
+  </div>
+  <table style="font-size:20px">
+    <tr><th style="width:10%">#</th><th><span class="he">תרגיל</span><span class="en">Exercise</span></th><th style="width:14%"><span class="he">רמה</span><span class="en">Level</span></th><th style="width:13%"><span class="he">זמן</span><span class="en">Time</span></th></tr>
+    <tr><td class="mono">A.1</td><td><span class="he">פרויקט וחיבור ל-MongoDB</span><span class="en">Project and MongoDB connection</span></td><td><span class="he">קל</span><span class="en">Easy</span></td><td><span class="he">30 דק'</span><span class="en">30 min</span></td></tr>
+    <tr><td class="mono">A.2</td><td><span class="he">משחקים עם bcrypt</span><span class="en">Playing with bcrypt</span></td><td><span class="he">קל</span><span class="en">Easy</span></td><td><span class="he">20 דק'</span><span class="en">20 min</span></td></tr>
+    <tr><td class="mono">A.3</td><td><span class="he">מודל משתמש</span><span class="en">The user model</span></td><td><span class="he">קל</span><span class="en">Easy</span></td><td><span class="he">30 דק'</span><span class="en">30 min</span></td></tr>
+    <tr><td class="mono">A.4–A.5</td><td><span class="he">הרשמה, התחברות ו-JWT</span><span class="en">Register, login and JWT</span></td><td><span class="he">בינוני</span><span class="en">Medium</span></td><td><span class="he">90 דק'</span><span class="en">90 min</span></td></tr>
+    <tr><td class="mono">A.6</td><td><span class="he">הטוקן עובר ל-cookie</span><span class="en">Moving the token to a cookie</span></td><td><span class="he">בינוני</span><span class="en">Medium</span></td><td><span class="he">45 דק'</span><span class="en">45 min</span></td></tr>
+    <tr><td class="mono">A.7–A.8</td><td><span class="he">בעלות ותפקידים</span><span class="en">Ownership and roles</span></td><td><span class="he">בינוני</span><span class="en">Medium</span></td><td><span class="he">105 דק'</span><span class="en">105 min</span></td></tr>
+    <tr><td class="mono">A.9</td><td><span class="he">הקשחה ובדיקות אוטומטיות</span><span class="en">Hardening and automated tests</span></td><td><span class="he">מורכב</span><span class="en">Complex</span></td><td><span class="he">3 שעות</span><span class="en">3 hours</span></td></tr>
+    <tr><td class="mono">A.10</td><td><span class="he">אתר Next.js מחובר</span><span class="en">A connected Next.js site</span></td><td><span class="he">מורכב</span><span class="en">Complex</span></td><td><span class="he">3 שעות</span><span class="en">3 hours</span></td></tr>
+  </table>
+</section>
+
+<!-- 23 summary -->
+<section class="slide dark">
+  <h2><span class="he">חמישה כללים לקחת הביתה</span><span class="en">Five rules to take home</span></h2>
+  <div class="list">
+    <div><span class="n">1</span><span><span class="he">סיסמה נשמרת רק כ-hash, וה-hash לא יוצא מהשרת</span><span class="en">A password is stored only as a hash, and the hash never leaves the server</span></span></div>
+    <div><span class="n">2</span><span><span class="he">ה-payload של JWT גלוי לכולם. החתימה היא ההגנה</span><span class="en">A JWT payload is visible to everyone. The signature is the protection</span></span></div>
+    <div><span class="n">3</span><span><span class="he">באתרים: טוקן ב-cookie מסוג httpOnly, לא ב-localStorage</span><span class="en">On websites: the token in an httpOnly cookie, not in localStorage</span></span></div>
+    <div><span class="n">4</span><span><span class="he">401 זה "מי אתה?", 403 זה "אסור לך"</span><span class="en">401 means “who are you?”, 403 means “you’re not allowed”</span></span></div>
+    <div><span class="n">5</span><span><span class="he">המשתמש והבעלים נקבעים מהטוקן, אף פעם לא מהבקשה</span><span class="en">The user and the owner come from the token, never from the request</span></span></div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<div class="progress" aria-hidden="true"><i></i></div>
+<nav class="controls" aria-label="Slide controls">
+  <div class="ctl">
+    <button id="prev" type="button"></button>
+    <span id="counter" aria-live="polite"></span>
+    <button id="next" type="button"></button>
+  </div>
+  <div class="ctl">
+    <button id="lang" type="button"></button>
+    <button id="fs" type="button" aria-label="Fullscreen">⛶</button>
+  </div>
+</nav>
+<script>
+(() => {
+  const root = document.documentElement;
+  const stage = document.querySelector('.stage');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const bar = document.querySelector('.progress i');
+  const counter = document.getElementById('counter');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const langBtn = document.getElementById('lang');
+  const fsBtn = document.getElementById('fs');
+  const KEY = 'deck-lang';
+  let index = 0;
+
+  const store = {
+    get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } },
+    set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  };
+
+  function syncUrl() {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', root.lang);
+      url.hash = String(index + 1);
+      history.replaceState(null, '', url);
+    } catch (e) {}
+  }
+
+  function setLang(lang) {
+    const he = lang === 'he';
+    root.lang = he ? 'he' : 'en';
+    root.dir = he ? 'rtl' : 'ltr';
+    document.title = document.body.dataset[he ? 'titleHe' : 'titleEn'] || document.title;
+    langBtn.textContent = he ? 'English' : 'עברית';
+    langBtn.setAttribute('aria-label', he ? 'Switch to English' : 'עבור לעברית');
+    prevBtn.textContent = he ? '→' : '←';
+    nextBtn.textContent = he ? '←' : '→';
+    prevBtn.setAttribute('aria-label', he ? 'השקף הקודם' : 'Previous slide');
+    nextBtn.setAttribute('aria-label', he ? 'השקף הבא' : 'Next slide');
+    store.set(root.lang);
+    syncUrl();
+  }
+
+  function show(n) {
+    index = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => {
+      s.classList.toggle('active', k === index);
+      s.setAttribute('aria-hidden', k === index ? 'false' : 'true');
+    });
+    counter.textContent = (index + 1) + ' / ' + slides.length;
+    bar.style.width = ((index + 1) / slides.length * 100) + '%';
+    syncUrl();
+  }
+
+  function fit() {
+    const w = window.innerWidth;
+    const h = window.innerHeight - 59;
+    const s = Math.min(w / 1600, h / 900) * 0.97;
+    stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+
+  const forwardKey = () => (root.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight');
+  const backKey = () => (root.dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft');
+
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === forwardKey() || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter') { e.preventDefault(); show(index + 1); }
+    else if (e.key === backKey() || e.key === 'PageUp' || e.key === 'Backspace') { e.preventDefault(); show(index - 1); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+    else if (e.key === 'l' || e.key === 'L') setLang(root.lang === 'he' ? 'en' : 'he');
+    else if (e.key === 'f' || e.key === 'F') toggleFs();
+  });
+
+  let touchX = null;
+  document.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) < 50) return;
+    const forward = root.dir === 'rtl' ? dx > 0 : dx < 0;
+    show(index + (forward ? 1 : -1));
+  });
+
+  function toggleFs() {
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    } catch (e) {}
+  }
+
+  prevBtn.addEventListener('click', () => show(index - 1));
+  nextBtn.addEventListener('click', () => show(index + 1));
+  langBtn.addEventListener('click', () => setLang(root.lang === 'he' ? 'en' : 'he'));
+  fsBtn.addEventListener('click', toggleFs);
+  window.addEventListener('resize', fit);
+  window.addEventListener('hashchange', () => {
+    const n = parseInt((window.location.hash || '').slice(1), 10);
+    if (Number.isFinite(n) && n - 1 !== index) show(n - 1);
+  });
+
+  let startLang = 'he';
+  try {
+    const p = new URLSearchParams(window.location.search).get('lang');
+    if (p === 'he' || p === 'en') startLang = p;
+    else if (store.get() === 'en') startLang = 'en';
+  } catch (e) {}
+  const startSlide = parseInt((window.location.hash || '').slice(1), 10);
+
+  fit();
+  index = Number.isFinite(startSlide) ? startSlide - 1 : 0;
+  setLang(startLang);
+  show(index);
+})();
+</script>
+</body>
+</html>
